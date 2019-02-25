@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
@@ -26,22 +27,61 @@ require_once("includes/header.php");
         <h1>create an account</h1>
         <h5>a confirmation e-mail will be sent to you</h5>
         <div class="container col-8 p-2 mt-3 mb-3">
-            <form onsubmit="return submitForm(this, 'register_user');" name="register" onkeyup="validate();" class="register-form col-10 offset-1 my-2 my-lg-0" action="register.php" method="post">
-                <?php
-                $form->setLabel('Username', 'lab');
-                $form->setInfo('Username must contain between 4 and 30 characters', "i_username", "form-info", "y");
-                echo $form->input('username', 'username', "form-control", "ablin42", 30);
-                $form->setLabel('E-mail', 'lab');
-                $form->setInfo('E-mail has to be valid', "i_email","form-info", "y");
-                echo $form->email('email', 'email', "form-control", "ablin42@byom.de", 255);
-                $form->setLabel('Password', 'lab');
-                $form->setInfo('Password must contain between 8 and 30 characters and has to be atleast alphanumeric',"i_password", "form-info", "y");
-                echo $form->password('password', 'password', "form-control", "********", 30);
-                $form->setLabel('Confirm your password', 'lab');
-                $form->setInfo('Password has to be the same as the one you just entered', "i_password2","form-info", "y");
-                echo $form->password('password2', 'password2', "form-control", "********", 30);
-                echo $form->submit('submit_register', 'submit_register', 'btn btn-outline-warning btn-sign-in', 'Sign up');
-                ?>
+            <form id="register" name="register" @submit.prevent="processForm" class="register-form col-10 offset-1 my-2 my-lg-0" method="post">
+                <div class="form-group">
+                    <label for="username" class="lab">Username</label>
+                    <input type="text"
+                           name="username"
+                           placeholder="ablin42"
+                           id="username"
+                           class="form-control"
+                           maxlength="30"
+                           v-model="username"
+                           @blur="validateUsername"
+                           required>
+                    <span v-if="errors.username">Username must contain between 4 and 30 characters</span>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="lab">E-mail</label>
+                    <input type="email"
+                           name="email"
+                           placeholder="ablin42@byom.de"
+                           id="email" class="form-control"
+                           maxlength="255"
+                           v-model="email"
+                           @blur="validateEmail"
+                           required>
+                    <span v-if="errors.email">E-mail has to be valid</span>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="lab">Password</label>
+                    <input type="password"
+                           name="password"
+                           placeholder="********"
+                           id="password"
+                           class="form-control"
+                           maxlength="30"
+                           v-model="password"
+                           @blur="validatePassword"
+                           required>
+                    <span v-if="errors.password">Password must contain between 8 and 30 characters and has to be atleast alphanumeric</span>
+                </div>
+                <div class="form-group">
+                    <label for="password2" class="lab">Confirm your password</label>
+                    <input type="password"
+                           name="password2"
+                           placeholder="********"
+                           id="password2"
+                           class="form-control"
+                           maxlength="30"
+                           v-model="password2"
+                           @blur="validatePassword2"
+                           required>
+                    <span v-if="errors.password2">Password has to be the same as the one you just entered</span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" name="submit_register" id="submit_register" class="btn btn-outline-warning btn-sign-in">Sign up</button>
+                </div>
             </form>
         </div>
     </div>
@@ -52,6 +92,7 @@ require_once("includes/header.php");
 </div>
 
 <?php require_once("includes/footer.php");?>
+<script src="forms.js"></script>
 <script src="js/validate.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
