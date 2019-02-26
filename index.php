@@ -27,7 +27,7 @@ require_once("includes/header.php");
         <h1>create an account</h1>
         <h5>a confirmation e-mail will be sent to you</h5>
         <div class="container col-8 p-2 mt-3 mb-3">
-            <form id="register" name="register" @submit.prevent="processForm" class="register-form col-10 offset-1 my-2 my-lg-0" method="post">
+            <form id="register" name="register" @submit.prevent="processForm" class="register-form col-10 offset-1 my-2 my-lg-0" method="post" action="register_user.php">
                 <div class="form-group">
                     <label for="username" class="lab">Username</label>
                     <input type="text"

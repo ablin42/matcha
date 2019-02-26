@@ -15,21 +15,52 @@ let register = new Vue({
     },
     methods: {
         processForm: function () {
-            console.log({name: this.username, email: this.email, pwd1: this.password, pwd2: this.password2})
+            if (this.errors.username === true || this.errors.email === true ||
+                this.errors.password === true || this.errors.password === true) {
+                console.log("error");
+                //display notification
+            }
+            else {
+                fetch('register_user.php', {
+                    method: 'post',
+                    mode: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',  // sent request
+                        'Accept': 'application/json'   // expected data sent back
+                    },
+                    body: JSON.stringify({
+                        username: this.username, email: this.email,
+                        password: this.password, password2: this.password2
+                    })
+                })
+                    .then((res) => res.json())
+                    .then((data) => console.log(data))
+                    .catch((error) => console.log(error))
+            }
+                /*fetch('register_user.php', {
+                    method : 'post',
+                    mode:    'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',  // sent request
+                        'Accept':       'application/json'   // expected data sent back
+                    },
+                    body: JSON.stringify({min: 1, max: 100})
+                })
+                    .then((res) => res.json())
+                    .then((data) => console.log(data))
+                    .catch((error) => console.log(error))
+            }*/
         },
         validateUsername: function () {
             const isValid = isValidUsername(this.username);
-            console.log(isValid);
             this.errors.username = !isValid;
         },
         validateEmail: function () {
             const isValid = isValidEmail(this.email);
-            console.log(isValid);
             this.errors.email = !isValid;
         },
         validatePassword: function () {
             const isValid = isValidPassword(this.password);
-            console.log(isValid);
             this.errors.password = !isValid;
         },
         validatePassword2: function () {
