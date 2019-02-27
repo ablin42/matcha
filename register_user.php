@@ -16,14 +16,11 @@ $db = database::getInstance('matcha');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'));
     if (!empty($data->{'username'}) && !empty($data->{'email'}) && !empty($data->{'password'}) && !empty($data->{'password2'})) {
-
         $attributes['username'] = $data->{'username'};
         $attributes['email'] = $data->{'email'};
         $attributes['password'] = $data->{'password'};
         $attributes['password2'] = $data->{'password2'};
         $encode = json_encode($attributes);
-        echo $encode;
-        //return $encode;
 
         ///////////////////////////////////
 
@@ -64,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo alert_bootstrap("warning", "The <b>username</b> you entered is already taken, <b>please pick another one.</b>", "text-align: center;");
                 return ;
             }
+
             $attributes['email'] = $email;
             $attributes['password'] = hash('whirlpool', $password);
 
@@ -73,6 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo alert_bootstrap("warning" , "The <b>e-mail</b> you entered is already taken, <b>please pick another one.</b>", "text-align: center;");
                 return ;
             }
+
             $token = gen_token(128);
             $attributes['mail_token'] = $token;
 
@@ -83,10 +82,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //change link
             $message = "In order to confirm your account, please click this link: \n\nhttp://localhost:8080/Camagru/utils/confirm_account.php?id=$user_id&token=$token";
             mail($email, $subject, $message);
-            //line below probably useless
-            $req = $db->prepare("SELECT `id` FROM `user` WHERE `username` = :username", array('username' => $username));
+            echo $encode;
             echo alert_bootstrap("success", "<b>Your account has been successfully created!</b> Please <b>confirm your email</b> by clicking the link we sent at your e-mail address", "text-align: center;");
-            header ('Refresh: 3; /Matcha/');//useless?
+            //header ('Refresh: 3; /Matcha/');//useless?
         }
         else
             echo alert_bootstrap("danger", "<b>The passwords you entered didn't match.</b>", "text-align: center;");
