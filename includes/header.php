@@ -12,7 +12,7 @@ $form->changeSurr('div class="form-group"', 'div');
 <script src="js/ajaxify.js"></script>
 <nav class="navbar navbar-expand-lg" id="header">
 <div class="container-fluid">
-    <a class="navbar-brand" href="/Camagru">Home</a>
+    <a class="navbar-brand" href="/Matcha">Home</a>
 
 
     <div class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

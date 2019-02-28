@@ -69,16 +69,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user_id = $db->lastInsertedId();
 
             $subject = "Confirm your account at Matcha";
-            //change link
-            $message = "In order to confirm your account, please click this link: \n\nhttp://localhost:8080/Camagru/utils/confirm_account.php?id=$user_id&token=$token";
-            //mail($email, $subject, $message);
+            $message = "In order to confirm your account, please click this link: \n\nhttp://localhost:8080/Matcha/utils/confirm_account.php?id=$user_id&token=$token";
+            mail($email, $subject, $message);
             echo alert_bootstrap("success", "<b>Your account has been successfully created!</b> Please <b>confirm your email</b> by clicking the link we sent at your e-mail address", "text-align: center;");
         }
         else
             echo alert_bootstrap("danger", "<b>The passwords you entered didn't match.</b>", "text-align: center;");
     }
     else
-        echo "A field is empty";
+        alert_bootstrap("warning" , "A <b>field</b> is empty", "text-align: center;");
 }
 else
-    echo "Not a post request.";
+    alert_bootstrap("danger" , "Not a <b>post</b> request.", "text-align: center;");

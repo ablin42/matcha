@@ -5,11 +5,12 @@ require ("../class/autoloader.php");
 require ("functions.php");
 autoloader::register();
 
+
 if (!empty($_GET['id']) && !empty($_GET['token']))
 {
     $attributes['user_id'] = secure_input($_GET['id']);
 
-    $db = database::getInstance('camagru');
+    $db = database::getInstance('matcha');
     $req = $db->prepare("SELECT `mail_token` FROM `user` WHERE `id` = :user_id", $attributes);
 
     if ($req) {
