@@ -33,7 +33,7 @@ let register = new Vue({
                         password: this.password, password2: this.password2
                     })
                 })
-                    .then((res) => res.json())
+                    .then((res) => res.text())//.json
                     .then((data) => console.log(data))
                     .catch((error) => console.log(error))
             }
