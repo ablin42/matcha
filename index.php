@@ -37,6 +37,7 @@ require_once("includes/header.php");
                            class="form-control"
                            maxlength="30"
                            v-model="username"
+                           :style="{ borderColor: borderColor.username }"
                            @blur="validateUsername"
                            required>
                     <span v-if="errors.username">Username must contain between 4 and 30 characters</span>
@@ -49,6 +50,7 @@ require_once("includes/header.php");
                            id="email" class="form-control"
                            maxlength="255"
                            v-model="email"
+                           :style="{ borderColor: borderColor.email }"
                            @blur="validateEmail"
                            required>
                     <span v-if="errors.email">E-mail has to be valid</span>
@@ -62,6 +64,7 @@ require_once("includes/header.php");
                            class="form-control"
                            maxlength="30"
                            v-model="password"
+                           :style="{ borderColor: borderColor.password }"
                            @blur="validatePassword"
                            required>
                     <span v-if="errors.password">Password must contain between 8 and 30 characters and has to be atleast alphanumeric</span>
@@ -75,6 +78,7 @@ require_once("includes/header.php");
                            class="form-control"
                            maxlength="30"
                            v-model="password2"
+                           :style="{ borderColor: borderColor.password2 }"
                            @blur="validatePassword2"
                            required>
                     <span v-if="errors.password2">Password has to be the same as the one you just entered</span>

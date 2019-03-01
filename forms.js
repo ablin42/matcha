@@ -5,6 +5,12 @@ let register = new Vue({
         email: '',
         password: '',
         password2: '',
+        borderColor: {
+            username: '',
+            email: '',
+            password: '',
+            password2: ''
+        },
         errors: {
             username: false,
             email: false,
@@ -41,21 +47,38 @@ let register = new Vue({
         },
         validateUsername: function () {
             const isValid = isValidUsername(this.username);
+            if (isValid)
+                this.borderColor.username = "#56c93f";
+            else
+                this.borderColor.username = "#FF0000";
+
             this.errors.username = !isValid;
         },
         validateEmail: function () {
             const isValid = isValidEmail(this.email);
+            if (isValid)
+                this.borderColor.email = "#56c93f";
+            else
+                this.borderColor.email = "#FF0000";
             this.errors.email = !isValid;
         },
         validatePassword: function () {
             const isValid = isValidPassword(this.password);
+            if (isValid)
+                this.borderColor.password = "#56c93f";
+            else
+                this.borderColor.password = "#FF0000";
             this.errors.password = !isValid;
         },
         validatePassword2: function () {
-            if (this.password2 !== this.password)
+            if (this.password2 !== this.password) {
                 this.errors.password2 = true;
-            else
+                this.borderColor.password2 = "#FF0000";
+            }
+            else {
                 this.errors.password2 = false;
+                this.borderColor.password2 = "#56c93f";
+            }
         }
     }
 });
