@@ -37,7 +37,6 @@ require_once("includes/header.php");
                            class="form-control"
                            maxlength="30"
                            v-model="username"
-                           @blur="validateUsername"
                            required>
                 </div>
                 <div class="form-group">
@@ -49,11 +48,10 @@ require_once("includes/header.php");
                            class="form-control"
                            maxlength="30"
                            v-model="password"
-                           @blur="validatePassword"
                            required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" name="submit_register" id="submit_register" class="btn btn-outline-warning btn-sign-in">Log in</button>
+                    <button type="submit" name="submit_login" class="btn btn-outline-warning btn-sign-in">Log in</button>
                 </div>
             </form>
         </div>
@@ -64,8 +62,7 @@ require_once("includes/header.php");
 </div>
 
 <?php require_once("includes/footer.php");?>
-<script src="forms.js"></script>
-<script src="js/validate.js"></script>
+<script src="loginForm.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>

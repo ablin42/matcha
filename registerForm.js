@@ -83,54 +83,6 @@ let register = new Vue({
     }
 });
 
-let login = new Vue({
-    el: '#login',
-    data: {
-        username: '',
-        password: '',
-        errors: {
-            username: false,
-            password: false
-        }
-    },
-    methods: {
-        processForm: function () {
-            if (this.errors.username === true || this.errors.email === true ||
-                this.errors.password === true || this.errors.password === true) {
-                addAlert('<div id="alert" class="alert alert-warning" style="text-align: center;" role="alert"><b>Error:</b> Please fill in the fields properly.\n' +
-                    '            <button type="button" class="close" onclick="dismissAlert(this)" data-dismiss="alert" aria-label="Close">\n' +
-                    '                <span aria-hidden="true">×</span>\n' +
-                    '            </button>\n' +
-                    '            </div>', document.getElementById("header"))
-            }
-            else {
-                fetch('register_user.php', {
-                    method: 'post',
-                    mode: 'same-origin',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        username: this.username, email: this.email,
-                        password: this.password, password2: this.password2
-                    })
-                })
-                    .then((res) => res.text())
-                    .then((data) => addAlert(data, document.getElementById("header")))
-                    .catch((error) => console.log(error))
-            }
-        },
-        validateUsername: function () {
-            const isValid = isValidUsername(this.username);
-            this.errors.username = !isValid;
-        },
-        validatePassword: function () {
-            const isValid = isValidPassword(this.password);
-            this.errors.password = !isValid;
-        }
-    }
-});
-
 
 function isValidUsername(username) {
     if (username.length < 4 || username.length > 30)

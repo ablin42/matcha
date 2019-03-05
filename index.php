@@ -84,7 +84,7 @@ require_once("includes/header.php");
                     <span v-if="errors.password2">Password has to be the same as the one you just entered</span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" name="submit_register" id="submit_register" class="btn btn-outline-warning btn-sign-in">Sign up</button>
+                    <button type="submit" name="submit_register" class="btn btn-outline-warning btn-sign-in">Sign up</button>
                 </div>
             </form>
         </div>
@@ -96,8 +96,7 @@ require_once("includes/header.php");
 </div>
 
 <?php require_once("includes/footer.php");?>
-<script src="forms.js"></script>
-<script src="js/validate.js"></script>
+<script src="registerForm.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>
