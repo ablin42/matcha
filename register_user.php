@@ -16,11 +16,6 @@ $db = database::getInstance('matcha');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'));
     if (!empty($data->{'username'}) && !empty($data->{'email'}) && !empty($data->{'password'}) && !empty($data->{'password2'})) {
-        $attributes['username'] = $data->{'username'};
-        $attributes['email'] = $data->{'email'};
-        $attributes['password'] = $data->{'password'};
-        $attributes['password2'] = $data->{'password2'};
-
         $username = secure_input($data->{'username'});
         $email = secure_input($data->{'email'});
         $password = $data->{'password'};

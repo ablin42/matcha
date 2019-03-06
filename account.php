@@ -10,13 +10,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Matcha - Account</title>
+    <title>Matcha - Profile settings</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style/bootstrap.css">
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
@@ -30,33 +31,51 @@ $db = database::getInstance('matcha');
 
 <div class="container mt-5 small-page-wrapper">
     <div class="wrapper col-12 p-2">
-        <h1>account settings</h1>
+        <h1>profile settings</h1>
         <div class="gallery-wrapper">
         <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
             <form id="gender" name="gender" @submit.prevent="processForm" class="my-2 my-lg-0" method="post" action="login_user.php">
                 <div class="form-group">
                     <label for="gender" class="lab">Gender</label>
-                    <input type="text"
-                           class="form-control"
-                           v-model="gender"
-                           required>
+                    <select v-model="selectedGender">
+                        <option disabled value="">Please select one</option>
+                        <option v-for="gender in genderOptions" v-bind:value="gender.value">
+                            {{ gender.text }}
+                        </option>
+                    </select>
+                    <span>Selected: {{ selectedGender }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="orientation" class="lab">Sexual Orientation</label>
+                    <select v-model="selectedOrientation">
+                        <option disabled value="">Please select one</option>
+                        <option v-for="orientation in orientationOptions" v-bind:value="orientation.value">
+                            {{ orientation.text }}
+                        </option>
+                    </select>
+                    <span>Selected: {{ selectedOrientation }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="bio" class="lab">A short paragraph about yourself</label>
+                    <textarea v-model="bio" placeholder="Your bio here..."></textarea>
                 </div>
         </div>
-        <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
+       <!-- <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
             <form onsubmit="return submitForm(this, 'modify_account');" name="email" onkeyup="validate();" class="my-2 my-lg-0" action="" method="post">
-                <?php
+                <?php/*
                     $form->changeSurr('div class="form-group d-inline-block col-8 pl-0"', 'div');
                     $form->setLabel('E-mail', 'lab');
                     echo $form->email('email', 'email', "form-control forms", "E-mail");
                     $form->changeSurr('div class="form-group d-inline-block col-4 pl-0"', 'div');
                     echo $form->submit('submit_email', 'submit_email', 'btn btn-outline-warning btn-sign-in mb-1', 'Save');
                     echo '<span id="i_email" class="form-info">E-mail has to be valid</span>';
-                ?>
+               */ ?>
             </form>
         </div>
         <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
             <form onsubmit="return submitForm(this, 'modify_account');" name="password" onkeyup="validate();" class="my-2 my-lg-0" action="" method="post">
                 <?php
+       /*
                     $form->changeSurr('div class="form-group"', 'div');
                     $form->setLabel('Current password', 'lab');
                     echo $form->password('currpw', 'currpw', "form-control forms currpw", "Current password");
@@ -67,25 +86,26 @@ $db = database::getInstance('matcha');
                     $form->setInfo('Password has to be the same as the one you just entered', "i_password2","form-info", "y");
                     echo $form->password('password2', 'password2', "form-control forms", "Confirm your new password");
                     $form->changeSurr('div class="form-group"', 'div');
-                    echo $form->submit('submit_password', 'submit_password', 'btn btn-outline-warning btn-sign-in mb-1', 'Save');
+                    echo $form->submit('submit_password', 'submit_password', 'btn btn-outline-warning btn-sign-in mb-1', 'Save');*/
                 ?>
             </form>
         </div>
 
         <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3 text-center">
-            <input onclick="submitCheckbox(this)" type="checkbox" id="scrolling" name="scrolling" value="true"<?php if (scrolling_state($db, $_SESSION['id']) === true){echo "checked";}?>><p>Uncheck this box if you want to use regular pagination</p>
+            <input onclick="submitCheckbox(this)" type="checkbox" id="scrolling" name="scrolling" value="true"<?php //if (scrolling_state($db, $_SESSION['id']) === true){echo "checked";}?>><p>Uncheck this box if you want to use regular pagination</p>
         </div>
 
         <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3 text-center">
-            <input onclick="submitCheckbox(this)" type="checkbox" id="notify" name="notify" value="true" <?php if (notif_state($db, $_SESSION['id']) === true){echo "checked";}?>><p>Notify me by mail when someone comments one of my photo</p>
-        </div>
+            <input onclick="submitCheckbox(this)" type="checkbox" id="notify" name="notify" value="true" <?php //if (notif_state($db, $_SESSION['id']) === true){echo "checked";}?>><p>Notify me by mail when someone comments one of my photo</p>
+        </div>-->
 
         </div>
     </div>
 </div>
 
+
 <?php require_once("includes/footer.php");?>
-<script src="js/validate.js"></script>
+<script src="accountForms.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>
