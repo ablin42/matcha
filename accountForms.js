@@ -1,5 +1,6 @@
 new Vue({
-    el: '#gender',
+    el: '#infos',
+    props: ['retard'],
     data: {
         selectedGender: "",
         selectedOrientation: "",

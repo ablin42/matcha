@@ -27,6 +27,14 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
     header('Location: /Matcha/?e=acc');
 use \ablin42\database;
 $db = database::getInstance('matcha');
+$req = $db->prepare("SELECT * FROM `user_info` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
+if ($req)
+    foreach ($req as $item)
+    {
+        $gender = $item->gender;
+        $orientation = $item->orientation;
+        $bio = $item->bio;
+    }
 ?>
 
 <div class="container mt-5 small-page-wrapper">
@@ -34,71 +42,47 @@ $db = database::getInstance('matcha');
         <h1>profile settings</h1>
         <div class="gallery-wrapper">
         <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
-            <form id="gender" name="gender" @submit.prevent="processForm" class="my-2 my-lg-0" method="post" action="login_user.php">
+            <form id="infos" name="infos" @submit.prevent="processForm" class="my-2 my-lg-0" method="post" action="login_user.php">
                 <div class="form-group">
                     <label for="gender" class="lab">Gender</label>
-                    <select v-model="selectedGender">
+                    <select v-model="selectedGender"  required>
                         <option disabled value="">Please select one</option>
                         <option v-for="gender in genderOptions" v-bind:value="gender.value">
                             {{ gender.text }}
                         </option>
+                        <p>{{retard}}s</p>
                     </select>
-                    <span>Selected: {{ selectedGender }}</span>
                 </div>
                 <div class="form-group">
                     <label for="orientation" class="lab">Sexual Orientation</label>
-                    <select v-model="selectedOrientation">
+                    <select v-model="selectedOrientation" required>
                         <option disabled value="">Please select one</option>
                         <option v-for="orientation in orientationOptions" v-bind:value="orientation.value">
                             {{ orientation.text }}
                         </option>
                     </select>
-                    <span>Selected: {{ selectedOrientation }}</span>
                 </div>
                 <div class="form-group">
                     <label for="bio" class="lab">A short paragraph about yourself</label>
-                    <textarea v-model="bio" placeholder="Your bio here..."></textarea>
+                    <textarea maxlength="512" v-model="bio" placeholder="Your bio here..." required><?= $bio ?></textarea>
                 </div>
-        </div>
-       <!-- <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
-            <form onsubmit="return submitForm(this, 'modify_account');" name="email" onkeyup="validate();" class="my-2 my-lg-0" action="" method="post">
-                <?php/*
-                    $form->changeSurr('div class="form-group d-inline-block col-8 pl-0"', 'div');
-                    $form->setLabel('E-mail', 'lab');
-                    echo $form->email('email', 'email', "form-control forms", "E-mail");
-                    $form->changeSurr('div class="form-group d-inline-block col-4 pl-0"', 'div');
-                    echo $form->submit('submit_email', 'submit_email', 'btn btn-outline-warning btn-sign-in mb-1', 'Save');
-                    echo '<span id="i_email" class="form-info">E-mail has to be valid</span>';
-               */ ?>
+                <div class="form-group">
+                    <button type="submit" name="submit_infos" class="btn btn-outline-warning btn-sign-in">Update Infos</button>
+                </div>
             </form>
-        </div>
-        <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
-            <form onsubmit="return submitForm(this, 'modify_account');" name="password" onkeyup="validate();" class="my-2 my-lg-0" action="" method="post">
-                <?php
-       /*
-                    $form->changeSurr('div class="form-group"', 'div');
-                    $form->setLabel('Current password', 'lab');
-                    echo $form->password('currpw', 'currpw', "form-control forms currpw", "Current password");
-                    $form->setLabel('New password', 'lab');
-                    $form->setInfo('Password must contain between 8 and 30 characters and has to be atleast alphanumeric',"i_password", "form-info", "y");
-                    echo $form->password('password', 'password', "form-control forms", "New password");
-                    $form->setLabel('Confirm your new password', 'lab');
-                    $form->setInfo('Password has to be the same as the one you just entered', "i_password2","form-info", "y");
-                    echo $form->password('password2', 'password2', "form-control forms", "Confirm your new password");
-                    $form->changeSurr('div class="form-group"', 'div');
-                    echo $form->submit('submit_password', 'submit_password', 'btn btn-outline-warning btn-sign-in mb-1', 'Save');*/
-                ?>
-            </form>
-        </div>
 
-        <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3 text-center">
-            <input onclick="submitCheckbox(this)" type="checkbox" id="scrolling" name="scrolling" value="true"<?php //if (scrolling_state($db, $_SESSION['id']) === true){echo "checked";}?>><p>Uncheck this box if you want to use regular pagination</p>
+                <!--<h2>upload your photo if you don't have a webcam</h2>
+                <form name="upload" action="" method="post" enctype="multipart/form-data" class="text-center">
+                    <div class="form-group">
+                        <label for="picture" class="lab file-lab">Pick a file</label>
+                        <input type="file" name="picture" id="picture" class="inputfile">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="submit_photo" id="submit_photo" class="btn btn-outline-warning btn-sign-in">Upload</button>
+                    </div>
+                </form>-->
+
         </div>
-
-        <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3 text-center">
-            <input onclick="submitCheckbox(this)" type="checkbox" id="notify" name="notify" value="true" <?php //if (notif_state($db, $_SESSION['id']) === true){echo "checked";}?>><p>Notify me by mail when someone comments one of my photo</p>
-        </div>-->
-
         </div>
     </div>
 </div>

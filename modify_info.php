@@ -20,48 +20,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $orientation = secure_input($data->{'orientation'});
         $bio = secure_input($data->{'bio'});
 
-
         $attributes = array();
-        $attributes['username'] = $username;
-
-        $pattern_pw = "/^(((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(.{8,})/";
-        $pattern_email = "/^(([^<>()\[\]\\.,;:\s@\"]+(\.[^<>()\[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/";
-        if (!check_length($username, 4, 30)) {
-            echo alert_bootstrap("warning", "Your <b>username</b> has to be 4 characters minimum and 30 characters maximum!", "text-align: center;");
-            return ;
+        $attributes['user_id'] = secure_input($_SESSION['id']);
+        $req = $db->prepare("SELECT * FROM `user` WHERE `id` = :user_id", $attributes);
+        if (!$req) {
+            echo alert_bootstrap("danger", "Error: User not found. Please try again. If the error persist try disconnecting and reconnecting", "text-align: center;");
+            return;
         }
-
-        else if (!check_length($password,8, 30) || !check_length($password2,8, 30) || (!preg_match($pattern_pw, $password))) {
-            echo alert_bootstrap("warning", "Your <b>password</b> has to be 8 characters, 30 characters maximum and has to be atleast alphanumeric!", "text-align: center;");
-            return ;
-        }
-
-        else if (!check_length($email, 3, 255) || !preg_match($pattern_email, $email)) {
-            echo alert_bootstrap("warning", "Your <b>e-mail</b> has to be 3 characters minimum and 255 characters maximum! (and valid!)", "text-align: center;");
-            return ;
-        }
-
-        $req = $db->prepare("SELECT * FROM `user` WHERE `username` = :username", $attributes);
+        $req = $db->prepare("SELECT * FROM `user_info` WHERE `user_id` = :user_id", $attributes);
+        $attributes['gender'] = $gender;
+        $attributes['orientation'] = $orientation;
+        $attributes['bio'] = $bio;
         if ($req) {
-            echo alert_bootstrap("warning", "The <b>username</b> you entered is already taken, <b>please pick another one.</b>", "text-align: center;");
-            return ;
+            $req = $db->prepare("UPDATE `user_info` SET 
+            `gender` = :gender, `orientation` = :orientation, `bio` = :bio WHERE `user_id`=:user_id", $attributes);
         }
-
-        $attributes['email'] = $email;
-        $attributes['password'] = hash('whirlpool', $password);
-
-        $req = $db->prepare("SELECT * FROM `user` WHERE `email` = :email", array('email' => $email));
-        if ($req) {
-            echo alert_bootstrap("warning" , "The <b>e-mail</b> you entered is already taken, <b>please pick another one.</b>", "text-align: center;");
-            return ;
-        }
-
-        $token = gen_token(128);
-        $attributes['mail_token'] = $token;
-
-        $db->prepare("INSERT INTO `user` (`username`, `password`, `email`, `mail_token`) VALUES (:username, :password, :email, :mail_token)", $attributes);
-        $user_id = $db->lastInsertedId();
-
+        else
+            $req = $db->prepare("INSERT INTO `user_info` 
+            (`user_id`, `gender`, `orientation`, `bio`) VALUES (:user_id, :gender, :orientation, :bio)", $attributes);
         echo alert_bootstrap("success", "<b>Your infos has been <b>successfully updated</b>!", "text-align: center;");
     }
     else
