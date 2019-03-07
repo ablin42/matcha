@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  mer. 06 mars 2019 à 14:31
+-- Généré le :  jeu. 07 mars 2019 à 15:04
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.1.22
 
@@ -54,11 +54,18 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`, `mail_token`, `confir
 
 CREATE TABLE `user_info` (
   `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `bio` varchar(512) NOT NULL,
-  `genre` varchar(128) NOT NULL,
+  `gender` varchar(128) NOT NULL,
   `orientation` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `user_info`
+--
+
+INSERT INTO `user_info` (`id`, `user_id`, `bio`, `gender`, `orientation`) VALUES
+(8, 4, 'inclusive', 'Agender', 'Lesbian');
 
 --
 -- Index pour les tables déchargées
@@ -75,7 +82,7 @@ ALTER TABLE `user`
 --
 ALTER TABLE `user_info`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_user` (`id_user`);
+  ADD UNIQUE KEY `id_user` (`user_id`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -85,13 +92,13 @@ ALTER TABLE `user_info`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `user_info`
 --
 ALTER TABLE `user_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

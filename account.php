@@ -64,7 +64,7 @@ if ($req)
                 </div>
                 <div class="form-group">
                     <label for="bio" class="lab">A short paragraph about yourself</label>
-                    <textarea maxlength="512" v-model="bio" placeholder="Your bio here..." required><?= $bio ?></textarea>
+                    <textarea maxlength="512" v-model="bio" placeholder="Your bio here..." required></textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit" name="submit_infos" class="btn btn-outline-warning btn-sign-in">Update Infos</button>
