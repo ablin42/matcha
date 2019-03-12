@@ -1,29 +1,5 @@
-new Vue.component('textarea-input',{
+let account = new Vue({
     el: '#infos',
-    props: ['content'],
-    data: {
-        bio: ""
-    },
-    methods: {
-        processForm: function () {
-            fetch('modify_info.php', {
-                method: 'post',
-                mode: 'same-origin',
-                headers: {'Content-Type': 'application/json'}, //sent
-                body: JSON.stringify({
-                    gender: this.selectedGender, orientation: this.selectedOrientation, bio: this.bio
-                })
-            })
-                .then((res) => res.text())
-                .then((data) => addAlert(data, document.getElementById("header")))
-                .catch((error) => console.log(error))
-        }
-    }
-});
-/*
-new Vue({
-    el: '#infos',
-    props: ['retard'],
     data: {
         selectedGender: "",
         selectedOrientation: "",
@@ -58,6 +34,15 @@ new Vue({
                 .then((res) => res.text())
                 .then((data) => addAlert(data, document.getElementById("header")))
                 .catch((error) => console.log(error))
+        },
+        assignGender: function (gender) {
+            this.selectedGender = gender;
+        },
+        assignOrientation: function (orientation) {
+            this.selectedOrientation = orientation;
+        },
+        assignBio: function (bio) {
+            this.bio = bio;
         }
     }
-});*/
+});
