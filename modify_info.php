@@ -31,10 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $attributes['gender'] = $gender;
         $attributes['orientation'] = $orientation;
         $attributes['bio'] = $bio;
-        if ($req) {
+        if ($req)
             $req = $db->prepare("UPDATE `user_info` SET 
             `gender` = :gender, `orientation` = :orientation, `bio` = :bio WHERE `user_id`=:user_id", $attributes);
-        }
         else
             $req = $db->prepare("INSERT INTO `user_info` 
             (`user_id`, `gender`, `orientation`, `bio`) VALUES (:user_id, :gender, :orientation, :bio)", $attributes);

@@ -42,14 +42,13 @@ if ($req)
         <h1>profile settings</h1>
         <div class="gallery-wrapper">
         <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
-            <form id="infos" name="infos" @submit.prevent="processForm" class="my-2 my-lg-0" method="post" action="login_user.php">
+            <form id="infos" name="infos" @submit.prevent="processForm" class="my-2 my-lg-0" method="post">
                 {{ assignGender("<?= $gender ?>") }}
                 {{ assignOrientation("<?= $orientation ?>") }}
                 {{ assignBio("<?= $bio ?>") }}
-
                 <div class="form-group">
                     <label for="gender" class="lab">Gender</label>
-                    <select v-model="selectedGender"  required>
+                    <select v-model="selectedGender" required>
                         <option disabled value="">Please select one</option>
                         <option v-for="gender in genderOptions" v-bind:value="gender.value">
                             {{ gender.text }}
@@ -77,6 +76,10 @@ if ($req)
                 </div>
 
             </form>
+
+            <div id="photos">
+                <photo-upload></photo-upload>
+            </div>
 
                 <!--<h2>upload your photo if you don't have a webcam</h2>
                 <form name="upload" action="" method="post" enctype="multipart/form-data" class="text-center">
