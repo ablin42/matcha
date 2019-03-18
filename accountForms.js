@@ -26,7 +26,7 @@ let account = new Vue({
     },
     methods: {
         processForm: function () {
-            fetch('modify_info.php', {
+            fetch('update_info.php', {
                 method: 'post',
                 mode: 'same-origin',
                 headers: {'Content-Type': 'application/json'}, //sent
@@ -56,20 +56,24 @@ let account = new Vue({
 });
 
 Vue.component("photo-upload",{
+    props: {idComponent: Number},
     data: function(){
         return {
+            name: "component_photo_name_" + this.idComponent,
+            id: "component_photo_id_" + this.idComponent,
+            submit: "submit_photo_id_" + this.idComponent,
             selectedFile: "",
             path: ""
         }
     },
    template: '<form @submit.prevent="processForm" name="upload" action="" method="post" enctype="multipart/form-data" class="text-center">\n' +
        '        <div class="form-group">\n' +
-       '            <label for="picture" class="lab file-lab">Pick a file</label>\n' +
-       '            <input type="file" name="picture" id="picture" class="inputfile" @change="onFileUpload">\n' +
+       '            <label v-if="!path" v-bind:for="id" class="lab file-lab">Photo {{ idComponent }}</label>\n' +
+       '            <input v-if="!path" type="file" v-bind:name="name" v-bind:id="id" class="inputfile" @change="onFileUpload">\n' +
        '        </div>\n' +
-       '<img v-if="path" :src=path style="max-width: 250px; max-height: 250px;"/>\n'+
+       '<img @click="removePhoto" v-if="path" :src=path style="max-width: 250px; max-height: 250px;"/>\n'+
        '        <div v-if="selectedFile" class="form-group">\n' +
-       '            <button type="submit" name="submit_photo" id="submit_photo" class="btn btn-outline-warning btn-sign-in">Upload</button>\n' +
+       '            <button type="submit" name="submit" id="submit" class="btn btn-outline-warning btn-sign-in">Upload</button>\n' +
        '        </div>\n' +
        '      </form>',
     methods: {
@@ -78,6 +82,7 @@ Vue.component("photo-upload",{
             console.log(JSON.stringify(this.selectedFile));
             let formdata = new FormData();
             formdata.append('picture', this.selectedFile);
+            formdata.append('picture-id', this.idComponent);
             fetch('upload_photo.php', {
                 method: 'post',
                 mode: 'same-origin',
@@ -91,10 +96,42 @@ Vue.component("photo-upload",{
             this.selectedFile = event.target.files[0];
             this.path = URL.createObjectURL(this.selectedFile);
             console.log(this.selectedFile, this.path);
+            console.log(this.idComponent);
+        },
+        removePhoto: function (){
+            this.path = "";
+            this.selectedFile = "";
         }
     }
 });
-
 let photo = new Vue({
     el: '#photos'
+});
+
+let tags = new Vue({
+    el: '#tags',
+    data: {
+      selectedTags: ""
+    },
+    methods: {
+        processForm: function () {
+            let tagInput = document.getElementsByClassName("label-info"),
+                tags = [];
+            console.log(tagInput);
+            for (i = 0; i < tagInput.length; i++)
+                tags.push(tagInput[i].textContent);
+            console.log(tags);
+            fetch('update_tags.php', {
+                method: 'post',
+                mode: 'same-origin',
+                headers: {'Content-Type': 'application/json'}, //sent
+                body: JSON.stringify({
+                    tags: tags
+                })
+            })
+                .then((res) => res.text())
+                .then((data) => addAlert(data, document.getElementById("header")))
+                .catch((error) => console.log(error))
+        }
+    }
 });

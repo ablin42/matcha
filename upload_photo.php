@@ -15,7 +15,8 @@ autoloader::register();
 $db = database::getInstance('matcha');
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['picture']) && !empty($_POST['picture-id']) && is_numeric($_POST['picture-id'])) {
+    $photo = "photo" . secure_input($_POST['picture-id']);
     $max_file_size = 2000000;
     $attributes = array();
     $attributes['user_id'] = secure_input($_SESSION['id']);
@@ -55,10 +56,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     move_uploaded_file($_FILES['picture']['tmp_name'], $attributes['path']);
 
     if ($req)
-        $req = $db->prepare("UPDATE `user_photo` SET `path` = :path WHERE `user_id` = :user_id", $attributes);
+        $req = $db->prepare("UPDATE `user_photo` SET $photo = :path WHERE `user_id` = :user_id", $attributes);
     else
-        $req = $db->prepare("INSERT INTO `user_photo` (`user_id`, `path`) VALUE (:user_id, :path)", $attributes);
+        $req = $db->prepare("INSERT INTO `user_photo` (`user_id`, $photo) VALUE (:user_id, :path)", $attributes);
     echo alert_bootstrap("success", "<b>Your photo has been <b>successfully updated</b>!", "text-align: center;");
 }
 else
-    alert_bootstrap("danger" , "Not a <b>post</b> request.", "text-align: center;");
+    alert_bootstrap("danger" , "Not a <b>post</b> request or <b>wrong data</b> sent.", "text-align: center;");

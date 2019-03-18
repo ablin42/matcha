@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/bootstrap-tagsinput.js"></script>
+    <script src="https://unpkg.com/@johmun/vue-tags-input/dist/vue-tags-input.js"></script>
 </head>
 
 <body>
@@ -74,24 +77,24 @@ if ($req)
                 <div class="form-group">
                     <button type="submit" name="submit_infos" class="btn btn-outline-warning btn-sign-in">Update Infos</button>
                 </div>
+            </form>
 
+            <form id="tags" name="tags" @submit.prevent="processForm" class="my-2 my-lg-0" method="post">
+                <div class="form-group">
+                    <input v-bind="selectedTags" type="text" value="" data-role="tagsinput" id="tagInput" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button type="submit" name="submit_infos" class="btn btn-outline-warning btn-sign-in">Update tags</button>
+                </div>
             </form>
 
             <div id="photos">
-                <photo-upload></photo-upload>
+                <photo-upload v-bind:id-component="1"></photo-upload>
+                <photo-upload v-bind:id-component="2"></photo-upload>
+                <photo-upload v-bind:id-component="3"></photo-upload>
+                <photo-upload v-bind:id-component="4"></photo-upload>
+                <photo-upload v-bind:id-component="5"></photo-upload>
             </div>
-
-                <!--<h2>upload your photo if you don't have a webcam</h2>
-                <form name="upload" action="" method="post" enctype="multipart/form-data" class="text-center">
-                    <div class="form-group">
-                        <label for="picture" class="lab file-lab">Pick a file</label>
-                        <input type="file" name="picture" id="picture" class="inputfile">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" name="submit_photo" id="submit_photo" class="btn btn-outline-warning btn-sign-in">Upload</button>
-                    </div>
-                </form>-->
-
         </div>
         </div>
     </div>
