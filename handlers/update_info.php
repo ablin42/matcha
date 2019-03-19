@@ -2,24 +2,20 @@
 /**
  * Created by PhpStorm.
  * User: ablin
- * Date: 3/18/19
- * Time: 9:59 PM
+ * Date: 3/6/19
+ * Time: 11:18 PM
  */
-
 session_start();
 use \ablin42\database;
 use \ablin42\autoloader;
-require ("class/autoloader.php");
-require_once("utils/functions.php");
+require ("../class/autoloader.php");
+require_once("../utils/functions.php");
 autoloader::register();
 $db = database::getInstance('matcha');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'));
-    if (!empty($data->{'tags'})) {
-        foreach ($data->tags as $tag)
-            echo $tag . PHP_EOL;
-        return ;/*
+    if (!empty($data->{'gender'}) && !empty($data->{'orientation'}) && !empty($data->{'bio'})) {
         $gender = secure_input($data->{'gender'});
         $orientation = secure_input($data->{'orientation'});
         $bio = secure_input($data->{'bio'});
@@ -40,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             `gender` = :gender, `orientation` = :orientation, `bio` = :bio WHERE `user_id`=:user_id", $attributes);
         else
             $req = $db->prepare("INSERT INTO `user_info` 
-            (`user_id`, `gender`, `orientation`, `bio`) VALUES (:user_id, :gender, :orientation, :bio)", $attributes);*/
+            (`user_id`, `gender`, `orientation`, `bio`) VALUES (:user_id, :gender, :orientation, :bio)", $attributes);
         echo alert_bootstrap("success", "<b>Your infos has been <b>successfully updated</b>!", "text-align: center;");
     }
     else

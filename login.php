@@ -62,7 +62,7 @@ require_once("includes/header.php");
 </div>
 
 <?php require_once("includes/footer.php");?>
-<script src="loginForm.js"></script>
+<script src="vuejs/loginForm.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>

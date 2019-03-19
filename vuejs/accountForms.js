@@ -26,7 +26,7 @@ let account = new Vue({
     },
     methods: {
         processForm: function () {
-            fetch('update_info.php', {
+            fetch('handlers/update_info.php', {
                 method: 'post',
                 mode: 'same-origin',
                 headers: {'Content-Type': 'application/json'}, //sent
@@ -83,7 +83,7 @@ Vue.component("photo-upload",{
             let formdata = new FormData();
             formdata.append('picture', this.selectedFile);
             formdata.append('picture-id', this.idComponent);
-            fetch('upload_photo.php', {
+            fetch('handlers/upload_photo.php', {
                 method: 'post',
                 mode: 'same-origin',
                 body: formdata
@@ -121,7 +121,7 @@ let tags = new Vue({
             for (i = 0; i < tagInput.length; i++)
                 tags.push(tagInput[i].textContent);
             console.log(tags);
-            fetch('update_tags.php', {
+            fetch('handlers/update_tags.php', {
                 method: 'post',
                 mode: 'same-origin',
                 headers: {'Content-Type': 'application/json'}, //sent

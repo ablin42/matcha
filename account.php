@@ -102,7 +102,7 @@ if ($req)
 
 
 <?php require_once("includes/footer.php");?>
-<script src="accountForms.js"></script>
+<script src="vuejs/accountForms.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>

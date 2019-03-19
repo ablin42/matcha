@@ -21,7 +21,7 @@ let register = new Vue({
     methods: {
         processForm: function () {
             if (this.errors.username === true || this.errors.email === true ||
-                this.errors.password === true || this.errors.password === true) {
+                this.errors.password === true || this.errors.password2 === true) {
                 addAlert('<div id="alert" class="alert alert-warning" style="text-align: center;" role="alert"><b>Error:</b> Please fill in the fields properly.\n' +
                     '            <button type="button" class="close" onclick="dismissAlert(this)" data-dismiss="alert" aria-label="Close">\n' +
                     '                <span aria-hidden="true">×</span>\n' +
@@ -29,7 +29,7 @@ let register = new Vue({
                     '            </div>', document.getElementById("header"))
             }
             else {
-                fetch('register_user.php', {
+                fetch('handlers/register_user.php', {
                     method: 'post',
                     mode: 'same-origin',
                     headers: {

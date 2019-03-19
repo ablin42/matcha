@@ -6,7 +6,7 @@ let login = new Vue({
     },
     methods: {
         processForm: function () {
-            fetch('login_user.php', {
+            fetch('handlers/login_user.php', {
                 method: 'post',
                 mode: 'same-origin',
                 headers: {'Content-Type': 'application/json'}, //sent

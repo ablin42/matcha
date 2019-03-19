@@ -5,28 +5,24 @@
  * Date: 3/14/19
  * Time: 8:21 PM
  */
-
 session_start();
 use \ablin42\database;
 use \ablin42\autoloader;
-require ("class/autoloader.php");
-require_once("utils/functions.php");
+require ("../class/autoloader.php");
+require_once("../utils/functions.php");
 autoloader::register();
 $db = database::getInstance('matcha');
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['picture']) && !empty($_POST['picture-id']) && is_numeric($_POST['picture-id'])) {
     $photo = "photo" . secure_input($_POST['picture-id']);
     $max_file_size = 2000000;
     $attributes = array();
     $attributes['user_id'] = secure_input($_SESSION['id']);
-
     $req = $db->prepare("SELECT * FROM `user` WHERE `id` = :user_id", $attributes);
     if (!$req) {
         echo alert_bootstrap("danger", "Error: User not found. Please try again. If the error persist try disconnecting and reconnecting", "text-align: center;");
         return;
     }
-
     if($_FILES['picture']['error'] > 0) {
         echo alert_bootstrap("danger", "An <b>error</b> occured during the upload! Please, try again.", "text-align: center;");
         return ;
@@ -58,7 +54,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['picture']) && !empty
     if ($req)
         $req = $db->prepare("UPDATE `user_photo` SET $photo = :path WHERE `user_id` = :user_id", $attributes);
     else
+    {
+        var_dump($attributes, $photo);
         $req = $db->prepare("INSERT INTO `user_photo` (`user_id`, $photo) VALUE (:user_id, :path)", $attributes);
+        echo "XD";
+    }
     echo alert_bootstrap("success", "<b>Your photo has been <b>successfully updated</b>!", "text-align: center;");
 }
 else

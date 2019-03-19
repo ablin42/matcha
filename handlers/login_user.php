@@ -8,8 +8,8 @@
 session_start();
 use \ablin42\database;
 use \ablin42\autoloader;
-require ("class/autoloader.php");
-require_once("utils/functions.php");
+require ("../class/autoloader.php");
+require_once("../utils/functions.php");
 autoloader::register();
 $db = database::getInstance('matcha');
 
