@@ -29,17 +29,8 @@ require_once("includes/header.php");
 if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
     header('Location: /Matcha/?e=acc');
 use \ablin42\database;
-$db = database::getInstance('matcha');
-$req = $db->prepare("SELECT * FROM `user_info` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
-if ($req)
-    foreach ($req as $item)
-    {
-        $gender = $item->gender;
-        $orientation = $item->orientation;
-        $bio = $item->bio;
-    }
+require_once("utils/fetch_account_data.php");
 ?>
-
 <div class="container mt-5 small-page-wrapper">
     <div class="wrapper col-12 p-2">
         <h1>profile settings</h1>
@@ -84,16 +75,16 @@ if ($req)
                     <input v-bind="selectedTags" type="text" value="" data-role="tagsinput" id="tagInput" class="form-control">
                 </div>
                 <div class="form-group">
-                    <button type="submit" name="submit_infos" class="btn btn-outline-warning btn-sign-in">Update tags</button>
+                    <button type="submit" name="submit_tags" class="btn btn-outline-warning btn-sign-in">Update tags</button>
                 </div>
             </form>
 
             <div id="photos">
-                <photo-upload v-bind:id-component="1"></photo-upload>
-                <photo-upload v-bind:id-component="2"></photo-upload>
-                <photo-upload v-bind:id-component="3"></photo-upload>
-                <photo-upload v-bind:id-component="4"></photo-upload>
-                <photo-upload v-bind:id-component="5"></photo-upload>
+                <photo-upload v-bind:db-path='<?= $photos[0] ?>' v-bind:id-component="1"></photo-upload>
+                <photo-upload v-bind:db-path='<?= $photos[1] ?>' v-bind:id-component="2"></photo-upload>
+                <photo-upload v-bind:db-path='<?= $photos[2] ?>' v-bind:id-component="3"></photo-upload>
+                <photo-upload v-bind:db-path='<?= $photos[3] ?>' v-bind:id-component="4"></photo-upload>
+                <photo-upload v-bind:db-path='<?= $photos[4] ?>' v-bind:id-component="5"></photo-upload>
             </div>
         </div>
         </div>
@@ -102,6 +93,16 @@ if ($req)
 
 
 <?php require_once("includes/footer.php");?>
+<script>
+    $(document).ready(function(){
+        let tags = <?= $tags ?>,
+            tagInput = $('#tags');
+
+        tagInput.tagsinput('add', "");
+        for (i = 0; i < tags.length; i++)
+            tagInput.tagsinput('add', tags[i]);
+    });
+</script>
 <script src="vuejs/accountForms.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>

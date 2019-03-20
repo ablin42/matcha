@@ -17,13 +17,6 @@ $db = database::getInstance('matcha');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'));
     if (!empty($data->{'tags'})) {
-        foreach ($data->tags as $tag)
-            echo $tag . PHP_EOL;
-        return ;/*
-        $gender = secure_input($data->{'gender'});
-        $orientation = secure_input($data->{'orientation'});
-        $bio = secure_input($data->{'bio'});
-
         $attributes = array();
         $attributes['user_id'] = secure_input($_SESSION['id']);
         $req = $db->prepare("SELECT * FROM `user` WHERE `id` = :user_id", $attributes);
@@ -31,17 +24,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo alert_bootstrap("danger", "Error: User not found. Please try again. If the error persist try disconnecting and reconnecting", "text-align: center;");
             return;
         }
-        $req = $db->prepare("SELECT * FROM `user_info` WHERE `user_id` = :user_id", $attributes);
-        $attributes['gender'] = $gender;
-        $attributes['orientation'] = $orientation;
-        $attributes['bio'] = $bio;
-        if ($req)
-            $req = $db->prepare("UPDATE `user_info` SET 
-            `gender` = :gender, `orientation` = :orientation, `bio` = :bio WHERE `user_id`=:user_id", $attributes);
-        else
-            $req = $db->prepare("INSERT INTO `user_info` 
-            (`user_id`, `gender`, `orientation`, `bio`) VALUES (:user_id, :gender, :orientation, :bio)", $attributes);*/
-        echo alert_bootstrap("success", "<b>Your infos has been <b>successfully updated</b>!", "text-align: center;");
+        foreach ($data->tags as $tag)
+        {
+            $attributes['tag'] = secure_input($tag);
+            $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id AND `tag` = :tag", $attributes);
+            if (!$req) {
+                $req = $db->prepare("INSERT INTO `user_tags` (`user_id`, `tag`) VALUES (:user_id, :tag)", $attributes);
+                if ($req) {
+                    echo alert_bootstrap("danger", "Error: tag update failed, please try again", "text-align: center;");
+                    return;
+                }
+            }
+        }
+        echo alert_bootstrap("success", "<b>Your tags has been <b>successfully updated</b>!", "text-align: center;");
     }
     else
         alert_bootstrap("warning" , "A <b>field</b> is empty", "text-align: center;");

@@ -45,20 +45,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['picture']) && !empty
         echo alert_bootstrap("danger", "<b>Error:</b> File dimensions aren't valid! <b>(height has to be smaller than width!)</b>", "text-align: center;");
         return ;
     }
+    /*
+     * this part is useless and used in delete_photo.com, theorically you can't upload a photo if the field is taken since
+     * you'd have to delete it first thus calling to delete_photo.php
+    $req = $db->prepare("SELECT $photo FROM `user_photo` WHERE `user_id` = :user_id", $attributes);
+    if ($req) {
+        foreach ($req as $item){
+            $photopath = "../" . $item->$photo;
+        }
+    }
+    else {
+        echo alert_bootstrap("warning", "You did not upload any picture yet.", "text-align: center;");
+        return;
+    }
+    if ($photopath !== NULL)
+        unlink($photopath);*/
 
     $req = $db->prepare("SELECT * FROM `user_photo` WHERE `user_id` = :user_id", $attributes);
     $filename = gen_token(40);
     $attributes['path'] = "photos/{$filename}.{$extension_upload}";
-    move_uploaded_file($_FILES['picture']['tmp_name'], $attributes['path']);
+    move_uploaded_file($_FILES['picture']['tmp_name'], "../" . $attributes['path']);
 
     if ($req)
         $req = $db->prepare("UPDATE `user_photo` SET $photo = :path WHERE `user_id` = :user_id", $attributes);
     else
-    {
-        var_dump($attributes, $photo);
         $req = $db->prepare("INSERT INTO `user_photo` (`user_id`, $photo) VALUE (:user_id, :path)", $attributes);
-        echo "XD";
-    }
     echo alert_bootstrap("success", "<b>Your photo has been <b>successfully updated</b>!", "text-align: center;");
 }
 else

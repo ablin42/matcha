@@ -56,14 +56,14 @@ let account = new Vue({
 });
 
 Vue.component("photo-upload",{
-    props: {idComponent: Number},
+    props: {idComponent: Number, dbPath: String},
     data: function(){
         return {
             name: "component_photo_name_" + this.idComponent,
             id: "component_photo_id_" + this.idComponent,
             submit: "submit_photo_id_" + this.idComponent,
             selectedFile: "",
-            path: ""
+            path: this.dbPath
         }
     },
    template: '<form @submit.prevent="processForm" name="upload" action="" method="post" enctype="multipart/form-data" class="text-center">\n' +
@@ -72,6 +72,7 @@ Vue.component("photo-upload",{
        '            <input v-if="!path" type="file" v-bind:name="name" v-bind:id="id" class="inputfile" @change="onFileUpload">\n' +
        '        </div>\n' +
        '<img @click="removePhoto" v-if="path" :src=path style="max-width: 250px; max-height: 250px;"/>\n'+
+       '<a v-if="dbPath" @click.prevent="deletePhoto" href=""><i class="fas fa-trash rmv-img"></i></a>\n'+
        '        <div v-if="selectedFile" class="form-group">\n' +
        '            <button type="submit" name="submit" id="submit" class="btn btn-outline-warning btn-sign-in">Upload</button>\n' +
        '        </div>\n' +
@@ -101,9 +102,23 @@ Vue.component("photo-upload",{
         removePhoto: function (){
             this.path = "";
             this.selectedFile = "";
+        },
+        deletePhoto: function (){
+            fetch('handlers/delete_photo.php', {
+                method: 'post',
+                mode: 'same-origin',
+                headers: {'Content-Type': 'application/json'}, //sent
+                body: JSON.stringify({
+                    photoid: this.idComponent
+                })
+            })
+                .then((res) => res.text())
+                .then((data) => addAlert(data, document.getElementById("header")))
+                .catch((error) => console.log(error))
         }
     }
 });
+
 let photo = new Vue({
     el: '#photos'
 });
