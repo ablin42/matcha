@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  mar. 19 mars 2019 à 15:21
+-- Généré le :  mer. 20 mars 2019 à 14:59
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.1.22
 
@@ -92,7 +92,7 @@ CREATE TABLE `user_photo` (
 
 INSERT INTO `user_photo` (`id`, `user_id`, `photo1`, `photo2`, `photo3`, `photo4`, `photo5`) VALUES
 (5, 4, 'photos/0hje8lloy65jw2csy4b33uh7qj0y7zflfpp2rt84.jpg', NULL, 'photos/m5vaxt741hhxsf903yxrp2ab2clhvyl1iv7asn8y.png', NULL, NULL),
-(6, 6, NULL, 'photos/xk46wloy2wqzxfv7jaxf54zjsh8brd7jbjdkdjcy.jpg', 'photos/jqurdzvisgliwqm3l3z4mo682vqa3bkzymdy3ne7.jpg', NULL, NULL);
+(6, 6, 'photos/ewu1an7t6un7eyw279zb8e8nhqtzpbuh5mkwwyex.jpeg', NULL, 'photos/m5vaxt741hhxsf903yxrp2ab2clhvyl1iv7asn8y.png', NULL, 'photos/7csz1n96qnddgnetkd1o73uejprltho77k6to871.jpg');
 
 -- --------------------------------------------------------
 
@@ -105,6 +105,15 @@ CREATE TABLE `user_tags` (
   `user_id` int(11) NOT NULL,
   `tag` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `user_tags`
+--
+
+INSERT INTO `user_tags` (`id`, `user_id`, `tag`) VALUES
+(3, 6, 'okay'),
+(4, 6, 'whynot'),
+(5, 6, 'aya');
 
 --
 -- Index pour les tables déchargées
@@ -162,7 +171,7 @@ ALTER TABLE `user_photo`
 -- AUTO_INCREMENT pour la table `user_tags`
 --
 ALTER TABLE `user_tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
