@@ -15,7 +15,9 @@ $db = database::getInstance('matcha');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'));
-    if (!empty($data->{'username'}) && !empty($data->{'email'}) && !empty($data->{'password'}) && !empty($data->{'password2'})) {
+    if (!empty($data->{'firstname'}) && !empty($data->{'lastname'}) && !empty($data->{'username'}) && !empty($data->{'email'}) && !empty($data->{'password'}) && !empty($data->{'password2'})) {
+        $firstname = secure_input($data->{'firstname'});
+        $lastname = secure_input($data->{'lastname'});
         $username = secure_input($data->{'username'});
         $email = secure_input($data->{'email'});
         $password = $data->{'password'};
@@ -27,6 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $pattern_pw = "/^(((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(.{8,})/";
             $pattern_email = "/^(([^<>()\[\]\\.,;:\s@\"]+(\.[^<>()\[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/";
+            if (!check_length($firstname, 2, 16)) {
+                echo alert_bootstrap("warning", "Your <b>firstname</b> has to be 2 characters minimum and 16 characters maximum!", "text-align: center;");
+                return ;
+            }
+            if (!check_length($lastname, 2, 16)) {
+                echo alert_bootstrap("warning", "Your <b>lastname</b> has to be 2 characters minimum and 16 characters maximum!", "text-align: center;");
+                return ;
+            }
             if (!check_length($username, 4, 30)) {
                 echo alert_bootstrap("warning", "Your <b>username</b> has to be 4 characters minimum and 30 characters maximum!", "text-align: center;");
                 return ;
@@ -62,6 +72,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $db->prepare("INSERT INTO `user` (`username`, `password`, `email`, `mail_token`) VALUES (:username, :password, :email, :mail_token)", $attributes);
             $user_id = $db->lastInsertedId();
+
+            $attributes_info = array();
+            $attributes_info['user_id'] = $user_id;
+            $attributes_info['firstname'] = $firstname;
+            $attributes_info['lastname'] = $lastname;
+            $db->prepare("INSERT INTO `user_info` (`user_id`, `firstname`, `lastname`) VALUES (:user_id, :firstname, :lastname)", $attributes_info);
 
             $subject = "Confirm your account at Matcha";
             $message = "In order to confirm your account, please click this link: \n\nhttp://localhost:8080/Matcha/utils/confirm_account.php?id=$user_id&token=$token";

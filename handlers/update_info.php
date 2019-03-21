@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         else
             $req = $db->prepare("INSERT INTO `user_info` 
             (`user_id`, `gender`, `orientation`, `bio`) VALUES (:user_id, :gender, :orientation, :bio)", $attributes);
-        echo alert_bootstrap("success", "<b>Your infos has been <b>successfully updated</b>!", "text-align: center;");
+        echo alert_bootstrap("success", "Your infos has been <b>successfully updated</b>!", "text-align: center;");
     }
     else
         alert_bootstrap("warning" , "A <b>field</b> is empty", "text-align: center;");

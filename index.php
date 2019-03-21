@@ -29,6 +29,34 @@ require_once("includes/header.php");
         <div class="container col-8 p-2 mt-3 mb-3">
             <form id="register" name="register" @submit.prevent="processForm" class="register-form col-10 offset-1 my-2 my-lg-0" method="post">
                 <div class="form-group">
+                    <label for="firstname" class="lab">Username</label>
+                    <input type="text"
+                           name="firstname"
+                           placeholder="John"
+                           id="firstname"
+                           class="form-control"
+                           maxlength="16"
+                           v-model="firstname"
+                           :style="{ borderColor: borderColor.firstname }"
+                           @blur="validateFirstname"
+                           required>
+                    <span v-if="errors.firstname">First name must contain between 2 and 16 characters</span>
+                </div>
+                <div class="form-group">
+                    <label for="lastname" class="lab">Username</label>
+                    <input type="text"
+                           name="lastname"
+                           placeholder="Doe"
+                           id="lastname"
+                           class="form-control"
+                           maxlength="16"
+                           v-model="lastname"
+                           :style="{ borderColor: borderColor.lastname }"
+                           @blur="validateLastname"
+                           required>
+                    <span v-if="errors.lastname">Last name must contain between 2 and 16 characters</span>
+                </div>
+                <div class="form-group">
                     <label for="username" class="lab">Username</label>
                     <input type="text"
                            name="username"

@@ -1,6 +1,8 @@
 let register = new Vue({
     el: '#register',
     data: {
+        firstname: '',
+        lastname: '',
         username: '',
         email: '',
         password: '',
@@ -12,6 +14,8 @@ let register = new Vue({
             password2: ''
         },
         errors: {
+            firstname: false,
+            lastname: false,
             username: false,
             email: false,
             password: false,
@@ -36,6 +40,7 @@ let register = new Vue({
                         'Content-Type': 'application/json' //sent
                     },
                     body: JSON.stringify({
+                        firstname: this.firstname, lastname: this.lastname,
                         username: this.username, email: this.email,
                         password: this.password, password2: this.password2
                     })
@@ -45,8 +50,26 @@ let register = new Vue({
                     .catch((error) => console.log(error))
             }
         },
+        validateFirstname: function () {
+            const isValid = isValidLength(this.firstname, 2, 16);
+            if (isValid)
+                this.borderColor.firstname = "#56c93f";
+            else
+                this.borderColor.firstname = "#FF0000";
+
+            this.errors.firstname = !isValid;
+        },
+        validateLastname: function () {
+            const isValid = isValidLength(this.lastname, 2, 16);
+            if (isValid)
+                this.borderColor.lastname = "#56c93f";
+            else
+                this.borderColor.lastname = "#FF0000";
+
+            this.errors.lastname = !isValid;
+        },
         validateUsername: function () {
-            const isValid = isValidUsername(this.username);
+            const isValid = isValidLength(this.username, 4, 30);
             if (isValid)
                 this.borderColor.username = "#56c93f";
             else
@@ -84,8 +107,8 @@ let register = new Vue({
 });
 
 
-function isValidUsername(username) {
-    if (username.length < 4 || username.length > 30)
+function isValidLength(string, min, max) {
+    if (string.length < min || string.length > max)
         return false;
     return true;
 }

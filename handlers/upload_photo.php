@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['picture']) && !empty
     $valid_extensions = array('jpg', 'jpeg', 'png');
     $extension_upload = strtolower(substr(strrchr($_FILES['picture']['name'],'.'),1));
     if (!in_array($extension_upload, $valid_extensions)) {
-        echo alert_bootstrap("danger", "<b>Error:</b> File extension is not valid! <b>(Extension authorized: jpg, jpeg, gif, png)</b>", "text-align: center;");
+        echo alert_bootstrap("danger", "<b>Error:</b> File extension is not valid! <b>(Extension authorized: jpg, jpeg, png)</b>", "text-align: center;");
         return ;
     }
 
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['picture']) && !empty
         $req = $db->prepare("UPDATE `user_photo` SET $photo = :path WHERE `user_id` = :user_id", $attributes);
     else
         $req = $db->prepare("INSERT INTO `user_photo` (`user_id`, $photo) VALUE (:user_id, :path)", $attributes);
-    echo alert_bootstrap("success", "<b>Your photo has been <b>successfully updated</b>!", "text-align: center;");
+    echo alert_bootstrap("success", "Your photo has been <b>successfully updated</b>!", "text-align: center;");
 }
 else
     alert_bootstrap("danger" , "Not a <b>post</b> request or <b>wrong data</b> sent.", "text-align: center;");
