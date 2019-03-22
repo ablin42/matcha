@@ -20,6 +20,8 @@
 <body>
 <?php
 require_once("includes/header.php");
+if (isset($_GET['e']))
+    redirection_handler($_GET['e']);
 ?>
 
 <div class="container mt-5 small-page-wrapper">
@@ -29,7 +31,7 @@ require_once("includes/header.php");
         <div class="container col-8 p-2 mt-3 mb-3">
             <form id="register" name="register" @submit.prevent="processForm" class="register-form col-10 offset-1 my-2 my-lg-0" method="post">
                 <div class="form-group">
-                    <label for="firstname" class="lab">Username</label>
+                    <label for="firstname" class="lab">First Name</label>
                     <input type="text"
                            name="firstname"
                            placeholder="John"
@@ -43,7 +45,7 @@ require_once("includes/header.php");
                     <span v-if="errors.firstname">First name must contain between 2 and 16 characters</span>
                 </div>
                 <div class="form-group">
-                    <label for="lastname" class="lab">Username</label>
+                    <label for="lastname" class="lab">Last Name</label>
                     <input type="text"
                            name="lastname"
                            placeholder="Doe"

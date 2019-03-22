@@ -1,3 +1,7 @@
+var imported = document.createElement('script');
+imported.src = 'js/functions.js';
+document.head.appendChild(imported);
+
 let resetpwd = new Vue({
     el: '#resetpwd',
     data: {
@@ -59,9 +63,3 @@ let resetpwd = new Vue({
         }
     }
 });
-
-function isValidPassword(password) {
-    if (password.length > 30 || !/^(((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(.{8,})/.test(password))
-        return false;
-    return true;
-}

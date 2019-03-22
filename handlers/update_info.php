@@ -27,16 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo alert_bootstrap("danger", "Error: User not found. Please try again. If the error persist try disconnecting and reconnecting", "text-align: center;");
             return;
         }
-        $req = $db->prepare("SELECT * FROM `user_info` WHERE `user_id` = :user_id", $attributes);
         $attributes['gender'] = $gender;
         $attributes['orientation'] = $orientation;
         $attributes['bio'] = $bio;
-        if ($req)
-            $req = $db->prepare("UPDATE `user_info` SET 
-            `gender` = :gender, `orientation` = :orientation, `bio` = :bio WHERE `user_id`=:user_id", $attributes);
-        else
-            $req = $db->prepare("INSERT INTO `user_info` 
-            (`user_id`, `gender`, `orientation`, `bio`) VALUES (:user_id, :gender, :orientation, :bio)", $attributes);
+        $req = $db->prepare("UPDATE `user_info` SET 
+                             `gender` = :gender, `orientation` = :orientation, `bio` = :bio WHERE `user_id`=:user_id", $attributes);
         echo alert_bootstrap("success", "Your infos has been <b>successfully updated</b>!", "text-align: center;");
     }
     else

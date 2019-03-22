@@ -1,3 +1,7 @@
+var imported = document.createElement('script');
+imported.src = 'js/functions.js';
+document.head.appendChild(imported);
+
 let lostpw = new Vue({
     el: '#lostpw',
     data: {
@@ -44,10 +48,3 @@ let lostpw = new Vue({
         }
     }
 });
-
-function isValidEmail(email) {
-    if (email.length !== 0 && (email.length < 3 || email.length > 255) ||
-        !(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)))
-        return false;
-    return true;
-}

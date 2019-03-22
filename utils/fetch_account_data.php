@@ -13,6 +13,8 @@ if ($req) {
         $gender = $item->gender;
         $orientation = $item->orientation;
         $bio = $item->bio;
+        $firstname = $item->firstname;
+        $lastname = $item->lastname;
     }
 }
 
@@ -36,3 +38,10 @@ if ($req) {
     }
 }
 
+$req = $db->prepare("SELECT * FROM `user` WHERE `id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
+if ($req) {
+    foreach ($req as $item) {
+        $username = $item->username;
+        $email = $item->email;
+    }
+}

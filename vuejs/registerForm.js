@@ -1,3 +1,7 @@
+var imported = document.createElement('script');
+imported.src = 'js/functions.js';
+document.head.appendChild(imported);
+
 let register = new Vue({
     el: '#register',
     data: {
@@ -8,6 +12,8 @@ let register = new Vue({
         password: '',
         password2: '',
         borderColor: {
+            firstname: '',
+            lastname: '',
             username: '',
             email: '',
             password: '',
@@ -25,7 +31,8 @@ let register = new Vue({
     methods: {
         processForm: function () {
             if (this.errors.username === true || this.errors.email === true ||
-                this.errors.password === true || this.errors.password2 === true) {
+                this.errors.password === true || this.errors.password2 === true ||
+                this.errors.firstname === true || this.errors.lastname === true) {
                 addAlert('<div id="alert" class="alert alert-warning" style="text-align: center;" role="alert"><b>Error:</b> Please fill in the fields properly.\n' +
                     '            <button type="button" class="close" onclick="dismissAlert(this)" data-dismiss="alert" aria-label="Close">\n' +
                     '                <span aria-hidden="true">×</span>\n' +
@@ -105,23 +112,3 @@ let register = new Vue({
         }
     }
 });
-
-
-function isValidLength(string, min, max) {
-    if (string.length < min || string.length > max)
-        return false;
-    return true;
-}
-
-function isValidEmail(email) {
-    if (email.length !== 0 && (email.length < 3 || email.length > 255) ||
-        !(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)))
-        return false;
-    return true;
-}
-
-function isValidPassword(password) {
-    if (password.length > 30 || !/^(((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(.{8,})/.test(password))
-        return false;
-    return true;
-}

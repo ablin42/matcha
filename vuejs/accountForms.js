@@ -1,3 +1,7 @@
+var imported = document.createElement('script');
+imported.src = 'js/functions.js';
+document.head.appendChild(imported);
+
 let account = new Vue({
     el: '#infos',
     data: {
@@ -147,6 +151,177 @@ let tags = new Vue({
                 .then((res) => res.text())
                 .then((data) => addAlert(data, document.getElementById("header")))
                 .catch((error) => console.log(error))
+        }
+    }
+});
+
+let acc = new Vue({
+    el: '#account',
+    data: {
+        firstname: '',
+        lastname: '',
+        username: '',
+        email: '',
+        currFirstname: '',
+        currLastname: '',
+        currUsername: '',
+        currEmail: '',
+        borderColor: {
+            firstname: '',
+            lastname: '',
+            username: '',
+            email: '',
+            password: '',
+            password2: ''
+        },
+        errors: {
+            firstname: false,
+            lastname: false,
+            username: false,
+            email: false,
+
+        }
+    },
+    methods: {
+        processForm: function () {
+            if (this.errors.username === true || this.errors.email === true ||
+                this.errors.firstname === true || this.errors.lastname === true) {
+                addAlert('<div id="alert" class="alert alert-warning" style="text-align: center;" role="alert"><b>Error:</b> Please fill in the fields properly.\n' +
+                    '            <button type="button" class="close" onclick="dismissAlert(this)" data-dismiss="alert" aria-label="Close">\n' +
+                    '                <span aria-hidden="true">×</span>\n' +
+                    '            </button>\n' +
+                    '            </div>', document.getElementById("header"))
+            }
+            else {
+                fetch('handlers/update_account.php', {
+                    method: 'post',
+                    mode: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json' //sent
+                    },
+                    body: JSON.stringify({
+                        firstname: this.firstname, lastname: this.lastname,
+                        username: this.username, email: this.email,
+                    })
+                })
+                    .then((res) => res.text())
+                    .then((data) => addAlert(data, document.getElementById("header")))
+                    .catch((error) => console.log(error))
+            }
+        },
+        validateFirstname: function () {
+            const isValid = isValidLength(this.firstname, 2, 16);
+            if (isValid)
+                this.borderColor.firstname = "#56c93f";
+            else
+                this.borderColor.firstname = "#FF0000";
+
+            this.errors.firstname = !isValid;
+        },
+        validateLastname: function () {
+            const isValid = isValidLength(this.lastname, 2, 16);
+            if (isValid)
+                this.borderColor.lastname = "#56c93f";
+            else
+                this.borderColor.lastname = "#FF0000";
+
+            this.errors.lastname = !isValid;
+        },
+        validateUsername: function () {
+            const isValid = isValidLength(this.username, 4, 30);
+            if (isValid)
+                this.borderColor.username = "#56c93f";
+            else
+                this.borderColor.username = "#FF0000";
+
+            this.errors.username = !isValid;
+        },
+        validateEmail: function () {
+            const isValid = isValidEmail(this.email);
+            if (isValid)
+                this.borderColor.email = "#56c93f";
+            else
+                this.borderColor.email = "#FF0000";
+            this.errors.email = !isValid;
+        },
+        assignFirstname: function (firstname) {
+            this.currFirstname = firstname;
+        },
+        assignLastname: function (lastname) {
+            this.currLastname = lastname;
+        },
+        assignUsername: function (username) {
+            this.currUsername = username;
+        },
+        assignEmail: function (email) {
+            this.currEmail = email;
+        }
+    },
+    mounted(){
+    this.firstname = this.currFirstname;
+    this.lastname = this.currLastname;
+    this.username = this.currUsername;
+    this.email = this.currEmail;
+}
+});
+
+let register = new Vue({
+    el: '#security',
+    data: {
+        password: '',
+        password2: '',
+        currpw: '',
+        borderColor: {
+            password: '',
+            password2: ''
+        },
+        errors: {
+            password: false,
+            password2: false
+        }
+    },
+    methods: {
+        processForm: function () {
+            if (this.errors.password === true || this.errors.password2 === true) {
+                addAlert('<div id="alert" class="alert alert-warning" style="text-align: center;" role="alert"><b>Error:</b> Please fill in the fields properly.\n' +
+                    '            <button type="button" class="close" onclick="dismissAlert(this)" data-dismiss="alert" aria-label="Close">\n' +
+                    '                <span aria-hidden="true">×</span>\n' +
+                    '            </button>\n' +
+                    '            </div>', document.getElementById("header"))
+            }
+            else {
+                fetch('handlers/update_password.php', {
+                    method: 'post',
+                    mode: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json' //sent
+                    },
+                    body: JSON.stringify({
+                        currpw: this.currpw, password: this.password, password2: this.password2
+                    })
+                })
+                    .then((res) => res.text())
+                    .then((data) => addAlert(data, document.getElementById("header")))
+                    .catch((error) => console.log(error))
+            }
+        },
+        validatePassword: function () {
+            const isValid = isValidPassword(this.password);
+            if (isValid)
+                this.borderColor.password = "#56c93f";
+            else
+                this.borderColor.password = "#FF0000";
+            this.errors.password = !isValid;
+        },
+        validatePassword2: function () {
+            if (this.password2 !== this.password) {
+                this.errors.password2 = true;
+                this.borderColor.password2 = "#FF0000";
+            }
+            else {
+                this.errors.password2 = false;
+                this.borderColor.password2 = "#56c93f";
+            }
         }
     }
 });

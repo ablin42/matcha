@@ -37,9 +37,9 @@ require_once("utils/fetch_account_data.php");
         <div class="gallery-wrapper">
         <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
             <form id="infos" name="infos" @submit.prevent="processForm" class="my-2 my-lg-0" method="post">
-                {{ assignGender("<?= $gender ?>") }}
-                {{ assignOrientation("<?= $orientation ?>") }}
-                {{ assignBio("<?= $bio ?>") }}
+                {{ assignGender(<?= json_encode($gender) ?>) }}
+                {{ assignOrientation(<?= json_encode($orientation) ?>) }}
+                {{ assignBio(<?= json_encode($bio) ?>) }}
                 <div class="form-group">
                     <label for="gender" class="lab">Gender</label>
                     <select v-model="selectedGender" required>
@@ -80,29 +80,157 @@ require_once("utils/fetch_account_data.php");
             </form>
 
             <div id="photos">
-                <photo-upload v-bind:db-path='<?= $photos[0] ?>' v-bind:id-component="1"></photo-upload>
-                <photo-upload v-bind:db-path='<?= $photos[1] ?>' v-bind:id-component="2"></photo-upload>
-                <photo-upload v-bind:db-path='<?= $photos[2] ?>' v-bind:id-component="3"></photo-upload>
-                <photo-upload v-bind:db-path='<?= $photos[3] ?>' v-bind:id-component="4"></photo-upload>
-                <photo-upload v-bind:db-path='<?= $photos[4] ?>' v-bind:id-component="5"></photo-upload>
+                <photo-upload <?php if ($photos[0]) echo "v-bind:db-path=' $photos[0] '";?> v-bind:id-component="1"></photo-upload>
+                <photo-upload <?php if ($photos[1]) echo "v-bind:db-path=' $photos[1] '";?> v-bind:id-component="2"></photo-upload>
+                <photo-upload <?php if ($photos[2]) echo "v-bind:db-path=' $photos[2] '";?> v-bind:id-component="3"></photo-upload>
+                <photo-upload <?php if ($photos[3]) echo "v-bind:db-path=' $photos[3] '";?> v-bind:id-component="4"></photo-upload>
+                <photo-upload <?php if ($photos[4]) echo "v-bind:db-path=' $photos[4] '";?> v-bind:id-component="5"></photo-upload>
             </div>
         </div>
+        </div>
+
+        <hr />
+        <h1>account settings</h1>
+        <div class="gallery-wrapper">
+            <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
+                <form id="account" name="account" @submit.prevent="processForm" class="my-2 my-lg-0" method="post">
+                    {{ assignFirstname("<?= $firstname ?>") }}
+                    {{ assignLastname("<?= $lastname ?>") }}
+                    {{ assignUsername("<?= $username ?>") }}
+                    {{ assignEmail("<?= $email ?>") }}
+                    <div class="form-group">
+                        <label for="firstname" class="lab">First Name</label>
+                        <input type="text"
+                               name="firstname"
+                               placeholder="John"
+                               id="firstname"
+                               class="form-control"
+                               maxlength="16"
+                               v-model="firstname"
+                               :style="{ borderColor: borderColor.firstname }"
+                               @blur="validateFirstname"
+                               required>
+                        <span v-if="errors.firstname">First name must contain between 2 and 16 characters</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="lab">Last Name</label>
+                        <input type="text"
+                               name="lastname"
+                               placeholder="Doe"
+                               id="lastname"
+                               class="form-control"
+                               maxlength="16"
+                               v-model="lastname"
+                               :style="{ borderColor: borderColor.lastname }"
+                               @blur="validateLastname"
+                               required>
+                        <span v-if="errors.lastname">Last name must contain between 2 and 16 characters</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="username" class="lab">Username</label>
+                        <input type="text"
+                               name="username"
+                               placeholder="ablin42"
+                               id="username"
+                               class="form-control"
+                               maxlength="30"
+                               v-model="username"
+                               :style="{ borderColor: borderColor.username }"
+                               @blur="validateUsername"
+                               required>
+                        <span v-if="errors.username">Username must contain between 4 and 30 characters</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="lab">E-mail</label>
+                        <input type="email"
+                               name="email"
+                               placeholder="ablin42@byom.de"
+                               id="email" class="form-control"
+                               maxlength="255"
+                               v-model="email"
+                               :style="{ borderColor: borderColor.email }"
+                               @blur="validateEmail"
+                               required>
+                        <span v-if="errors.email">E-mail has to be valid</span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="submit_account" class="btn btn-outline-warning btn-sign-in">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <hr />
+        <h1>security</h1>
+        <div class="gallery-wrapper">
+            <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
+                <form id="security" name="security" @submit.prevent="processForm" class="my-2 my-lg-0" method="post">
+                    <div class="form-group">
+                        <label for="currpw" class="lab">Current password</label>
+                        <input type="password"
+                               name="currpw"
+                               placeholder="********"
+                               id="currpw"
+                               class="form-control"
+                               maxlength="30"
+                               v-model="currpw"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="lab">New password</label>
+                        <input type="password"
+                               name="password"
+                               placeholder="********"
+                               id="password"
+                               class="form-control"
+                               maxlength="30"
+                               v-model="password"
+                               :style="{ borderColor: borderColor.password }"
+                               @blur="validatePassword"
+                               required>
+                        <span v-if="errors.password">Password must contain between 8 and 30 characters and has to be atleast alphanumeric</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password2" class="lab">Confirm your new password</label>
+                        <input type="password"
+                               name="password2"
+                               placeholder="********"
+                               id="password2"
+                               class="form-control"
+                               maxlength="30"
+                               v-model="password2"
+                               :style="{ borderColor: borderColor.password2 }"
+                               @blur="validatePassword2"
+                               required>
+                        <span v-if="errors.password2">Password has to be the same as the one you just entered</span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="submit_account" class="btn btn-outline-warning btn-sign-in">Change password</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
 
-<?php require_once("includes/footer.php");?>
-<script>
-    $(document).ready(function(){
-        let tags = <?= $tags ?>,
-            tagInput = $('#tags');
+<?php
+require_once("includes/footer.php");
+if ($tags)
+{
+    echo "<script>
+          $(document).ready(function(){
 
-        tagInput.tagsinput('add', "");
-        for (i = 0; i < tags.length; i++)
+          let tags = $tags,
+          tagInput = $('#tagInput');
+
+          tagInput.tagsinput('add', \"\");
+          for (i = 0; i < tags.length; i++)
             tagInput.tagsinput('add', tags[i]);
     });
-</script>
+</script>";
+}
+?>
 <script src="vuejs/accountForms.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>

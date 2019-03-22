@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  mer. 20 mars 2019 à 14:59
+-- Généré le :  ven. 22 mars 2019 à 13:31
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.1.22
 
@@ -43,10 +43,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `mail_token`, `confirmed_token`, `password_token`) VALUES
-(1, 'harbinger', '410c6628072476812f42e4414553bae859ab984667f5250883143ff5380bf8a14552bef191998368eeef1b35e1bb52f05d47301a65c0f620def1d2dd7b6c4de7', 'Space6fic@gmail.com', 'ovukh3jkacs6van2ui5fpy1irc8yhrnns09x7t0rpbrotjdgejzo248sc0wb9ku903q13mazha5dim7vmagocprsuc4c8f9nrjzjhdzla18yhjkipl9e2xo6j1ryiash', NULL, ''),
-(4, 'harbinger42', '03b2fa83d9c2ee02117b4b8f487fa290531ebe08730d9756212d77f3a895db085eb661adb55a7caeb8d46bd28928fd6e07d1ae4acff31f3c0d8f4711bc9594d1', 'ablin42@byom.de', 'NULL', '2019-02-28 21:59:02', NULL),
-(5, 'harbinger43', '410c6628072476812f42e4414553bae859ab984667f5250883143ff5380bf8a14552bef191998368eeef1b35e1bb52f05d47301a65c0f620def1d2dd7b6c4de7', 'ablin43@byom.de', 'NULL', '2019-02-28 22:03:42', ''),
-(6, 'gigatest', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'gigatest@byom.de', 'NULL', '2019-03-19 21:33:22', NULL);
+(1, 'harbinger', '410c6628072476812f42e4414553bae859ab984667f5250883143ff5380bf8a14552bef191998368eeef1b35e1bb52f05d47301a65c0f620def1d2dd7b6c4de7', 'Space6fic@gmail.com', 'ovukh3jkacs6van2ui5fpy1irc8yhrnns09x7t0rpbrotjdgejzo248sc0wb9ku903q13mazha5dim7vmagocprsuc4c8f9nrjzjhdzla18yhjkipl9e2xo6j1ryiash', NULL, NULL),
+(4, 'harbinger42', '03b2fa83d9c2ee02117b4b8f487fa290531ebe08730d9756212d77f3a895db085eb661adb55a7caeb8d46bd28928fd6e07d1ae4acff31f3c0d8f4711bc9594d1', 'ablin42@byom.de', NULL, '2019-02-28 21:59:02', NULL),
+(5, 'harbinger43', '410c6628072476812f42e4414553bae859ab984667f5250883143ff5380bf8a14552bef191998368eeef1b35e1bb52f05d47301a65c0f620def1d2dd7b6c4de7', 'ablin43@byom.de', NULL, '2019-02-28 22:03:42', NULL),
+(6, 'gigatest', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'gigatest@byom.de', NULL, '2019-03-19 21:33:22', NULL),
+(7, 'JohnTikDoe', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'johndoe@byom.de', 'NULL', '2019-03-22 20:02:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -57,18 +58,22 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`, `mail_token`, `confir
 CREATE TABLE `user_info` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `bio` varchar(512) NOT NULL,
-  `gender` varchar(128) NOT NULL,
-  `orientation` varchar(128) NOT NULL
+  `firstname` varchar(64) NOT NULL,
+  `lastname` varchar(64) NOT NULL,
+  `age` date DEFAULT NULL,
+  `bio` varchar(512) DEFAULT NULL,
+  `gender` varchar(128) DEFAULT NULL,
+  `orientation` varchar(128) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user_info`
 --
 
-INSERT INTO `user_info` (`id`, `user_id`, `bio`, `gender`, `orientation`) VALUES
-(8, 4, 'extremely inclusived', 'Androgynous', 'Pansexual'),
-(9, 6, 'crevasse', 'Androgyne', 'Bisexual');
+INSERT INTO `user_info` (`id`, `user_id`, `firstname`, `lastname`, `age`, `bio`, `gender`, `orientation`) VALUES
+(8, 4, 'Andreas', 'Doge', NULL, 'extremely inclusived', 'Androgynous', 'Pansexual'),
+(9, 6, 'Antonio', 'Kiwyz', NULL, 'crevasse', 'Androgynous', 'Bisexual'),
+(10, 7, 'Johnny', 'TikTokDoe', NULL, 'autiste\n\nautodiag\n\ndas', 'Bigender', 'Bicurious');
 
 -- --------------------------------------------------------
 
@@ -113,7 +118,11 @@ CREATE TABLE `user_tags` (
 INSERT INTO `user_tags` (`id`, `user_id`, `tag`) VALUES
 (3, 6, 'okay'),
 (4, 6, 'whynot'),
-(5, 6, 'aya');
+(5, 6, 'aya'),
+(11, 7, 'vegan'),
+(12, 7, 'antispeciste'),
+(13, 7, 'feministe'),
+(14, 7, 'autodiag');
 
 --
 -- Index pour les tables déchargées
@@ -153,13 +162,13 @@ ALTER TABLE `user_tags`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `user_info`
 --
 ALTER TABLE `user_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `user_photo`
@@ -171,7 +180,7 @@ ALTER TABLE `user_photo`
 -- AUTO_INCREMENT pour la table `user_tags`
 --
 ALTER TABLE `user_tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
