@@ -1,4 +1,4 @@
-body {background-color: #0e0e0e;/*#070708;#1e2125;*/}
+body {background-color: #0e0e0e;}
 
 html {min-width: 450px; min-height: 250px;}
 
@@ -30,6 +30,17 @@ html {min-width: 450px; min-height: 250px;}
     content: "x";
     padding: 0 2px;
 }
+
+.profile_main{
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.profile_secondary{
+    max-width: 175px;
+    max-height: 175px;
+}
+
 @media (max-width: 875px)
 {
     .wrapper {width: 100%; max-width: 100%!important; margin-left: 0; margin-right: 0;}
@@ -38,6 +49,8 @@ html {min-width: 450px; min-height: 250px;}
     .register-form-wrapper {width: 100%!important; max-width: 100%!important; margin-left: 0;}
     .register-form {width: 100%!important; max-width: 100%!important; margin-left: 0;}
 }
+
+/*//////////////////////////////////////BELOW IS CODE FROM CAMAGRU///////////////////////////////////////////*/
 
 .navbar
 {

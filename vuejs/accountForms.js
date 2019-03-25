@@ -60,7 +60,7 @@ let account = new Vue({
 });
 
 Vue.component("photo-upload",{
-    props: {idComponent: Number, dbPath: String},
+    props: {idComponent: Number, dbPath: String, btn: String},
     data: function(){
         return {
             name: "component_photo_name_" + this.idComponent,
@@ -72,10 +72,10 @@ Vue.component("photo-upload",{
     },
    template: '<form @submit.prevent="processForm" name="upload" action="" method="post" enctype="multipart/form-data" class="text-center">\n' +
        '        <div class="form-group">\n' +
-       '            <label v-if="!path" v-bind:for="id" class="lab file-lab">Photo {{ idComponent }}</label>\n' +
+       '            <label v-if="!path" v-bind:for="id" class="lab file-lab">{{ btn }}</label>\n' +
        '            <input v-if="!path" type="file" v-bind:name="name" v-bind:id="id" class="inputfile" @change="onFileUpload">\n' +
        '        </div>\n' +
-       '<img @click="removePhoto" v-if="path" :src=path style="max-width: 250px; max-height: 250px;"/>\n'+
+       '<img @click="removePhoto" v-if="path" :src=path style="max-width: 250px; max-height: 250px;" :alt="name"/>\n'+
        '<a v-if="dbPath" @click.prevent="deletePhoto" href=""><i class="fas fa-trash rmv-img"></i></a>\n'+
        '        <div v-if="selectedFile" class="form-group">\n' +
        '            <button type="submit" name="submit" id="submit" class="btn btn-outline-warning btn-sign-in">Upload</button>\n' +

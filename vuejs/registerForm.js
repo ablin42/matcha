@@ -7,6 +7,7 @@ let register = new Vue({
     data: {
         firstname: '',
         lastname: '',
+        birthYear: '',
         username: '',
         email: '',
         password: '',
@@ -14,6 +15,7 @@ let register = new Vue({
         borderColor: {
             firstname: '',
             lastname: '',
+            birthYear: '',
             username: '',
             email: '',
             password: '',
@@ -22,6 +24,7 @@ let register = new Vue({
         errors: {
             firstname: false,
             lastname: false,
+            birthYear: false,
             username: false,
             email: false,
             password: false,
@@ -32,7 +35,7 @@ let register = new Vue({
         processForm: function () {
             if (this.errors.username === true || this.errors.email === true ||
                 this.errors.password === true || this.errors.password2 === true ||
-                this.errors.firstname === true || this.errors.lastname === true) {
+                this.errors.firstname === true || this.errors.lastname === true || this.errors.birth_year === true) {
                 addAlert('<div id="alert" class="alert alert-warning" style="text-align: center;" role="alert"><b>Error:</b> Please fill in the fields properly.\n' +
                     '            <button type="button" class="close" onclick="dismissAlert(this)" data-dismiss="alert" aria-label="Close">\n' +
                     '                <span aria-hidden="true">×</span>\n' +
@@ -47,7 +50,7 @@ let register = new Vue({
                         'Content-Type': 'application/json' //sent
                     },
                     body: JSON.stringify({
-                        firstname: this.firstname, lastname: this.lastname,
+                        firstname: this.firstname, lastname: this.lastname, birth_year: this.birthYear,
                         username: this.username, email: this.email,
                         password: this.password, password2: this.password2
                     })
@@ -74,6 +77,18 @@ let register = new Vue({
                 this.borderColor.lastname = "#FF0000";
 
             this.errors.lastname = !isValid;
+        },
+        validateBirthYear: function () {
+            const isValid = isValidLength(this.birthYear.toString(), 4, 4);
+            if (isValid && this.birthYear >= 1940 && this.birthYear <= 2001)
+                this.borderColor.birthYear = "#56c93f";
+            else
+                this.borderColor.birth_year = "#FF0000";
+
+            if (this.birth_year < 1940 || this.birthYear > 2001)
+                this.errors.birthYear = true;
+            else
+                this.errors.birthYear = false;
         },
         validateUsername: function () {
             const isValid = isValidLength(this.username, 4, 30);

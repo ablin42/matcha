@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo alert_bootstrap("warning" , "The <b>e-mail</b> you entered is already taken, <b>please pick another one.</b>", "text-align: center;");
             return ;
         }
-        else if ($req && $req[0]->id == $user_id) { echo "ww";
+        else if ($req && $req[0]->id == $user_id) {
             $attributes2['user_id'] = $user_id;
             $attributes2['username'] = $username;
             $req = $db->prepare("UPDATE `user` SET `username` = :username WHERE `id` = :user_id", $attributes2);

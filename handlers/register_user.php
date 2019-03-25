@@ -15,9 +15,10 @@ $db = database::getInstance('matcha');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'));
-    if (!empty($data->{'firstname'}) && !empty($data->{'lastname'}) && !empty($data->{'username'}) && !empty($data->{'email'}) && !empty($data->{'password'}) && !empty($data->{'password2'})) {
+    if (!empty($data->{'firstname'}) && !empty($data->{'lastname'}) && !empty($data->{'birth_year'}) && !empty($data->{'username'}) && !empty($data->{'email'}) && !empty($data->{'password'}) && !empty($data->{'password2'})) {
         $firstname = secure_input($data->{'firstname'});
         $lastname = secure_input($data->{'lastname'});
+        $birth_year = (int)secure_input($data->{'birth_year'});
         $username = secure_input($data->{'username'});
         $email = secure_input($data->{'email'});
         $password = $data->{'password'};
@@ -35,6 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             if (!check_length($lastname, 2, 16)) {
                 echo alert_bootstrap("warning", "Your <b>lastname</b> has to be 2 characters minimum and 16 characters maximum!", "text-align: center;");
+                return ;
+            }
+            if ($birth_year < 1940 || $birth_year > 2001) {
+                echo alert_bootstrap("warning", "Your <b>birth year</b> must be in the range <b>1940-2001</b>", "text-align: center;");
                 return ;
             }
             if (!check_length($username, 4, 30)) {
@@ -77,7 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $attributes_info['user_id'] = $user_id;
             $attributes_info['firstname'] = $firstname;
             $attributes_info['lastname'] = $lastname;
-            $db->prepare("INSERT INTO `user_info` (`user_id`, `firstname`, `lastname`) VALUES (:user_id, :firstname, :lastname)", $attributes_info);
+            $attributes_info['birth'] = $birth_year;
+            $db->prepare("INSERT INTO `user_info` (`user_id`, `firstname`, `lastname`, `birth_year`) VALUES (:user_id, :firstname, :lastname, :birth)", $attributes_info);
 
             $subject = "Confirm your account at Matcha";
             $message = "In order to confirm your account, please click this link: \n\nhttp://localhost:8080/Matcha/utils/confirm_account.php?id=$user_id&token=$token";

@@ -59,6 +59,20 @@ if (isset($_GET['e']))
                     <span v-if="errors.lastname">Last name must contain between 2 and 16 characters</span>
                 </div>
                 <div class="form-group">
+                    <label for="age" class="lab">Birth year</label>
+                    <input type="number"
+                           name="birthyear"
+                           placeholder="1984"
+                           id="birthyear"
+                           class="form-control"
+                           maxlength="4"
+                           v-model.number="birthYear"
+                           :style="{ borderColor: borderColor.age }"
+                           @blur="validateBirthYear"
+                           required>
+                    <span v-if="errors.birthYear">Your birth year must be in the range 1940-2001</span>
+                </div>
+                <div class="form-group">
                     <label for="username" class="lab">Username</label>
                     <input type="text"
                            name="username"
@@ -120,7 +134,7 @@ if (isset($_GET['e']))
         </div>
     </div>
     <div class="col-12 p-3 mt-5">
-        <h5>Already have an account? You can log in <a href="/Matcha/login">here</a> or ar the top right corner of the page</h5>
+        <h5>Already have an account? You can log in <a href="/Matcha/login">here</a></h5>
     </div>
 </div>
 

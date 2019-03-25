@@ -80,11 +80,11 @@ require_once("utils/fetch_account_data.php");
             </form>
 
             <div id="photos">
-                <photo-upload <?php if ($photos[0]) echo "v-bind:db-path=' $photos[0] '";?> v-bind:id-component="1"></photo-upload>
-                <photo-upload <?php if ($photos[1]) echo "v-bind:db-path=' $photos[1] '";?> v-bind:id-component="2"></photo-upload>
-                <photo-upload <?php if ($photos[2]) echo "v-bind:db-path=' $photos[2] '";?> v-bind:id-component="3"></photo-upload>
-                <photo-upload <?php if ($photos[3]) echo "v-bind:db-path=' $photos[3] '";?> v-bind:id-component="4"></photo-upload>
-                <photo-upload <?php if ($photos[4]) echo "v-bind:db-path=' $photos[4] '";?> v-bind:id-component="5"></photo-upload>
+                <photo-upload <?php if ($photos[0]) echo "v-bind:db-path=' $photos[0] '";?> v-bind:id-component="1" btn="Profile picture"></photo-upload>
+                <photo-upload <?php if ($photos[1]) echo "v-bind:db-path=' $photos[1] '";?> v-bind:id-component="2" btn="Photo 2"></photo-upload>
+                <photo-upload <?php if ($photos[2]) echo "v-bind:db-path=' $photos[2] '";?> v-bind:id-component="3" btn="Photo 3"></photo-upload>
+                <photo-upload <?php if ($photos[3]) echo "v-bind:db-path=' $photos[3] '";?> v-bind:id-component="4" btn="Photo 4"></photo-upload>
+                <photo-upload <?php if ($photos[4]) echo "v-bind:db-path=' $photos[4] '";?> v-bind:id-component="5" btn="Photo 5"></photo-upload>
             </div>
         </div>
         </div>
@@ -221,10 +221,20 @@ if ($tags)
     echo "<script>
           $(document).ready(function(){
 
-          let tags = $tags,
+          let tags =  $tags ,
           tagInput = $('#tagInput');
-
-          tagInput.tagsinput('add', \"\");
+          
+          tagInput.on('beforeItemRemove', function(event) {
+              let tag = event.item;
+              fetch('handlers/delete_tag.php', {
+                  method: 'post',
+                  mode: 'same-origin',
+                  body: JSON.stringify({tag: tag})
+              })
+                  .then((res) => res.text())
+                  .then((data) => addAlert(data, document.getElementById('header')))
+                  .catch((error) => console.log(error))
+          });
           for (i = 0; i < tags.length; i++)
             tagInput.tagsinput('add', tags[i]);
     });

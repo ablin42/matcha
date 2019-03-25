@@ -81,6 +81,9 @@ function redirection_handler($error)
         case "reg":
             echo alert_bootstrap("info", "You cannot create an account while you're <b>logged in!</b>", "text-align: center;");
             break;
+        case "pro":
+            echo alert_bootstrap("info", "This <b>user</b> does not exist!", "text-align: center;");
+            break;
         default:
             echo alert_bootstrap("danger", "ERROR!", "text-align: center;");
     }
