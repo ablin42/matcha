@@ -41,4 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else
             echo alert_bootstrap("warning", "This user does not exist!", "text-align: center;");
     }
+    else
+        echo alert_bootstrap("warning" , "A <b>field</b> is empty", "text-align: center;");
 }
+else
+    echo alert_bootstrap("danger" , "Not a <b>post</b> request.", "text-align: center;");

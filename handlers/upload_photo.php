@@ -73,4 +73,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['picture']) && !empty
     echo alert_bootstrap("success", "Your photo has been <b>successfully updated</b>!", "text-align: center;");
 }
 else
-    alert_bootstrap("danger" , "Not a <b>post</b> request or <b>wrong data</b> sent.", "text-align: center;");
+    echo alert_bootstrap("danger" , "Not a <b>post</b> request or <b>wrong data</b> sent.", "text-align: center;");

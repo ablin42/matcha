@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo alert_bootstrap("success", "Your tags has been <b>successfully updated</b>!", "text-align: center;");
     }
     else
-        alert_bootstrap("warning" , "A <b>field</b> is empty", "text-align: center;");
+        echo alert_bootstrap("warning" , "A <b>field</b> is empty", "text-align: center;");
 }
 else
-    alert_bootstrap("danger" , "Not a <b>post</b> request.", "text-align: center;");
+    echo alert_bootstrap("danger" , "Not a <b>post</b> request.", "text-align: center;");

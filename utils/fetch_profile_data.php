@@ -38,7 +38,6 @@ if (!empty($_GET['u'])) {
         foreach ($req as $item) {
             array_push($tags, $item->tag);
         }
-        $tags = json_encode($tags);
     }
 
     $req = $db->prepare("SELECT * FROM `user_photo` WHERE `user_id` = :user_id", array("user_id" => $id));
@@ -51,4 +50,11 @@ if (!empty($_GET['u'])) {
             }
         }
     }
+
+    $attributes['reporter'] = secure_input($_SESSION['id']);
+    $attributes['reported'] = $id;
+    $report = false;
+    $req = $db->prepare("SELECT * FROM `report` WHERE `reporter_id` = :reporter AND `reported_id` = :reported", $attributes);
+    if ($req)
+        $report = true;
 }

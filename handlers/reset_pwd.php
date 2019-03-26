@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             echo alert_bootstrap("danger", "<b>Error:</b> There is no active account linked to this e-mail!", "text-align:center;");
     }
     else
-        alert_bootstrap("warning" , "A <b>field</b> is empty", "text-align: center;");
+        echo alert_bootstrap("warning" , "A <b>field</b> is empty", "text-align: center;");
 }
 else
-    alert_bootstrap("danger" , "Not a <b>post</b> request.", "text-align: center;");
+    echo alert_bootstrap("danger" , "Not a <b>post</b> request.", "text-align: center;");

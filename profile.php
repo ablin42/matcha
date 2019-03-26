@@ -21,25 +21,53 @@
 <?php
 require_once("includes/header.php");
 require_once("utils/fetch_profile_data.php");
+if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
+    header('Location: /Matcha/?e=prolog');
+if ($id === $_SESSION['id'])
+    header('Location: /Matcha/account');//might show preview
 ?>
 
 <div class="container mt-5">
     <div class="wrapper col-12">
         <h1><?= $username ?></h1>
         <div class="col-12">
-            <img src="<?= $photos[0] ?>" alt="profile picture" class="profile_main" />
-            <img src="<?= $photos[1] ?>" alt="photo2" class="profile_secondary"/>
-            <img src="<?= $photos[2] ?>" alt="photo3" class="profile_secondary"/>
-            <img src="<?= $photos[3] ?>" alt="photo4" class="profile_secondary"/>
-            <img src="<?= $photos[4] ?>" alt="photo5" class="profile_secondary"/>
+            <?php
+                for ($i = 0; $i < 5; $i++) {
+                    if ($photos[0] != NULL && $i === 0)
+                        echo '<img src="'. $photos[$i] .'" alt="photo'.$i.'" class="profile_main"/>';
+                    else if ($photos[$i] != NULL)
+                        echo '<img src="'. $photos[$i] .'" alt="photo'.$i.'" class="profile_secondary"/>';
+                }
+            ?>
+
         </div>
         <div class="col-6">
-            <p></p>
+            <p><?= $firstname . " <b>" . $lastname . "</b>"?>, born in <b><?= $birth_year ?></b></p>
+            <p>Gender: <b><?= $gender ?></b></p>
+            <p>Sexual Orientation: <b><?= $orientation ?></b></p>
+            <div>
+                <h4 style="text-align: left;">Interested in:</h4>
+                <?php
+                    foreach ($tags as $tag) {
+                        echo "<div class='profile_tag'><p>" . $tag . "</p></div> ";
+                    }
+                ?>
+            </div>
+            <p>
+                <b><?= $firstname ?>'s bio:</b>
+                <?= $bio ?>
+            </p>
+        </div>
+        <div id="report-btn">
+            <?php if (!$report)
+                echo '<a v-if="!reported" href="#" @click.prevent="reportUser('. $id .')" class="report-btn">Report as fake user</a>';
+            ?>
         </div>
     </div>
 </div>
 
 <?php require_once("includes/footer.php");?>
+<script src="vuejs/profile.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>

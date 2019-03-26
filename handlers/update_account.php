@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     else
-        alert_bootstrap("warning" , "A <b>field</b> is empty", "text-align: center;");
+        echo alert_bootstrap("warning" , "A <b>field</b> is empty", "text-align: center;");
 }
 else
-    alert_bootstrap("danger" , "Not a <b>post</b> request.", "text-align: center;");
+    echo alert_bootstrap("danger" , "Not a <b>post</b> request.", "text-align: center;");
