@@ -22,6 +22,8 @@
 <body>
 <?php
 require_once("includes/header.php");
+if (isset($_SESSION['logged']) && $_SESSION['logged'] === 1)
+    header('Location: /Matcha/?e=log');
 ?>
 
 <div class="container mt-5 small-page-wrapper">
@@ -62,7 +64,7 @@ require_once("includes/header.php");
 </div>
 
 <?php require_once("includes/footer.php");?>
-<script src="vuejs/loginForm.js"></script>
+<script src="vuejs/login.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>

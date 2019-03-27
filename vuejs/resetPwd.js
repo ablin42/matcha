@@ -39,7 +39,13 @@ let resetpwd = new Vue({
                     })
                 })
                     .then((res) => res.text())
-                    .then((data) => addAlert(data, document.getElementById("header")))
+                    .then(function(data){
+                        addAlert(data, document.getElementById("header"));
+                        if (data.indexOf("Congratulations!") !== -1)
+                            setTimeout(function () {
+                                window.location.href = "/Matcha/Login";
+                            }, 1000);
+                    })
                     .catch((error) => console.log(error))
             }
         },

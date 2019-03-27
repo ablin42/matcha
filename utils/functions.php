@@ -15,12 +15,15 @@ function alert_bootstrap($type, $message, $style = "")
             </div>";
 }
 
-function has_liked($db, $id_img, $id_user)
+function has_voted($db, $voter, $voted, $vote)
 {
-    $req = $db->prepare("SELECT * FROM `vote` WHERE `id_img` = :id_img AND `id_user` = :id_user", array("id_img" => $id_img, "id_user" => $id_user));
-    if ($req)
-        return true;
-    return false;
+    $req = $db->prepare("SELECT * FROM `vote` WHERE `id_voter` = :voter AND `id_voted` = :voted", array("voter" => $voter, "voted" => $voted));
+    if ($req) {
+        if ($req[0]->type != $vote)
+            return 2;
+        return 1;
+    }
+    return 0;
 }
 
 function mail_on_comment($db, $id_img)
@@ -66,8 +69,8 @@ function redirection_handler($error)
 {
     switch ($error)
     {
-        case "take":
-            echo alert_bootstrap("info", "You need to be <b>logged in</b> to take and upload pictures!", "text-align: center;");
+        case "reqlog":
+            echo alert_bootstrap("info", "You need to be <b>logged in</b> to access this page!", "text-align: center;");
             break;
         case "reset":
             echo alert_bootstrap("info", "Go to <b>\"Forgot your password?\"</b> to reset your password! We will send you a mail.", "text-align: center;");
@@ -86,6 +89,9 @@ function redirection_handler($error)
             break;
         case "prolog":
             echo alert_bootstrap("info", "You need to be <b>logged in</b> to see other's profile!", "text-align: center;");
+            break;
+        case "log":
+            echo alert_bootstrap("info", "You are already <b>logged in!</b>", "text-align: center;");
             break;
         default:
             echo alert_bootstrap("danger", "ERROR!", "text-align: center;");

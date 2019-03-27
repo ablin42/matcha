@@ -18,3 +18,23 @@ let report = new Vue({
         }
     }
 });
+
+let vote = new Vue({
+    el: '#vote',
+    data: {},
+    methods: {
+        vote: function (id, vote){
+            fetch('handlers/like_user.php', {
+                method: 'post',
+                mode: 'same-origin',
+                headers: {'Content-Type': 'application/json'}, //sent
+                body: JSON.stringify({
+                    user_id: id, vote: vote
+                })
+            })
+                .then((res) => res.text())
+                .then((data) => addAlert(data, document.getElementById("header")))
+                .catch((error) => console.log(error))
+        }
+    }
+});

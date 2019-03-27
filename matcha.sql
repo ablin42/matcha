@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  mar. 26 mars 2019 à 15:01
+-- Généré le :  mer. 27 mars 2019 à 14:31
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.1.22
 
@@ -67,7 +67,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`, `mail_token`, `confir
 (5, 'harbinger43', '410c6628072476812f42e4414553bae859ab984667f5250883143ff5380bf8a14552bef191998368eeef1b35e1bb52f05d47301a65c0f620def1d2dd7b6c4de7', 'ablin43@byom.de', NULL, '2019-02-28 22:03:42', NULL),
 (6, 'gigatest', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'gigatest@byom.de', NULL, '2019-03-19 21:33:22', NULL),
 (7, 'johndoe', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'johndoe@byom.de', 'NULL', '2019-03-22 20:02:49', NULL),
-(8, 'Secaly', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'secaly42@byom.de', 'NULL', '2019-03-25 18:42:35', NULL);
+(8, 'Secaly', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'secaly42@byom.de', 'NULL', '2019-03-25 18:42:35', NULL),
+(9, 'Space6Fic', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'Space6Fic@byom.de', NULL, '2019-03-27 20:17:23', NULL);
 
 -- --------------------------------------------------------
 
@@ -94,7 +95,8 @@ INSERT INTO `user_info` (`id`, `user_id`, `firstname`, `lastname`, `birth_year`,
 (8, 4, 'Andreas', 'Doge', 1998, 'extremely inclusived', 'Androgynous', 'Pansexual'),
 (9, 6, 'Antonio', 'Kiwyz', 1992, 'je suis un petit khey qui boit de l\'eau', 'Androgynous', 'Bisexual'),
 (10, 7, 'Johnny', 'TikTokDoe', 1995, 'autiste\n\nautodiag\n\ndas', 'Bigender', 'Bicurious'),
-(11, 8, 'Kévin', 'Secaly', 1991, 'je suis un pedophile', 'Androgynous', 'Bisexual');
+(11, 8, 'Kévin', 'Secaly', 1991, 'je suis un pedophile', 'Androgynous', 'Bisexual'),
+(12, 9, 'Andreas', 'Blin', 1998, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -119,7 +121,8 @@ CREATE TABLE `user_photo` (
 INSERT INTO `user_photo` (`id`, `user_id`, `photo1`, `photo2`, `photo3`, `photo4`, `photo5`) VALUES
 (5, 4, 'photos/0hje8lloy65jw2csy4b33uh7qj0y7zflfpp2rt84.jpg', NULL, 'photos/m5vaxt741hhxsf903yxrp2ab2clhvyl1iv7asn8y.png', NULL, NULL),
 (6, 6, 'photos/ewu1an7t6un7eyw279zb8e8nhqtzpbuh5mkwwyex.jpeg', NULL, 'photos/m5vaxt741hhxsf903yxrp2ab2clhvyl1iv7asn8y.png', NULL, 'photos/7csz1n96qnddgnetkd1o73uejprltho77k6to871.jpg'),
-(7, 8, 'photos/1bbd9180zr51bgpljr9t3sdtz9oi5bk9gc6iub3o.jpeg', NULL, NULL, NULL, NULL);
+(7, 8, 'photos/1bbd9180zr51bgpljr9t3sdtz9oi5bk9gc6iub3o.jpeg', NULL, NULL, NULL, NULL),
+(8, 1, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -148,6 +151,53 @@ INSERT INTO `user_tags` (`id`, `user_id`, `tag`) VALUES
 (17, 8, 'loli'),
 (18, 8, 'anime'),
 (19, 8, 'savon');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `visit`
+--
+
+CREATE TABLE `visit` (
+  `id` int(11) NOT NULL,
+  `id_visitor` int(11) NOT NULL,
+  `id_visited` int(11) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `visit`
+--
+
+INSERT INTO `visit` (`id`, `id_visitor`, `id_visited`, `date`) VALUES
+(1, 7, 6, '2019-03-27 18:15:35'),
+(3, 6, 7, '2019-03-27 18:55:31');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `vote`
+--
+
+CREATE TABLE `vote` (
+  `id` int(11) NOT NULL,
+  `id_voter` int(11) NOT NULL,
+  `id_voted` int(11) NOT NULL,
+  `type` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `vote`
+--
+
+INSERT INTO `vote` (`id`, `id_voter`, `id_voted`, `type`) VALUES
+(8, 8, 6, 1),
+(11, 6, 8, 1),
+(16, 3, 6, 1),
+(17, 2, 6, 1),
+(18, 4, 6, 1),
+(19, 1, 6, -1),
+(20, 6, 7, 1);
 
 --
 -- Index pour les tables déchargées
@@ -186,6 +236,18 @@ ALTER TABLE `user_tags`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `visit`
+--
+ALTER TABLE `visit`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `vote`
+--
+ALTER TABLE `vote`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -199,25 +261,37 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `user_info`
 --
 ALTER TABLE `user_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `user_photo`
 --
 ALTER TABLE `user_photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `user_tags`
 --
 ALTER TABLE `user_tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT pour la table `visit`
+--
+ALTER TABLE `visit`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT pour la table `vote`
+--
+ALTER TABLE `vote`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

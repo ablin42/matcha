@@ -56,7 +56,13 @@ let register = new Vue({
                     })
                 })
                     .then((res) => res.text())
-                    .then((data) => addAlert(data, document.getElementById("header")))
+                    .then(function(data){
+                        addAlert(data, document.getElementById("header"));
+                        if (data.indexOf("successfully") !== -1)
+                            setTimeout(function () {
+                                window.location.href = "/Matcha/Login";
+                            }, 1000);
+                    })
                     .catch((error) => console.log(error))
             }
         },
@@ -83,9 +89,9 @@ let register = new Vue({
             if (isValid && this.birthYear >= 1940 && this.birthYear <= 2001)
                 this.borderColor.birthYear = "#56c93f";
             else
-                this.borderColor.birth_year = "#FF0000";
+                this.borderColor.birthYear = "#FF0000";
 
-            if (this.birth_year < 1940 || this.birthYear > 2001)
+            if (this.birthYear < 1940 || this.birthYear > 2001)
                 this.errors.birthYear = true;
             else
                 this.errors.birthYear = false;

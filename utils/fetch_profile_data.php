@@ -57,4 +57,18 @@ if (!empty($_GET['u'])) {
     $req = $db->prepare("SELECT * FROM `report` WHERE `reporter_id` = :reporter AND `reported_id` = :reported", $attributes);
     if ($req)
         $report = true;
+
+    $req = $db->prepare("SELECT SUM(`type`) as sum, COUNT(*) as total FROM `vote` WHERE `id_voted` = :voted", array("voted" => $id));
+    if ($req) {
+        $sum = $req[0]->sum;
+        $nbvote = $req[0]->total;
+        $score = $sum * $nbvote;
+    }
+
+    $req = $db->prepare("SELECT * FROM `visit` WHERE `id_visitor` = :reporter AND `id_visited` = :reported", $attributes);
+    if ($req) {
+        $req = $db->prepare("UPDATE `visit` SET `date` = NOW() WHERE `id_visitor` = :reporter AND `id_visited` = :reported", $attributes);
+    }
+    else
+        $req = $db->prepare("INSERT INTO `visit` (`id_visitor`, `id_visited`, `date`) VALUES (:reporter, :reported, NOW())", $attributes);
 }

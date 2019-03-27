@@ -59,15 +59,16 @@ if (isset($_GET['e']))
                     <span v-if="errors.lastname">Last name must contain between 2 and 16 characters</span>
                 </div>
                 <div class="form-group">
-                    <label for="age" class="lab">Birth year</label>
+                    <label for="birthyear" class="lab">Birth year</label>
                     <input type="number"
                            name="birthyear"
                            placeholder="1984"
                            id="birthyear"
                            class="form-control"
-                           maxlength="4"
+                           min="1940"
+                           max="2001"
                            v-model.number="birthYear"
-                           :style="{ borderColor: borderColor.age }"
+                           :style="{ borderColor: borderColor.birthYear }"
                            @blur="validateBirthYear"
                            required>
                     <span v-if="errors.birthYear">Your birth year must be in the range 1940-2001</span>
@@ -139,7 +140,7 @@ if (isset($_GET['e']))
 </div>
 
 <?php require_once("includes/footer.php");?>
-<script src="vuejs/registerForm.js"></script>
+<script src="vuejs/register.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>

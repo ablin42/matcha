@@ -69,7 +69,7 @@ if (!isset($_GET['id']) && !isset($_GET['token']))
         <h5>Make sure to remember your password this time!</h5>
     </div>
 </div>
-<script src="vuejs/resetPwdForm.js"></script>
+<script src="vuejs/resetPwd.js"></script>
 <script src="js/alert.js"></script>
 <script src="js/ajaxify.js"></script>
 <?php require_once("includes/footer.php");?>

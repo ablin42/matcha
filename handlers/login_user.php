@@ -24,10 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($elem->confirmed_token !== NULL) {
                     if ($elem->password === $pwd) {
                         $_SESSION['username'] = $elem->username;
-                        $_SESSION['logged'] = 1;//
-                        $_SESSION['id'] = $elem->id;//
+                        $_SESSION['logged'] = 1;
+                        $_SESSION['id'] = $elem->id;
                         echo alert_bootstrap("success", "You've been <b>logged in!</b>", "text-align: center;");
-                        header('Refresh: 1; /Matcha/Account');
                     } else
                         echo alert_bootstrap("warning", "Incorrect password!", "text-align: center;");
                 } else {

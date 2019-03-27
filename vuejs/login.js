@@ -12,11 +12,17 @@ let login = new Vue({
                 headers: {'Content-Type': 'application/json'}, //sent
                 body: JSON.stringify({
                     username: this.username, password: this.password
-                })
+                }),
             })
                 .then((res) => res.text())
-                .then((data) => addAlert(data, document.getElementById("header")))
-                .catch((error) => console.log(error))
+                .then(function(data){
+                    addAlert(data, document.getElementById("header"));
+                    if (data.indexOf("logged in!") !== -1)
+                        setTimeout(function () {
+                            window.location.href = "/Matcha/Activity";
+                        }, 1000);
+                })
+                .catch((error) => console.log(error));
         }
     }
 });
