@@ -27,9 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $attributes['voted'] = $voted;
                 $attributes['vote'] = $vote;
                 if (has_voted($db, $voter, $voted, $vote) === 0)
-                    $req = $db->prepare("INSERT INTO `vote` (`id_voter`, `id_voted`, `type`) VALUES (:voter, :voted, :vote)", $attributes);
+                    $req = $db->prepare("INSERT INTO `vote` (`id_voter`, `id_voted`, `type`, `date`) VALUES (:voter, :voted, :vote, NOW())", $attributes);
                 else if (has_voted($db, $voter, $voted, $vote) === 2)
-                    $req = $db->prepare("UPDATE `vote` SET `type` = :vote WHERE `id_voter` = :voter AND `id_voted` = :voted", $attributes);
+                    $req = $db->prepare("UPDATE `vote` SET `type` = :vote, `date` = NOW() WHERE `id_voter` = :voter AND `id_voted` = :voted", $attributes);
                 else{
                     array_pop($attributes);
                     $req = $db->prepare("DELETE FROM `vote` WHERE `id_voter` = :voter AND `id_voted` = :voted", $attributes);

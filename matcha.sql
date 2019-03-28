@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  mer. 27 mars 2019 à 14:31
+-- Généré le :  jeu. 28 mars 2019 à 15:02
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.1.22
 
@@ -65,7 +65,7 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`, `mail_token`, `confir
 (1, 'harbinger', '410c6628072476812f42e4414553bae859ab984667f5250883143ff5380bf8a14552bef191998368eeef1b35e1bb52f05d47301a65c0f620def1d2dd7b6c4de7', 'Space6fic@gmail.com', 'ovukh3jkacs6van2ui5fpy1irc8yhrnns09x7t0rpbrotjdgejzo248sc0wb9ku903q13mazha5dim7vmagocprsuc4c8f9nrjzjhdzla18yhjkipl9e2xo6j1ryiash', NULL, NULL),
 (4, 'harbinger42', '03b2fa83d9c2ee02117b4b8f487fa290531ebe08730d9756212d77f3a895db085eb661adb55a7caeb8d46bd28928fd6e07d1ae4acff31f3c0d8f4711bc9594d1', 'ablin42@byom.de', NULL, '2019-02-28 21:59:02', NULL),
 (5, 'harbinger43', '410c6628072476812f42e4414553bae859ab984667f5250883143ff5380bf8a14552bef191998368eeef1b35e1bb52f05d47301a65c0f620def1d2dd7b6c4de7', 'ablin43@byom.de', NULL, '2019-02-28 22:03:42', NULL),
-(6, 'gigatest', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'gigatest@byom.de', NULL, '2019-03-19 21:33:22', NULL),
+(6, 'Kiwyz', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'gigatest@byom.de', NULL, '2019-03-19 21:33:22', NULL),
 (7, 'johndoe', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'johndoe@byom.de', 'NULL', '2019-03-22 20:02:49', NULL),
 (8, 'Secaly', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'secaly42@byom.de', 'NULL', '2019-03-25 18:42:35', NULL),
 (9, 'Space6Fic', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'Space6Fic@byom.de', NULL, '2019-03-27 20:17:23', NULL);
@@ -92,11 +92,11 @@ CREATE TABLE `user_info` (
 --
 
 INSERT INTO `user_info` (`id`, `user_id`, `firstname`, `lastname`, `birth_year`, `bio`, `gender`, `orientation`) VALUES
-(8, 4, 'Andreas', 'Doge', 1998, 'extremely inclusived', 'Androgynous', 'Pansexual'),
-(9, 6, 'Antonio', 'Kiwyz', 1992, 'je suis un petit khey qui boit de l\'eau', 'Androgynous', 'Bisexual'),
-(10, 7, 'Johnny', 'TikTokDoe', 1995, 'autiste\n\nautodiag\n\ndas', 'Bigender', 'Bicurious'),
-(11, 8, 'Kévin', 'Secaly', 1991, 'je suis un pedophile', 'Androgynous', 'Bisexual'),
-(12, 9, 'Andreas', 'Blin', 1998, NULL, NULL, NULL);
+(8, 4, 'Andreas', 'Doge', 1998, 'extremely inclusived', 'Male', 'Heterosexual'),
+(9, 6, 'Antonio', 'Kiwyz', 1992, 'je suis un petit khey qui boit de l\'eau', 'Male', 'Bisexual'),
+(10, 7, 'Johnny', 'TikTokDoe', 1995, 'autiste\n\nautodiag\n\ndas', 'Female', 'Heterosexual'),
+(11, 8, 'Kévin', 'Secaly', 1990, 'je suis un pedophile', 'Female', 'Bisexual'),
+(12, 9, 'Andreas', 'Blin', 1998, 'men fou', 'Female', 'Homosexual');
 
 -- --------------------------------------------------------
 
@@ -141,16 +141,17 @@ CREATE TABLE `user_tags` (
 --
 
 INSERT INTO `user_tags` (`id`, `user_id`, `tag`) VALUES
-(3, 6, 'okay'),
-(4, 6, 'whynot'),
-(5, 6, 'aya'),
 (11, 7, 'vegan'),
 (12, 7, 'antispeciste'),
 (13, 7, 'feministe'),
 (16, 7, 'autodiag'),
 (17, 8, 'loli'),
 (18, 8, 'anime'),
-(19, 8, 'savon');
+(19, 8, 'savon'),
+(20, 6, 'animaux'),
+(21, 6, 'vegan'),
+(22, 6, 'complots'),
+(23, 8, 'complots');
 
 -- --------------------------------------------------------
 
@@ -171,7 +172,8 @@ CREATE TABLE `visit` (
 
 INSERT INTO `visit` (`id`, `id_visitor`, `id_visited`, `date`) VALUES
 (1, 7, 6, '2019-03-27 18:15:35'),
-(3, 6, 7, '2019-03-27 18:55:31');
+(3, 6, 7, '2019-03-27 18:55:31'),
+(4, 6, 8, '2019-03-28 18:14:21');
 
 -- --------------------------------------------------------
 
@@ -183,21 +185,23 @@ CREATE TABLE `vote` (
   `id` int(11) NOT NULL,
   `id_voter` int(11) NOT NULL,
   `id_voted` int(11) NOT NULL,
-  `type` tinyint(1) NOT NULL
+  `type` tinyint(1) NOT NULL,
+  `date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `vote`
 --
 
-INSERT INTO `vote` (`id`, `id_voter`, `id_voted`, `type`) VALUES
-(8, 8, 6, 1),
-(11, 6, 8, 1),
-(16, 3, 6, 1),
-(17, 2, 6, 1),
-(18, 4, 6, 1),
-(19, 1, 6, -1),
-(20, 6, 7, 1);
+INSERT INTO `vote` (`id`, `id_voter`, `id_voted`, `type`, `date`) VALUES
+(8, 8, 6, 1, '2019-03-28 06:17:05'),
+(16, 3, 6, 1, '2019-03-22 13:20:23'),
+(17, 2, 6, 1, '2019-03-12 12:29:28'),
+(18, 4, 6, 1, '2019-03-27 07:24:36'),
+(19, 1, 6, -1, '2019-03-28 15:25:34'),
+(20, 6, 7, 1, '2019-03-28 06:21:20'),
+(21, 6, 8, 1, '2019-03-28 15:17:17'),
+(22, 7, 6, 1, '2019-03-28 06:19:20');
 
 --
 -- Index pour les tables déchargées
@@ -279,19 +283,19 @@ ALTER TABLE `user_photo`
 -- AUTO_INCREMENT pour la table `user_tags`
 --
 ALTER TABLE `user_tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `visit`
 --
 ALTER TABLE `visit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `vote`
 --
 ALTER TABLE `vote`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

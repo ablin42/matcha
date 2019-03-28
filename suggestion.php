@@ -1,14 +1,13 @@
-<!--
-/**
+<!--/**
  * Created by PhpStorm.
  * User: ablin
- * Date: 3/27/19
- * Time: 6:06 PM
+ * Date: 3/28/19
+ * Time: 4:12 PM
  */-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Matcha - Activity</title>
+    <title>Matcha - Suggestions</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style/bootstrap.css">
@@ -21,30 +20,33 @@
 <body>
 <?php
 require_once("includes/header.php");
-require_once("utils/fetch_activity.php");
+require_once("utils/fetch_account_data.php");
+
 if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
-    header('Location: /Matcha/?e=reqlog');
+    header('Location: /Matcha/?e=sug');
 ?>
 
 <div class="container mt-5 small-page-wrapper">
     <div class="wrapper col-12">
-        <h1>Recent activity</h1>
+        <h1>Profiles you might be interested in</h1>
         <?php
-            foreach ($visits as $visit)
-            {
-                echo "<p><i>".$visit->date."</i>: <a href='/Matcha/profile?u=".$visit->username."'>";
-                echo "".$visit->username."</a> visited your profile</p>";
+            if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
+                ($photos[0] == NULL && $photos[1] == NULL && $photos[2] == NULL && $photos[3] == NULL && $photos[4] == NULL)) {
+                header('Location: /Matcha/Account?e=reqlog');
             }
-            foreach ($likes as $like)
-            {
-                echo "<p><i>".$like->date."</i>: <a href='/Matcha/profile?u=".$like->username."'>";
-                echo "".$like->username."</a> liked your profile!</p>";
-            }
-            foreach ($matched as $user)
-            {
-                echo "<p><i>".$user[0]->date."</i>: ";
-                echo "<a href='/Matcha/profile?u=".$user['username']."'>".$user['username']."</a> liked you back</p>";}
-        ?>
+
+          ?>
+        <p>
+            <?php
+                require_once("utils/fetch_suggestion.php");
+                echo "<br />";
+                foreach ($basics as $basic)
+                {
+                    echo "".$match->firstname."<br />";
+                }
+            ?>
+
+        </p>
     </div>
 </div>
 

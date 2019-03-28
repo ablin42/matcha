@@ -21,7 +21,9 @@ $form->changeSurr('div class="form-group"', 'div');
             <ul class="nav navbar-nav navbar-right ml-auto">
                 <?php
                 if (isset($_SESSION['logged']) && isset($_SESSION['username'])) {
-                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"account\">{$_SESSION['username']}</a></li>";
+                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"suggestion\">Suggestions</a></li>";
+                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"activity\">Activity</a></li>";
+                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"account\">".ucwords($_SESSION['username'])."</a></li>";
                 }
                 ?>
                 <?php
@@ -42,7 +44,9 @@ $form->changeSurr('div class="form-group"', 'div');
         <ul class="nav navbar-nav navbar-right ml-auto">
             <?php
                 if (isset($_SESSION['logged']) && isset($_SESSION['username'])) {
-                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"account\">{$_SESSION['username']}</a></li>";
+                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"suggestion\">Suggestions</a></li>";
+                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"activity\">Activity</a></li>";
+                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"account\">".ucwords($_SESSION['username'])."</a></li>";
                 }
             ?>
             <?php

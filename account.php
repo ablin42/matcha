@@ -26,9 +26,11 @@
 <body>
 <?php
 require_once("includes/header.php");
+use \ablin42\database;
 if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
     header('Location: /Matcha/?e=acc');
-use \ablin42\database;
+if (isset($_GET['e']))
+    redirection_handler($_GET['e']);
 require_once("utils/fetch_account_data.php");
 ?>
 <div class="container mt-5 small-page-wrapper">
@@ -241,7 +243,7 @@ if ($tags)
 </script>";
 }
 ?>
-<script src="vuejs/accountForms.js"></script>
+<script src="vuejs/account.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>

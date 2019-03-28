@@ -55,7 +55,7 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] === 1)
 </div>
 
 <?php require_once("includes/footer.php");?>
-<script src="vuejs/lostPwdForm.js"></script>
+<script src="vuejs/lostPwd.js"></script>
 <script src="js/alert.js"></script>
 <script src="js/ajaxify.js"></script>
 </body>

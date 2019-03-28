@@ -69,8 +69,11 @@ function redirection_handler($error)
 {
     switch ($error)
     {
-        case "reqlog":
+        case "sug":
             echo alert_bootstrap("info", "You need to be <b>logged in</b> to access this page!", "text-align: center;");
+            break;
+        case "reqlog":
+            echo alert_bootstrap("info", "You need to <b>fill</b> in your <b>gender</b>, <b>orientation</b>, <b>bio</b>, <b>interest tags</b> and have atleast <b>one photo</b>!", "text-align: center;");
             break;
         case "reset":
             echo alert_bootstrap("info", "Go to <b>\"Forgot your password?\"</b> to reset your password! We will send you a mail.", "text-align: center;");

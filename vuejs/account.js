@@ -11,20 +11,22 @@ let account = new Vue({
         currOrientation: "",
         currBio: "",
         genderOptions: [
-            { text: 'Agender', value: 'Agender' },
+            { text: 'Male', value: 'Male' },
+            { text: 'Female', value: 'Female' }
+            /*{ text: 'Agender', value: 'Agender' },
             { text: 'Androgyne', value: 'Androgyne' },
             { text: 'Androgynous', value: 'Androgynous' },
             { text: 'Bigender', value: 'Bigender'},
             { text: 'Cis', value: 'Cis'},
-            { text: 'Cisgender', value: 'Cisgender'}
+            { text: 'Cisgender', value: 'Cisgender'}*/
         ],
         orientationOptions: [
             { text: 'Heterosexual', value: 'Heterosexual' },
             { text: 'Homosexual', value: 'Homosexual' },
+            { text: 'Bisexual', value: 'Bisexual'}/*,
             { text: 'Lesbian', value: 'Lesbian' },
-            { text: 'Bisexual', value: 'Bisexual'},
             { text: 'Pansexual', value: 'Pansexual'},
-            { text: 'Bicurious', value: 'Bicurious'}
+            { text: 'Bicurious', value: 'Bicurious'}*/
         ],
         bio: ""
     },
