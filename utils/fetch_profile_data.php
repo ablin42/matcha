@@ -64,6 +64,8 @@ if (!empty($_GET['u'])) {
         $nbvote = $req[0]->total;
         $score = $sum * $nbvote;
     }
+    else
+        $score = 0;
 
     $req = $db->prepare("SELECT * FROM `visit` WHERE `id_visitor` = :reporter AND `id_visited` = :reported", $attributes);
     if ($req) {

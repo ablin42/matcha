@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  jeu. 28 mars 2019 à 15:02
+-- Généré le :  ven. 29 mars 2019 à 13:42
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.1.22
 
@@ -68,7 +68,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`, `mail_token`, `confir
 (6, 'Kiwyz', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'gigatest@byom.de', NULL, '2019-03-19 21:33:22', NULL),
 (7, 'johndoe', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'johndoe@byom.de', 'NULL', '2019-03-22 20:02:49', NULL),
 (8, 'Secaly', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'secaly42@byom.de', 'NULL', '2019-03-25 18:42:35', NULL),
-(9, 'Space6Fic', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'Space6Fic@byom.de', NULL, '2019-03-27 20:17:23', NULL);
+(9, 'Space6Fic', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'Space6Fic@byom.de', NULL, '2019-03-27 20:17:23', NULL),
+(10, 'asff', '410c6628072476812f42e4414553bae859ab984667f5250883143ff5380bf8a14552bef191998368eeef1b35e1bb52f05d47301a65c0f620def1d2dd7b6c4de7', 'asff@byom.de', 'NULL', '2019-03-29 20:15:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -84,7 +85,7 @@ CREATE TABLE `user_info` (
   `birth_year` year(4) DEFAULT NULL,
   `bio` varchar(512) DEFAULT NULL,
   `gender` varchar(128) DEFAULT NULL,
-  `orientation` varchar(128) DEFAULT NULL
+  `orientation` varchar(128) DEFAULT 'Bisexual'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -96,7 +97,8 @@ INSERT INTO `user_info` (`id`, `user_id`, `firstname`, `lastname`, `birth_year`,
 (9, 6, 'Antonio', 'Kiwyz', 1992, 'je suis un petit khey qui boit de l\'eau', 'Male', 'Bisexual'),
 (10, 7, 'Johnny', 'TikTokDoe', 1995, 'autiste\n\nautodiag\n\ndas', 'Female', 'Heterosexual'),
 (11, 8, 'Kévin', 'Secaly', 1990, 'je suis un pedophile', 'Female', 'Bisexual'),
-(12, 9, 'Andreas', 'Blin', 1998, 'men fou', 'Female', 'Homosexual');
+(12, 9, 'Andreas', 'Blin', 1998, 'men fou', 'Female', 'Homosexual'),
+(13, 10, 'asdad', 'asdasd', 1999, 'im a fag', 'Male', 'Bisexual');
 
 -- --------------------------------------------------------
 
@@ -122,7 +124,8 @@ INSERT INTO `user_photo` (`id`, `user_id`, `photo1`, `photo2`, `photo3`, `photo4
 (5, 4, 'photos/0hje8lloy65jw2csy4b33uh7qj0y7zflfpp2rt84.jpg', NULL, 'photos/m5vaxt741hhxsf903yxrp2ab2clhvyl1iv7asn8y.png', NULL, NULL),
 (6, 6, 'photos/ewu1an7t6un7eyw279zb8e8nhqtzpbuh5mkwwyex.jpeg', NULL, 'photos/m5vaxt741hhxsf903yxrp2ab2clhvyl1iv7asn8y.png', NULL, 'photos/7csz1n96qnddgnetkd1o73uejprltho77k6to871.jpg'),
 (7, 8, 'photos/1bbd9180zr51bgpljr9t3sdtz9oi5bk9gc6iub3o.jpeg', NULL, NULL, NULL, NULL),
-(8, 1, NULL, NULL, NULL, NULL, NULL);
+(8, 1, NULL, NULL, NULL, NULL, NULL),
+(9, 10, 'photos/7hrfrrxhzp1mdqstibv4aie41ybu1951yr5zqxd3.jpg', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -141,17 +144,20 @@ CREATE TABLE `user_tags` (
 --
 
 INSERT INTO `user_tags` (`id`, `user_id`, `tag`) VALUES
-(11, 7, 'vegan'),
-(12, 7, 'antispeciste'),
-(13, 7, 'feministe'),
-(16, 7, 'autodiag'),
+(11, 7, 'veganism'),
+(12, 7, 'antispecist'),
+(13, 7, 'feminism'),
+(16, 7, 'animals'),
 (17, 8, 'loli'),
 (18, 8, 'anime'),
-(19, 8, 'savon'),
-(20, 6, 'animaux'),
-(21, 6, 'vegan'),
+(19, 8, 'soap'),
+(20, 6, 'animals'),
+(21, 6, 'veganism'),
 (22, 6, 'complots'),
-(23, 8, 'complots');
+(23, 8, 'complots'),
+(24, 10, 'loli'),
+(26, 10, 'soap'),
+(27, 10, 'animals');
 
 -- --------------------------------------------------------
 
@@ -172,7 +178,7 @@ CREATE TABLE `visit` (
 
 INSERT INTO `visit` (`id`, `id_visitor`, `id_visited`, `date`) VALUES
 (1, 7, 6, '2019-03-27 18:15:35'),
-(3, 6, 7, '2019-03-27 18:55:31'),
+(3, 6, 7, '2019-03-29 18:28:51'),
 (4, 6, 8, '2019-03-28 18:14:21');
 
 -- --------------------------------------------------------
@@ -265,25 +271,25 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `user_info`
 --
 ALTER TABLE `user_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `user_photo`
 --
 ALTER TABLE `user_photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `user_tags`
 --
 ALTER TABLE `user_tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT pour la table `visit`

@@ -39,10 +39,19 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
         <p>
             <?php
                 require_once("utils/fetch_suggestion.php");
-                echo "<br />";
-                foreach ($basics as $basic)
+                foreach ($matched_user as $match)
                 {
-                    echo "".$match->firstname."<br />";
+
+                    echo "<div style='border: 1px solid red;'>";
+                    echo $match[0];
+                    if ($match['profile_pic'])
+                        echo "<img alt='profile_picture' src='".$match['profile_pic']."' />";
+                    echo "<p><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a>, <i>".$match[2].", ".$match[3]."</i></p>";
+                    echo "<p>Popularity score: <b>".$match['score']."</b></p>";
+                    echo "<p>You're both interested in: </p>";
+                    foreach ($match['tags'] as $tag)
+                        echo "<div class='profile_tag'><p>".$tag."</p></div>";
+                    echo "</div><br />";
                 }
             ?>
 
