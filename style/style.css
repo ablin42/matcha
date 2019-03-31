@@ -325,7 +325,7 @@ p {color: #AAAAAA;}
     border-color: #1b1e21;
 }
 
-.like {transition: 0.3s;color: #0e0e0e;}
+.like .dislike {transition: 0.3s;color: #0e0e0e;}
 
 .like:hover, .like:active, .liked
 {
@@ -333,7 +333,15 @@ p {color: #AAAAAA;}
     cursor: pointer;
 }
 
-.liked:hover {color: #c12119;}
+.dislike:hover, .dislike:active, .disliked
+{
+    color: #0c5460;
+    cursor: pointer;
+}
+
+.liked:hover {color: #0e0e0e;}
+
+.disliked:hover {color: #0e0e0e;}
 
 .btn-like
 {

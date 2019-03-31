@@ -18,12 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $attributes['reporter'] = secure_input($_SESSION['id']);
         $attributes['reported'] = secure_input($data->{'user_id'});
 
-        $req = $db->prepare("SELECT * FROM `report` WHERE `reporter_id` = :reporter AND `reported_id` = :reported", $attributes);
+        $req = $db->prepare("SELECT * FROM `report` WHERE `id_reported` = :reporter AND `id_reported` = :reported", $attributes);
         if ($req) {
-            echo alert_bootstrap("success" , "You already <b>reported</b> this user", "text-align: center;");
+            echo alert_bootstrap("info" , "You already <b>reported</b> this user", "text-align: center;");
             return ;
         }
-        $req = $db->prepare("INSERT INTO `report` (`reporter_id`, `reported_id`) VALUES (:reporter, :reported)", $attributes);
+        $req = $db->prepare("INSERT INTO `report` (`id_reporter`, `id_reported`) VALUES (:reporter, :reported)", $attributes);
         echo alert_bootstrap("success" , "Your <b>report</b> has been registered", "text-align: center;");
     }
     else

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  ven. 29 mars 2019 à 13:42
+-- Généré le :  Dim 31 mars 2019 à 11:46
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.1.22
 
@@ -25,20 +25,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `block`
+--
+
+CREATE TABLE `block` (
+  `id` int(11) NOT NULL,
+  `id_blocker` int(11) NOT NULL,
+  `id_blocked` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `report`
 --
 
 CREATE TABLE `report` (
   `id` int(11) NOT NULL,
-  `reporter_id` int(11) NOT NULL,
-  `reported_id` int(11) NOT NULL
+  `id_reporter` int(11) NOT NULL,
+  `id_reported` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `report`
 --
 
-INSERT INTO `report` (`id`, `reporter_id`, `reported_id`) VALUES
+INSERT INTO `report` (`id`, `id_reporter`, `id_reported`) VALUES
 (12, 8, 6);
 
 -- --------------------------------------------------------
@@ -85,20 +97,21 @@ CREATE TABLE `user_info` (
   `birth_year` year(4) DEFAULT NULL,
   `bio` varchar(512) DEFAULT NULL,
   `gender` varchar(128) DEFAULT NULL,
-  `orientation` varchar(128) DEFAULT 'Bisexual'
+  `orientation` varchar(128) DEFAULT 'Bisexual',
+  `last_online` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user_info`
 --
 
-INSERT INTO `user_info` (`id`, `user_id`, `firstname`, `lastname`, `birth_year`, `bio`, `gender`, `orientation`) VALUES
-(8, 4, 'Andreas', 'Doge', 1998, 'extremely inclusived', 'Male', 'Heterosexual'),
-(9, 6, 'Antonio', 'Kiwyz', 1992, 'je suis un petit khey qui boit de l\'eau', 'Male', 'Bisexual'),
-(10, 7, 'Johnny', 'TikTokDoe', 1995, 'autiste\n\nautodiag\n\ndas', 'Female', 'Heterosexual'),
-(11, 8, 'Kévin', 'Secaly', 1990, 'je suis un pedophile', 'Female', 'Bisexual'),
-(12, 9, 'Andreas', 'Blin', 1998, 'men fou', 'Female', 'Homosexual'),
-(13, 10, 'asdad', 'asdasd', 1999, 'im a fag', 'Male', 'Bisexual');
+INSERT INTO `user_info` (`id`, `user_id`, `firstname`, `lastname`, `birth_year`, `bio`, `gender`, `orientation`, `last_online`) VALUES
+(8, 4, 'Andreas', 'Doge', 1998, 'extremely inclusived', 'Male', 'Heterosexual', '2019-03-31 19:47:15'),
+(9, 6, 'Antonio', 'Kiwyz', 1992, 'je suis un petit khey qui boit de l\'eau', 'Male', 'Bisexual', '2019-03-31 20:25:09'),
+(10, 7, 'Johnny', 'TikTokDoe', 1995, 'autiste\n\nautodiag\n\ndas', 'Female', 'Heterosexual', '2019-03-31 19:47:15'),
+(11, 8, 'Kévin', 'Secaly', 1990, 'je suis un pedophile', 'Female', 'Bisexual', '2019-03-31 20:46:04'),
+(12, 9, 'Andreas', 'Blin', 1998, 'men fou', 'Female', 'Homosexual', '2019-03-31 19:47:15'),
+(13, 10, 'asdad', 'asdasd', 1999, 'im a fag', 'Male', 'Bisexual', '2019-03-31 19:47:15');
 
 -- --------------------------------------------------------
 
@@ -125,7 +138,7 @@ INSERT INTO `user_photo` (`id`, `user_id`, `photo1`, `photo2`, `photo3`, `photo4
 (6, 6, 'photos/ewu1an7t6un7eyw279zb8e8nhqtzpbuh5mkwwyex.jpeg', NULL, 'photos/m5vaxt741hhxsf903yxrp2ab2clhvyl1iv7asn8y.png', NULL, 'photos/7csz1n96qnddgnetkd1o73uejprltho77k6to871.jpg'),
 (7, 8, 'photos/1bbd9180zr51bgpljr9t3sdtz9oi5bk9gc6iub3o.jpeg', NULL, NULL, NULL, NULL),
 (8, 1, NULL, NULL, NULL, NULL, NULL),
-(9, 10, 'photos/7hrfrrxhzp1mdqstibv4aie41ybu1951yr5zqxd3.jpg', NULL, NULL, NULL, NULL);
+(9, 10, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -179,7 +192,9 @@ CREATE TABLE `visit` (
 INSERT INTO `visit` (`id`, `id_visitor`, `id_visited`, `date`) VALUES
 (1, 7, 6, '2019-03-27 18:15:35'),
 (3, 6, 7, '2019-03-29 18:28:51'),
-(4, 6, 8, '2019-03-28 18:14:21');
+(4, 6, 8, '2019-03-31 19:00:20'),
+(5, 10, 8, '2019-03-31 18:59:51'),
+(6, 8, 6, '2019-03-31 20:46:03');
 
 -- --------------------------------------------------------
 
@@ -206,12 +221,18 @@ INSERT INTO `vote` (`id`, `id_voter`, `id_voted`, `type`, `date`) VALUES
 (18, 4, 6, 1, '2019-03-27 07:24:36'),
 (19, 1, 6, -1, '2019-03-28 15:25:34'),
 (20, 6, 7, 1, '2019-03-28 06:21:20'),
-(21, 6, 8, 1, '2019-03-28 15:17:17'),
-(22, 7, 6, 1, '2019-03-28 06:19:20');
+(22, 7, 6, 1, '2019-03-28 06:19:20'),
+(104, 6, 8, 1, '2019-03-31 16:59:39');
 
 --
 -- Index pour les tables déchargées
 --
+
+--
+-- Index pour la table `block`
+--
+ALTER TABLE `block`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `report`
@@ -262,6 +283,12 @@ ALTER TABLE `vote`
 --
 
 --
+-- AUTO_INCREMENT pour la table `block`
+--
+ALTER TABLE `block`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+
+--
 -- AUTO_INCREMENT pour la table `report`
 --
 ALTER TABLE `report`
@@ -295,13 +322,13 @@ ALTER TABLE `user_tags`
 -- AUTO_INCREMENT pour la table `visit`
 --
 ALTER TABLE `visit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `vote`
 --
 ALTER TABLE `vote`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

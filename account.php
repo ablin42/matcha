@@ -20,7 +20,6 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/bootstrap-tagsinput.js"></script>
-    <script src="https://unpkg.com/@johmun/vue-tags-input/dist/vue-tags-input.js"></script>
 </head>
 
 <body>
@@ -243,6 +242,7 @@ if ($tags)
 </script>";
 }
 ?>
+<script src="js/online.js"></script>
 <script src="vuejs/account.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
