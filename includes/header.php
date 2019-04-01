@@ -29,8 +29,7 @@ $form->changeSurr('div class="form-group"', 'div');
                 <?php
                 if (!isset($_SESSION['logged']))
                 {
-                    echo '<li class="nav-item"><a class="nav-link" href="login">Log in</a></li>';
-                    echo '<li class="nav-item"><a class="nav-link" href="index">Sign up</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="index">Log in/Sign up</a></li>';
                     echo '<li class="nav-item"><a class="nav-link" href="lostpassword">Forgot your password?</a></li>';
                 }
                 else
@@ -52,8 +51,7 @@ $form->changeSurr('div class="form-group"', 'div');
             <?php
                 if (!isset($_SESSION['logged']))
                 {
-                    echo '<li class="nav-item"><a class="nav-link" href="login">Log in</a></li>';
-                    echo '<li class="nav-item"><a class="nav-link" href="index">Sign up</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="index">Log in/Sign up</a></li>';
                     echo '<li class="nav-item"><a class="nav-link" href="lostpassword">Forgot your password?</a></li>';
                 }
                 else

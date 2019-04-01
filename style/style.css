@@ -56,6 +56,10 @@ html {min-width: 450px; min-height: 250px;}
     padding: 0;
 }
 
+.activeTab {
+    color: #ffc107!important;
+}
+
 .report-btn {
     -moz-box-shadow:inset 0px 1px 0px 0px #cf866c;
     -webkit-box-shadow:inset 0px 1px 0px 0px #cf866c;

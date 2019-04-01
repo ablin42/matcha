@@ -31,20 +31,18 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
     <div class="wrapper col-12">
         <h1>Recent activity</h1>
         <?php
-            foreach ($visits as $visit)
-            {
-                echo "<p><i>".$visit->date."</i>: <a href='/Matcha/profile?u=".$visit->username."'>";
-                echo "".$visit->username."</a> visited your profile</p>";
+            foreach ($matched as $user) {
+                echo "<p><i>".$user[0]->date."</i>: ";
+                echo "<a href='/Matcha/profile?u=".$user['username']."'>".$user['username']."</a> liked you back</p>";
             }
-            foreach ($likes as $like)
-            {
+            foreach ($likes as $like) {
                 echo "<p><i>".$like->date."</i>: <a href='/Matcha/profile?u=".$like->username."'>";
                 echo "".$like->username."</a> liked your profile!</p>";
             }
-            foreach ($matched as $user)
-            {
-                echo "<p><i>".$user[0]->date."</i>: ";
-                echo "<a href='/Matcha/profile?u=".$user['username']."'>".$user['username']."</a> liked you back</p>";}
+            foreach ($visits as $visit) {
+                echo "<p><i>".$visit->date."</i>: <a href='/Matcha/profile?u=".$visit->username."'>";
+                echo "".$visit->username."</a> visited your profile</p>";
+            }
         ?>
     </div>
 </div>

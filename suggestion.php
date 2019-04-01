@@ -35,16 +35,13 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                 ($photos[0] == NULL && $photos[1] == NULL && $photos[2] == NULL && $photos[3] == NULL && $photos[4] == NULL)) {
                 header('Location: /Matcha/Account?e=reqlog');
             }
-
           ?>
         <p>
             <?php
                 require_once("utils/fetch_suggestion.php");
-                foreach ($matched_user as $match)
+                foreach ($sortedbytagscore as $match)
                 {
-
                     echo "<div style='border: 1px solid red;'>";
-                    echo $match[0];
                     if ($match['profile_pic'])
                         echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
                     echo "<p><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a>, <i>".$match[2].", ".$match[3]."</i></p>";

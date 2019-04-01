@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  Dim 31 mars 2019 à 11:46
+-- Généré le :  lun. 01 avr. 2019 à 12:51
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.1.22
 
@@ -81,7 +81,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`, `mail_token`, `confir
 (7, 'johndoe', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'johndoe@byom.de', 'NULL', '2019-03-22 20:02:49', NULL),
 (8, 'Secaly', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'secaly42@byom.de', 'NULL', '2019-03-25 18:42:35', NULL),
 (9, 'Space6Fic', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'Space6Fic@byom.de', NULL, '2019-03-27 20:17:23', NULL),
-(10, 'asff', '410c6628072476812f42e4414553bae859ab984667f5250883143ff5380bf8a14552bef191998368eeef1b35e1bb52f05d47301a65c0f620def1d2dd7b6c4de7', 'asff@byom.de', 'NULL', '2019-03-29 20:15:13', NULL);
+(10, 'asff', '410c6628072476812f42e4414553bae859ab984667f5250883143ff5380bf8a14552bef191998368eeef1b35e1bb52f05d47301a65c0f620def1d2dd7b6c4de7', 'asff@byom.de', 'NULL', '2019-03-29 20:15:13', NULL),
+(11, 'tabtest', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'tabtest@byom.de', 'NULL', '2019-04-01 19:42:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -107,11 +108,12 @@ CREATE TABLE `user_info` (
 
 INSERT INTO `user_info` (`id`, `user_id`, `firstname`, `lastname`, `birth_year`, `bio`, `gender`, `orientation`, `last_online`) VALUES
 (8, 4, 'Andreas', 'Doge', 1998, 'extremely inclusived', 'Male', 'Heterosexual', '2019-03-31 19:47:15'),
-(9, 6, 'Antonio', 'Kiwyz', 1992, 'je suis un petit khey qui boit de l\'eau', 'Male', 'Bisexual', '2019-03-31 20:25:09'),
+(9, 6, 'Antonio', 'Kiwyz', 1992, 'je suis un petit khey qui boit de l\'eau', 'Male', 'Bisexual', '2019-04-01 21:51:47'),
 (10, 7, 'Johnny', 'TikTokDoe', 1995, 'autiste\n\nautodiag\n\ndas', 'Female', 'Heterosexual', '2019-03-31 19:47:15'),
-(11, 8, 'Kévin', 'Secaly', 1990, 'je suis un pedophile', 'Female', 'Bisexual', '2019-03-31 20:46:04'),
+(11, 8, 'Kévin', 'Secaly', 1990, 'je suis un pedophile', 'Female', 'Bisexual', '2019-04-01 19:28:30'),
 (12, 9, 'Andreas', 'Blin', 1998, 'men fou', 'Female', 'Homosexual', '2019-03-31 19:47:15'),
-(13, 10, 'asdad', 'asdasd', 1999, 'im a fag', 'Male', 'Bisexual', '2019-03-31 19:47:15');
+(13, 10, 'asdad', 'asdasd', 1999, 'im a fag', 'Male', 'Bisexual', '2019-03-31 19:47:15'),
+(14, 11, 'tab', 'test', 1940, NULL, NULL, 'Bisexual', '2019-04-01 19:42:33');
 
 -- --------------------------------------------------------
 
@@ -170,7 +172,11 @@ INSERT INTO `user_tags` (`id`, `user_id`, `tag`) VALUES
 (23, 8, 'complots'),
 (24, 10, 'loli'),
 (26, 10, 'soap'),
-(27, 10, 'animals');
+(27, 10, 'animals'),
+(28, 8, 'dofus'),
+(29, 8, 'lol'),
+(30, 6, 'dofus'),
+(31, 6, 'lol');
 
 -- --------------------------------------------------------
 
@@ -192,9 +198,10 @@ CREATE TABLE `visit` (
 INSERT INTO `visit` (`id`, `id_visitor`, `id_visited`, `date`) VALUES
 (1, 7, 6, '2019-03-27 18:15:35'),
 (3, 6, 7, '2019-03-29 18:28:51'),
-(4, 6, 8, '2019-03-31 19:00:20'),
+(4, 6, 8, '2019-04-01 17:44:24'),
 (5, 10, 8, '2019-03-31 18:59:51'),
-(6, 8, 6, '2019-03-31 20:46:03');
+(6, 8, 6, '2019-04-01 17:13:06'),
+(7, 8, 8, '2019-04-01 17:05:04');
 
 -- --------------------------------------------------------
 
@@ -286,7 +293,7 @@ ALTER TABLE `vote`
 -- AUTO_INCREMENT pour la table `block`
 --
 ALTER TABLE `block`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `report`
@@ -298,13 +305,13 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `user_info`
 --
 ALTER TABLE `user_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `user_photo`
@@ -316,13 +323,13 @@ ALTER TABLE `user_photo`
 -- AUTO_INCREMENT pour la table `user_tags`
 --
 ALTER TABLE `user_tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT pour la table `visit`
 --
 ALTER TABLE `visit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `vote`

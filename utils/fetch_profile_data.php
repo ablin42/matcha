@@ -36,18 +36,9 @@ if (!empty($_GET['u'])) {
     $datetime1 = new DateTime('', new DateTimeZone('Europe/Paris'));
     $datetime2 = new DateTime($lastonline, new DateTimeZone('Europe/Paris'));
     $interval = $datetime2->diff($datetime1);
-
-    echo $lastonline;
-    echo "<br />";
-    echo $datetime2->format('Y-m-d H:i:s') . PHP_EOL;
-    echo "<br />";
-    echo $datetime1->format('Y-m-d H:i:s') . PHP_EOL;
-    echo "<br />";
-    echo $interval->format('%Y-%m-%d %H:%i:%s');
-    echo "<br />";
-    echo $interval->h . PHP_EOL;
-    echo $interval->i . PHP_EOL;
-    echo $interval->s . PHP_EOL;
+    $status = "<p style='color:green'><b>Online</b></p>";
+    if ($interval->y > 1 || $interval->m > 1 || $interval->d > 1 || $interval->h > 1 || $interval->i >= 5)
+        $status = "Last time seen <b>online</b>: <i>$lastonline</i>";
 
     $req = $db->prepare("SELECT `tag` FROM `user_tags` WHERE `user_id` = :user_id", array("user_id" => $id));
     if ($req) {

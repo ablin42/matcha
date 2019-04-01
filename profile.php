@@ -33,21 +33,21 @@ if ($id === $_SESSION['id'])
         <h1><?= $username ?></h1>
         <?php
             if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) === 1)
-                echo "<h6>You matched with ".$username."</h6>";
+                echo "<h5>You matched with ".$username."</h5>";
             else if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), -1) === 1)
-                echo "<h6>".$username." liked your profile and you disliked ".$username."'s profile</h6>";
+                echo "<h5>".$username." liked your profile and you disliked ".$username."'s profile</h5>";
             else if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), -1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), -1) === 1)
-                echo "<h6>You disliked eachothers</h6>";
+                echo "<h5>You disliked eachothers</h5>";
             else if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) !== 1)
-                echo "<h6>".$username." liked your profile</h6>";
+                echo "<h5>".$username." liked your profile</h5>";
             else if (has_voted($db, secure_input($_SESSION['id']),secure_input($id), -1) === 1)
-                echo "<h6>You disliked ".$username."'s profile</h6>";
+                echo "<h5>You disliked ".$username."'s profile</h5>";
             else if (has_voted($db, secure_input($_SESSION['id']), secure_input($id), 1) === 1)
-                echo "<h6>You liked ".$username."'s profile</h6>";
+                echo "<h5>You liked ".$username."'s profile</h5>";
         ?>
+        <h6><?= $status ?></h6>
         <div class="col-12">
             <?php
-
                 for ($i = 0; $i < 5; $i++) {
                     if ($photos[0] != NULL && $i === 0)
                         echo '<img src="'. $photos[$i] .'" alt="photo'.$i.'" class="profile_main"/>';
