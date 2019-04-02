@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  lun. 01 avr. 2019 à 12:51
+-- Généré le :  mar. 02 avr. 2019 à 14:04
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.1.22
 
@@ -108,7 +108,7 @@ CREATE TABLE `user_info` (
 
 INSERT INTO `user_info` (`id`, `user_id`, `firstname`, `lastname`, `birth_year`, `bio`, `gender`, `orientation`, `last_online`) VALUES
 (8, 4, 'Andreas', 'Doge', 1998, 'extremely inclusived', 'Male', 'Heterosexual', '2019-03-31 19:47:15'),
-(9, 6, 'Antonio', 'Kiwyz', 1992, 'je suis un petit khey qui boit de l\'eau', 'Male', 'Bisexual', '2019-04-01 21:51:47'),
+(9, 6, 'Antonio', 'Kiwyz', 1992, 'je suis un petit khey qui boit de l\'eau', 'Male', 'Bisexual', '2019-04-02 23:04:08'),
 (10, 7, 'Johnny', 'TikTokDoe', 1995, 'autiste\n\nautodiag\n\ndas', 'Female', 'Heterosexual', '2019-03-31 19:47:15'),
 (11, 8, 'Kévin', 'Secaly', 1990, 'je suis un pedophile', 'Female', 'Bisexual', '2019-04-01 19:28:30'),
 (12, 9, 'Andreas', 'Blin', 1998, 'men fou', 'Female', 'Homosexual', '2019-03-31 19:47:15'),
@@ -229,7 +229,11 @@ INSERT INTO `vote` (`id`, `id_voter`, `id_voted`, `type`, `date`) VALUES
 (19, 1, 6, -1, '2019-03-28 15:25:34'),
 (20, 6, 7, 1, '2019-03-28 06:21:20'),
 (22, 7, 6, 1, '2019-03-28 06:19:20'),
-(104, 6, 8, 1, '2019-03-31 16:59:39');
+(104, 6, 8, 1, '2019-03-31 16:59:39'),
+(105, 1, 10, 1, '2019-04-02 05:20:19'),
+(106, 4, 10, 1, '2019-04-02 05:20:19'),
+(107, 1, 7, 1, '2019-03-28 06:19:20'),
+(108, 5, 10, 1, '2019-03-28 06:19:20');
 
 --
 -- Index pour les tables déchargées
@@ -293,7 +297,7 @@ ALTER TABLE `vote`
 -- AUTO_INCREMENT pour la table `block`
 --
 ALTER TABLE `block`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `report`
@@ -335,7 +339,7 @@ ALTER TABLE `visit`
 -- AUTO_INCREMENT pour la table `vote`
 --
 ALTER TABLE `vote`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

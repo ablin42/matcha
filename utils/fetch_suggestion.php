@@ -9,6 +9,42 @@ use \ablin42\database;
 $db = database::getInstance('matcha');
 
 if (!empty($_SESSION['id'])) {
+    $sortfield = 'totalscore';
+    $sorttype = "des";
+    $bystart = 1940;
+    $byend = 2001;
+    if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET['sort']) && !empty($_GET['type']))
+    {
+        if ($_GET['type'] == "asc")
+            $sorttype = "asc";
+        if (!empty($_GET['bystart']) && !empty($_GET['byend']) && is_numeric($_GET['bystart']) && is_numeric($_GET['byend']))
+        {
+            //check nbr range
+            $bystart = secure_input($_GET['bystart']);
+            $byend = secure_input($_GET['byend']);
+        }
+        $sort = secure_input($_GET['sort']);
+        switch ($sort)
+        {
+           case "Standard":
+               $sortfield = 'totalscore';
+               break;
+           case "Age":
+                $sortfield = 'birthyear';
+               break;
+           case "Location":
+                $sortfield = 'location';
+               break;
+           case "Popularity":
+               $sortfield = 'score';
+               break;
+           case "Tags":
+               $sortfield = 'tagscore';
+               break;
+           default:
+               $sortfield = 'totalscore';
+        }
+    }
     $id = secure_input($_SESSION['id']);
     $attributes['id'] = $id;
 
@@ -56,12 +92,15 @@ if (!empty($_SESSION['id'])) {
          OR (`gender` = 'Male' AND (`orientation` = 'Bisexual' OR `orientation` = 'Heterosexual') AND `user_id` != :id)";
     }
 
+    $attributes['bystart'] = $bystart;
+    $attributes['byend'] = $byend;
     $basics = $db->prepare($query, $attributes);
     $matched_user = array();
     foreach ($basics as $basic) {
         $req = $db->prepare("SELECT * FROM `block` WHERE `id_blocked` = :user_id AND `id_blocker` = :id", array("user_id" => $basic->user_id, "id" => $id));
         if (!$req) {
             $info = array();
+            $info['birthyear'] = $basic->birth_year;
             $info['tagscore'] = 0;
             array_push($info, $basic->user_id, $basic->username, $basic->gender, $basic->orientation);
             $attributes2['user_id'] = $basic->user_id;
@@ -86,28 +125,33 @@ if (!empty($_SESSION['id'])) {
                 }
                 $info['tags'] = $tags_arr;
             }
+            $oriscore = 100;
+            if ($basic->orientation === "Bisexual")
+                $oriscore = 75;
+            $info['totalscore'] = $oriscore + ($info['tagscore'] * 50) + ($info['score'] * 5); //+ geo score+ maybe orientation score (orientation/geoscore/tagscore/pop)
             array_push($matched_user, $info);
         }
     }
 
     $arr = array();
     foreach ($matched_user as $user)
-    {
-        $arr[$user[0]] = $user['tagscore'];
-    }
-    arsort($arr);
+        $arr[$user[0]] = $user[$sortfield];
+    if ($sorttype === "des")
+        arsort($arr);
+    else
+        asort($arr);
 
-    $sortedbytagscore = array();
+    $sorted = array();
     foreach ($arr as $key => $value)
     {
         foreach ($matched_user as $user)
         {
             if ($key == $user[0])
-                $sortedbytagscore[] = $user;
+                $sorted[] = $user;
         }
     }
 
-    echo "<pre style='color:white'>";var_dump($sortedbytagscore); echo "</pre><hr />";
-    echo "<pre style='color:white'>";var_dump($matched_user); echo "</pre><hr />";
+    //echo "<pre style='color:white'>";var_dump($sorted); echo "</pre><hr />";
+    //echo "<pre style='color:white'>";var_dump($matched_user); echo "</pre><hr />";
 
 }
