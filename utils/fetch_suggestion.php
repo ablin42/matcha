@@ -13,36 +13,44 @@ if (!empty($_SESSION['id'])) {
     $sorttype = "des";
     $bystart = 1940;
     $byend = 2001;
-    if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET['sort']) && !empty($_GET['type']))
+    $minscore = 0;
+    $maxscore = 1000;
+    if ($_SERVER["REQUEST_METHOD"] == "GET")
     {
-        if ($_GET['type'] == "asc")
-            $sorttype = "asc";
+        if (!empty($_GET['pstart']) && is_numeric($_GET['pstart']))
+            $minscore = secure_input($_GET['pstart']);
+        if (!empty($_GET['pend']) && is_numeric($_GET['pend']))
+            $maxscore = secure_input($_GET['pend']);
+        if (!empty($_GET['type']))
+            if ($_GET['type'] == "asc")
+                $sorttype = "asc";
         if (!empty($_GET['bystart']) && !empty($_GET['byend']) && is_numeric($_GET['bystart']) && is_numeric($_GET['byend']))
         {
             //check nbr range
             $bystart = secure_input($_GET['bystart']);
             $byend = secure_input($_GET['byend']);
         }
-        $sort = secure_input($_GET['sort']);
-        switch ($sort)
-        {
-           case "Standard":
-               $sortfield = 'totalscore';
-               break;
-           case "Age":
-                $sortfield = 'birthyear';
-               break;
-           case "Location":
-                $sortfield = 'location';
-               break;
-           case "Popularity":
-               $sortfield = 'score';
-               break;
-           case "Tags":
-               $sortfield = 'tagscore';
-               break;
-           default:
-               $sortfield = 'totalscore';
+        if (!empty($_GET['sort'])) {
+            $sort = secure_input($_GET['sort']);
+            switch ($sort) {
+                case "Standard":
+                    $sortfield = 'totalscore';
+                    break;
+                case "Age":
+                    $sortfield = 'birthyear';
+                    break;
+                case "Location":
+                    $sortfield = 'location';
+                    break;
+                case "Popularity":
+                    $sortfield = 'score';
+                    break;
+                case "Tags":
+                    $sortfield = 'tagscore';
+                    break;
+                default:
+                    $sortfield = 'totalscore';
+            }
         }
     }
     $id = secure_input($_SESSION['id']);
@@ -62,7 +70,7 @@ if (!empty($_SESSION['id'])) {
     }
 
     $query = "SELECT * FROM `user_info` RIGHT JOIN `user` ON user_info.user_id = user.id WHERE `gender` = :gender
-     AND (`orientation` = :orientation OR `orientation` = 'Bisexual') AND `user_id` != :id";
+     AND (`orientation` = :orientation OR `orientation` = 'Bisexual') AND `user_id` != :id AND `birth_year` >= :bystart AND `birth_year` <= :byend";
 
     if ($gender === "Male" && $orientation === "Heterosexual") //female bi ou hetero
     {
@@ -82,14 +90,20 @@ if (!empty($_SESSION['id'])) {
         $attributes['orientation'] = "Homosexual";
     } else if ($gender === "Male" && $orientation === "Bisexual") //homosexual male / heterosexual female / bi female / bi male
     {
-        $query = "SELECT * FROM `user_info` RIGHT JOIN `user` ON user_info.user_id = user.id WHERE 
-        (`gender` = 'Male' AND (`orientation` = 'Bisexual' OR `orientation` = 'Homosexual') AND `user_id` != :id)
-         OR (`gender` = 'Female' AND (`orientation` = 'Bisexual' OR `orientation` = 'Heterosexual') AND `user_id` != :id)";
+        $query = "SELECT * FROM `user_info` 
+                  RIGHT JOIN `user` ON user_info.user_id = user.id 
+                  WHERE (`gender` = 'Male' AND (`orientation` = 'Bisexual' OR `orientation` = 'Homosexual') 
+                  AND `user_id` != :id AND `birth_year` >= :bystart AND `birth_year` <= :byend)
+                  OR (`gender` = 'Female' AND (`orientation` = 'Bisexual' OR `orientation` = 'Heterosexual') 
+                  AND `user_id` != :id AND `birth_year` >= :bystart AND `birth_year` <= :byend)";
     } else if ($gender === "Female" && $orientation === "Bisexual") //homosexual female / heterosexual male / bi male / bi female
     {
-        $query = "SELECT * FROM `user_info` RIGHT JOIN `user` ON user_info.user_id = user.id WHERE 
-        (`gender` = 'Female' AND (`orientation` = 'Bisexual' OR `orientation` = 'Homosexual') AND `user_id` != :id)
-         OR (`gender` = 'Male' AND (`orientation` = 'Bisexual' OR `orientation` = 'Heterosexual') AND `user_id` != :id)";
+        $query = "SELECT * FROM `user_info`
+                  RIGHT JOIN `user` ON user_info.user_id = user.id 
+                  WHERE (`gender` = 'Female' AND (`orientation` = 'Bisexual' OR `orientation` = 'Homosexual') 
+                  AND `user_id` != :id AND `birth_year` >= :bystart AND `birth_year` <= :byend)
+                  OR (`gender` = 'Male' AND (`orientation` = 'Bisexual' OR `orientation` = 'Heterosexual') 
+                  AND `user_id` != :id AND `birth_year` >= :bystart AND `birth_year` <= :byend) ";
     }
 
     $attributes['bystart'] = $bystart;
@@ -129,7 +143,8 @@ if (!empty($_SESSION['id'])) {
             if ($basic->orientation === "Bisexual")
                 $oriscore = 75;
             $info['totalscore'] = $oriscore + ($info['tagscore'] * 50) + ($info['score'] * 5); //+ geo score+ maybe orientation score (orientation/geoscore/tagscore/pop)
-            array_push($matched_user, $info);
+            if ($info['score'] >= $minscore && $info['score'] <= $maxscore)
+                array_push($matched_user, $info);
         }
     }
 

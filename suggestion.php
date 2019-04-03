@@ -35,7 +35,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
     <div class="wrapper col-12">
         <h1>Profiles you might be interested in</h1>
         <div class="container">
-        <form id="sort" name="sort" @submit="processSort" class="register-form my-2" method="GET" action="suggestion.php">
+        <form id="sort" name="sort" @submit.prevent="processSort" class="register-form my-2" method="post">
             <div class="form-group">
                 <label for="sort" class="lab">Sort Type</label>
                 <select name="sort" v-model="selectedSort" required>
@@ -43,53 +43,83 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                         {{ sort.text }}
                     </option>
                 </select>
-                <select name="type" required>
-                    <option selected value="des">DES</option>
-                    <option value="asc">ASC</option>
+                <select name="order" v-model="selectedOrder" required>
+                    <option v-for="order in orderOptions" v-bind:value="order.value">
+                        {{ order.text }}
+                    </option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="bystart" class="lab">Birth year <b>start</b></label>
                 <input type="number"
                        name="bystart"
-                       placeholder="1984"
+                       placeholder="1940"
                        id="bystart"
                        class="form-control"
                        min="1940"
-                       max="2000">
+                       max="2000"
+                       v-model="byStart"
+                       :style="{ borderColor: borderColor.byStart }"
+                       @blur="validateByStart">
+                <span v-if="errors.byStart">The birth year must be in the range 1940-2001</span>
             </div>
             <div class="form-group">
                 <label for="byend" class="lab">Birth year <b>end</b></label>
                 <input type="number"
                        name="byend"
-                       placeholder="1984"
+                       placeholder="2001"
                        id="byend"
                        class="form-control"
                        min="1941"
-                       max="2001">
+                       max="2001"
+                       v-model="byEnd"
+                       :style="{ borderColor: borderColor.byEnd }"
+                       @blur="validateByEnd">
+                <span v-if="errors.byEnd">The birth year must be in the range 1940-2001</span>
             </div>
             <!--<div class="form-group">
                 <label for="location" class="lab">Location</label>
                 <input type="text" class="form-control" disabled />
+            </div>-->
+            <div class="form-group">
+                <label for="pstart" class="lab">Minimum popularity score</label>
+                <input type="number"
+                       name="pstart"
+                       placeholder="0"
+                       id="pstart"
+                       class="form-control"
+                       min="-100000"
+                       max="100000"
+                       v-model="pStart"
+                       :style="{ borderColor: borderColor.pStart }"
+                       @blur="validatepStart">
+                <span v-if="errors.pStart">The popularity score must be between -100.000 and 100.000</span>
             </div>
             <div class="form-group">
-                <label for="pop" class="lab">Sort Type</label>
-                <select name="pop" required>
-                    <option value="1">range 1</option>
-                    <option value="2">rage 2</option>
-                </select>
+                <label for="pend" class="lab">Maximum popularity score</label>
+                <input type="number"
+                       name="pend"
+                       placeholder="250"
+                       id="pend"
+                       class="form-control"
+                       min="-100000"
+                       max="100000"
+                       v-model="pEnd"
+                       :style="{ borderColor: borderColor.pEnd }"
+                       @blur="validatepEnd">
+                <span v-if="errors.pEnd">The popularity score must be between -100.000 and 100.000</span>
             </div>
             <div class="form-group">
                 <label for="tagInput" class="lab">Tag filter</label>
-                <input v-bind="selectedTags" type="text" value="" data-role="tagsinput" id="tagInput" name="tagInput" class="form-control">
+                <input v-model="selectedTags" type="text" value="" data-role="tagsinput" id="tagInput" name="tagInput" class="form-control">
             </div>
--->
+
             <div class="form-group">
-                <button type="submit" value="submit" class="btn btn-outline-warning">Sort</button>
+                <button type="submit" class="btn btn-outline-warning">Sort</button>
             </div>
         </form>
         </div>
-        <div>
+        <div id="suggestion">
             <?php
                 require_once("utils/fetch_suggestion.php");
                 foreach ($sorted as $match)
@@ -105,6 +135,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                     echo "</div><br />";
                 }
             ?>
+        </div>
     </div>
 </div>
 

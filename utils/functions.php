@@ -6,6 +6,12 @@ function gen_token($length)
     return substr(str_shuffle(str_repeat($tab, $length)), 0, $length);
 }
 
+function swap(&$x, &$y) {
+    $tmp=$x;
+    $x=$y;
+    $y=$tmp;
+}
+
 function alert_bootstrap($type, $message, $style = "")
 {
     return "<div id=\"alert\" class=\"alert alert-{$type}\" style=\"$style\" role=\"alert\">{$message}

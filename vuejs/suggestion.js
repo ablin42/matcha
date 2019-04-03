@@ -5,29 +5,100 @@ document.head.appendChild(imported);
 let account = new Vue({
     el: '#sort',
     data: {
-        selectedSort: "",
+        byStart: '',
+        byEnd: '',
+        pStart: '',
+        pEnd: '',
+        selectedSort: 'Standard',
         sortOptions: [
             { text: 'Standard', value: 'Standard' },
             { text: 'Age', value: 'Age' },
             { text: 'Location', value: 'Location' },
             { text: 'Popularity', value: 'Popularity' },
             { text: 'Tags', value: 'Tags' }
-        ]
+        ],
+        selectedOrder: 'des',
+        orderOptions : [
+            { text: 'DES', value: 'des'},
+            { text: 'ASC', value: 'asc'}
+        ],
+        borderColor: {
+            byStart: '',
+            byEnd: '',
+            pStart: '',
+            pEnd: '',
+        },
+        errors: {
+            byStart: false,
+            byEnd: false,
+            pStart: false,
+            pEnd: false,
+        }
     },
     methods: {
         processSort: function () {
-            console.log(this.selectedSort);
-            /*fetch('handlers/sort_suggestion.php', {
+            let tagInput = document.getElementsByClassName("label-info"),
+                tags = [];
+            console.log(tagInput);
+            for (i = 0; i < tagInput.length; i++)
+                tags.push(tagInput[i].textContent);
+            console.log(tags);
+            fetch('handlers/filter_suggestion.php', {
                 method: 'post',
                 mode: 'same-origin',
                 headers: {'Content-Type': 'application/json'}, //sent
                 body: JSON.stringify({
-                    sort: this.selectedSort
+                    sort: this.selectedSort, order: this.selectedOrder,
+                    bystart: this.byStart, byend: this.byEnd,
+                    pstart: this.pStart, pend: this.pEnd,
+                    tags: tags
                 })
             })
                 .then((res) => res.text())
-                .then((data) => addAlert(data, document.getElementById("header")))
-                .catch((error) => console.log(error))*/
-        }
+                .then(function(data){
+                    console.log(data);
+                })
+                .catch((error) => console.log(error))
+        },
+        validateByStart: function () {
+            if (this.byStart >= 1940 && this.byStart <= 2001)
+                this.borderColor.byStart = "#56c93f";
+            else
+                this.borderColor.byStart = "#FF0000";
+            if (this.byStart < 1940 || this.byStart > 2001)
+                this.errors.byStart = true;
+            else
+                this.errors.byStart = false;
+        },
+        validateByEnd: function () {
+            if (this.byEnd >= 1940 && this.byEnd <= 2001)
+                this.borderColor.byEnd = "#56c93f";
+            else
+                this.borderColor.byEnd = "#FF0000";
+            if (this.byEnd < 1940 || this.byEnd > 2001)
+                this.errors.byEnd = true;
+            else
+                this.errors.byEnd = false;
+        },
+        validatepStart: function () {
+            if (this.pStart >= -100000 && this.pStart <= 100000)
+                this.borderColor.pStart = "#56c93f";
+            else
+                this.borderColor.pStart = "#FF0000";
+            if (this.pStart < -100000 || this.pStart > 100000)
+                this.errors.pStart = true;
+            else
+                this.errors.pStart = false;
+        },
+        validatepEnd: function () {
+            if (this.pEnd >= -100000 && this.pEnd <= 100000)
+                this.borderColor.pEnd = "#56c93f";
+            else
+                this.borderColor.pEnd = "#FF0000";
+            if (this.pEnd < -100000 || this.pEnd > 100000)
+                this.errors.pEnd = true;
+            else
+                this.errors.pEnd = false;
+        },
     }
 });
