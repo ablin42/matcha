@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  mar. 02 avr. 2019 à 14:04
+-- Généré le :  jeu. 04 avr. 2019 à 12:31
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.1.22
 
@@ -82,7 +82,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`, `mail_token`, `confir
 (8, 'Secaly', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'secaly42@byom.de', 'NULL', '2019-03-25 18:42:35', NULL),
 (9, 'Space6Fic', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'Space6Fic@byom.de', NULL, '2019-03-27 20:17:23', NULL),
 (10, 'asff', '410c6628072476812f42e4414553bae859ab984667f5250883143ff5380bf8a14552bef191998368eeef1b35e1bb52f05d47301a65c0f620def1d2dd7b6c4de7', 'asff@byom.de', 'NULL', '2019-03-29 20:15:13', NULL),
-(11, 'tabtest', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'tabtest@byom.de', 'NULL', '2019-04-01 19:42:27', NULL);
+(11, 'tabtest', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'tabtest@byom.de', 'NULL', '2019-04-01 19:42:27', NULL),
+(13, 'granma67', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'granma67@byom.de', 'NULL', '2019-04-04 20:42:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -108,12 +109,34 @@ CREATE TABLE `user_info` (
 
 INSERT INTO `user_info` (`id`, `user_id`, `firstname`, `lastname`, `birth_year`, `bio`, `gender`, `orientation`, `last_online`) VALUES
 (8, 4, 'Andreas', 'Doge', 1998, 'extremely inclusived', 'Male', 'Heterosexual', '2019-03-31 19:47:15'),
-(9, 6, 'Antonio', 'Kiwyz', 1992, 'je suis un petit khey qui boit de l\'eau', 'Male', 'Bisexual', '2019-04-02 23:04:08'),
+(9, 6, 'Antonio', 'Kiwyz', 1992, 'je suis un petit khey qui boit de l\'eau', 'Male', 'Bisexual', '2019-04-04 21:30:46'),
 (10, 7, 'Johnny', 'TikTokDoe', 1995, 'autiste\n\nautodiag\n\ndas', 'Female', 'Heterosexual', '2019-03-31 19:47:15'),
 (11, 8, 'Kévin', 'Secaly', 1990, 'je suis un pedophile', 'Female', 'Bisexual', '2019-04-01 19:28:30'),
 (12, 9, 'Andreas', 'Blin', 1998, 'men fou', 'Female', 'Homosexual', '2019-03-31 19:47:15'),
 (13, 10, 'asdad', 'asdasd', 1999, 'im a fag', 'Male', 'Bisexual', '2019-03-31 19:47:15'),
-(14, 11, 'tab', 'test', 1940, NULL, NULL, 'Bisexual', '2019-04-01 19:42:33');
+(14, 11, 'tab', 'test', 1999, 'furfag', 'Female', 'Bisexual', '2019-04-01 19:42:33'),
+(16, 13, 'OG', 'lord', 1967, NULL, NULL, 'Bisexual', '2019-04-04 20:41:09');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user_location`
+--
+
+CREATE TABLE `user_location` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `lat` float NOT NULL,
+  `lng` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `user_location`
+--
+
+INSERT INTO `user_location` (`id`, `user_id`, `lat`, `lng`) VALUES
+(1, 6, 48.89, 2.35329),
+(2, 13, 48.8543, 2.3527);
 
 -- --------------------------------------------------------
 
@@ -265,6 +288,12 @@ ALTER TABLE `user_info`
   ADD UNIQUE KEY `id_user` (`user_id`);
 
 --
+-- Index pour la table `user_location`
+--
+ALTER TABLE `user_location`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `user_photo`
 --
 ALTER TABLE `user_photo`
@@ -309,13 +338,19 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `user_info`
 --
 ALTER TABLE `user_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT pour la table `user_location`
+--
+ALTER TABLE `user_location`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `user_photo`

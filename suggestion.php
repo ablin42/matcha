@@ -111,7 +111,8 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
             </div>
             <div class="form-group">
                 <label for="tagInput" class="lab">Tag filter</label>
-                <input v-model="selectedTags" type="text" value="" data-role="tagsinput" id="tagInput" name="tagInput" class="form-control">
+                <h6>Filterings tags will match only the users with <b>ALL</b> the filtered tags!</h6>
+                <input type="text" value="" data-role="tagsinput" id="tagInput" name="tagInput" class="form-control">
             </div>
 
             <div class="form-group">
@@ -120,6 +121,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
         </form>
         </div>
         <div id="suggestion">
+            <div id="gen-sugg">
             <?php
                 require_once("utils/fetch_suggestion.php");
                 foreach ($sorted as $match)
@@ -135,6 +137,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                     echo "</div><br />";
                 }
             ?>
+            </div>
         </div>
     </div>
 </div>

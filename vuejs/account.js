@@ -129,6 +129,26 @@ let photo = new Vue({
     el: '#photos'
 });
 
+let locat = new Vue({
+    el: '#location',
+    methods: {
+        processLocation: function (){
+            let lat = document.getElementById("lat").value,
+                lng = document.getElementById("lng").value
+            fetch('handlers/update_location.php', {
+                method: 'post',
+                mode: 'same-origin',
+                body: JSON.stringify({
+                    lat: lat, lng: lng
+                })
+            })
+                .then((res) => res.text())
+                .then((data) => addAlert(data, document.getElementById("header")))
+                .catch((error) => console.log(error))
+        }
+    }
+});
+
 let tags = new Vue({
     el: '#tags',
     data: {

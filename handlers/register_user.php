@@ -85,6 +85,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $attributes_info['birth'] = $birth_year;
             $db->prepare("INSERT INTO `user_info` (`user_id`, `firstname`, `lastname`, `birth_year`) VALUES (:user_id, :firstname, :lastname, :birth)", $attributes_info);
 
+            $ipaddress = get_client_ip();
+            $PublicIP = "62.210.34.50"; //get_client_ip();
+            //$json = file_get_contents("http://ipinfo.io/$PublicIP/geo");
+            $json = file_get_contents("http://api.ipstack.com/62.210.34.50?access_key=39cbaf113fdf77368d7b438232d1428c");
+            $data = json_decode($json, true);
+            $lat = $data['latitude'];
+            $lng = $data['longitude'];
+            $req = $db->prepare("INSERT INTO `user_location` (`user_id`, `lat`, `lng`) VALUES (:user_id, :lat, :lng)",
+                                array("user_id" => $user_id, "lat" => $lat, "lng" => $lng));
+
             $subject = "Confirm your account at Matcha";
             $message = "In order to confirm your account, please click this link: \n\nhttp://localhost:8080/Matcha/utils/confirm_account.php?id=$user_id&token=$token";
             mail($email, $subject, $message);

@@ -211,9 +211,47 @@ require_once("utils/fetch_account_data.php");
                 </form>
             </div>
         </div>
+
+        <h3>pick your location</h3>
+        <hr>
+        <div class="gallery-wrapper" style="min-height: 500px; overflow: hidden; position: relative;">
+            <div id="map"></div>
+        </div>
+
+        <form id="location" name="location" @submit.prevent="processLocation" class="my-2 my-lg-0" method="post">
+            <input type="hidden" name="lat" id="lat" />
+            <input type="hidden" name="lng" id="lng" />
+            <input type="submit" />
+        </form>
+
+        <script>
+            document.getElementById('lat').value = parseFloat("48.856783210696854");
+            document.getElementById('lng').value = parseFloat("2.345733642578125");
+            function initMap() {
+                var myLatLng = {lat: parseFloat("48.856783210696854"), lng: parseFloat("2.345733642578125")};
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    center: myLatLng,
+                    scrollwheel: false,
+                    zoom: 12
+                });
+                var marker = new google.maps.Marker({
+                    map: map,
+                    draggable: true,
+                    position: myLatLng,
+                    title: 'My position'
+                });
+                google.maps.event.addListener(marker, "dragend", function(evenement) {
+                    document.getElementById('lat').value = evenement.latLng.lat();
+                    document.getElementById('lng').value = evenement.latLng.lng();
+
+                });
+            }
+        </script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtIR3f-u4e9gNw_3uNKd062fS_ql5waic&callback=initMap">
+        </script>
     </div>
 </div>
-
 
 <?php
 require_once("includes/footer.php");

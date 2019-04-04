@@ -16,3 +16,16 @@ function isValidEmail(email) {
         return false;
     return true;
 }
+
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+function cooldown(input)
+{
+    input.disabled = true;
+    setTimeout(function ()
+    {
+        input.disabled = false;
+    }, 1500);
+}

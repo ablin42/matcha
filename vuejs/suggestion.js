@@ -39,10 +39,8 @@ let account = new Vue({
         processSort: function () {
             let tagInput = document.getElementsByClassName("label-info"),
                 tags = [];
-            console.log(tagInput);
             for (i = 0; i < tagInput.length; i++)
                 tags.push(tagInput[i].textContent);
-            console.log(tags);
             fetch('handlers/filter_suggestion.php', {
                 method: 'post',
                 mode: 'same-origin',
@@ -51,12 +49,18 @@ let account = new Vue({
                     sort: this.selectedSort, order: this.selectedOrder,
                     bystart: this.byStart, byend: this.byEnd,
                     pstart: this.pStart, pend: this.pEnd,
-                    tags: tags
+                    tags: tags//localisation
                 })
             })
                 .then((res) => res.text())
                 .then(function(data){
                     console.log(data);
+                    document.getElementById('gen-sugg').remove();
+                    let div = document.createElement('div'),
+                        parent = document.getElementById("suggestion");
+                    div.setAttribute('id', 'gen-sugg');
+                    parent.appendChild(div);
+                    div.innerHTML += data;
                 })
                 .catch((error) => console.log(error))
         },

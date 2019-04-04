@@ -315,7 +315,7 @@ let login = new Vue({
                         addAlert(data, document.getElementById("header"));
                         if (data.indexOf("successfully") !== -1)
                             setTimeout(function () {
-                                window.location.href = "/Matcha/Login";
+                                window.location.href = "/Matcha";
                             }, 1000);
                     })
                     .catch((error) => console.log(error))
