@@ -16,11 +16,13 @@ $db = database::getInstance('matcha');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'));
     if (!empty($data->{'username'}) && !empty($data->{'password'})) {
-        $attributes_h['username'] = htmlspecialchars(trim($data->{'username'}));
+        $attributes_h['username'] = secure_input($data->{'username'});
         $pwd = hash('whirlpool', $data->{'password'});
         $req = $db->prepare("SELECT * FROM `user` WHERE `username` = :username", $attributes_h);
         if ($req) {
             foreach ($req as $elem) {
+                $user_id = $elem->id;
+                $token = $elem->mail_token;
                 if ($elem->confirmed_token !== NULL) {
                     if ($elem->password === $pwd) {
                         $_SESSION['username'] = $elem->username;

@@ -69,6 +69,17 @@ if (!empty($_SESSION['id'])) {
             array_push($tags, $item->tag);
     }
 
+    $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
+    if ($req) {
+        foreach ($req as $loc)
+        {
+            $attributes_loc['lat1'] = $loc->lat;
+            $attributes_loc['lng1'] = $loc->lng;
+        }
+    }
+    else
+        $error_dist = 1;
+
     $query = "SELECT * FROM `user_info` RIGHT JOIN `user` ON user_info.user_id = user.id WHERE `gender` = :gender
      AND (`orientation` = :orientation OR `orientation` = 'Bisexual') AND `user_id` != :id AND `birth_year` >= :bystart AND `birth_year` <= :byend";
 
@@ -139,10 +150,22 @@ if (!empty($_SESSION['id'])) {
                 }
                 $info['tags'] = $tags_arr;
             }
+            $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => $basic->user_id));
+            if ($req) {
+                foreach ($req as $loc)
+                {
+                    $attributes_loc['lat2'] = $loc->lat;
+                    $attributes_loc['lng2'] = $loc->lng;
+                }
+            }
+            else
+                $error_dist = 1;
+            if ($error_dist != 1)
+                $info['distance'] = round(distance($attributes_loc['lat1'], $attributes_loc['lng1'], $attributes_loc['lat2'], $attributes_loc['lng2'], "K"));
             $oriscore = 100;
             if ($basic->orientation === "Bisexual")
                 $oriscore = 75;
-            $info['totalscore'] = $oriscore + ($info['tagscore'] * 50) + ($info['score'] * 5); //+ geo score+ maybe orientation score (orientation/geoscore/tagscore/pop)
+            $info['totalscore'] = $oriscore - ($info['distance'] * 10) + ($info['tagscore'] * 50) + ($info['score'] * 5); //+ geo score+ maybe orientation score (orientation/geoscore/tagscore/pop)
             if ($info['score'] >= $minscore && $info['score'] <= $maxscore)
                 array_push($matched_user, $info);
         }

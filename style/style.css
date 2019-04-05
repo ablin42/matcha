@@ -399,7 +399,7 @@ p {color: #AAAAAA;}
     display: none;
 }
 
-input:focus:valid, input:valid {border-color: #56c93f;}
+/*input:focus:valid, input:valid {border-color: #56c93f;}*/
 
 .currpw:focus:valid, .currpw:valid {border-color: #80bdff;}
 

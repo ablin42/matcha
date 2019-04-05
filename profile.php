@@ -31,6 +31,7 @@ if ($id === $_SESSION['id'])
 <div class="container mt-5 small-page-wrapper">
     <div class="wrapper col-12">
         <h1><?= $username ?></h1>
+        <?php if ($distance) echo "<h6>".$distance."KM away</h6>";?>
         <?php
             if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) === 1)
                 echo "<h5>You matched with ".$username."</h5>";

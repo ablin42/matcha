@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: ablin
- * Date: 4/03/19
- * Time: 6:32 PM
+ * Date: 4/05/19
+ * Time: 9:22 PM
  */
 
 session_start();
@@ -25,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $required_tags = array();
     $mdistance = 50;
     $data = json_decode(file_get_contents('php://input'));
-    //echo json_encode($data);
     if (!empty($data->{'sort'}) && !empty($data->{'order'})) {
         $sort = secure_input($data->{'sort'});
         switch ($sort) {
@@ -68,78 +67,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mdistance = secure_input($data->{'location'});
 
         $attributes['id'] = $id;
-        $req = $db->prepare("SELECT * FROM `user_info` WHERE `user_id` = :id", $attributes);
-        if ($req) {
-            foreach ($req as $item) {
-                $gender = $item->gender;
-                $orientation = $item->orientation;
-                $bio = $item->bio;
-                $firstname = $item->firstname;
-                $lastname = $item->lastname;
-            }
-        }
-
-        $req = $db->prepare("SELECT SUM(`type`) as sum, COUNT(*) as total FROM `vote` WHERE `id_voted` = :id", $attributes);
-        if ($req)
-            $score = $req[0]->sum * $req[0]->total;
-        else
-            $score = 0;
-
-        $req = $db->prepare("SELECT `tag` FROM `user_tags` WHERE `user_id` = :id", $attributes);
-        if ($req) {
-            $tags = array();
-            foreach ($req as $item)
-                array_push($tags, $item->tag);
-        }
-
         $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
         if ($req) {
-            foreach ($req as $loc)
-            {
+            foreach ($req as $loc) {
                 $attributes_loc['lat1'] = $loc->lat;
                 $attributes_loc['lng1'] = $loc->lng;
             }
-        }
-        else
+        } else
             $error_dist = 1;
 
-        $query = "SELECT * FROM `user_info` RIGHT JOIN `user` ON user_info.user_id = user.id WHERE `gender` = :gender
-     AND (`orientation` = :orientation OR `orientation` = 'Bisexual') AND `user_id` != :id AND `birth_year` >= :bystart AND `birth_year` <= :byend";
-
-        if ($gender === "Male" && $orientation === "Heterosexual") //female bi ou hetero
-        {
-            $attributes['gender'] = "Female";
-            $attributes['orientation'] = "Heterosexual";
-        } else if ($gender === "Male" && $orientation === "Homosexual") //male bi ou homo
-        {
-            $attributes['gender'] = "Male";
-            $attributes['orientation'] = "Homosexual";
-        } else if ($gender === "Female" && $orientation === "Heterosexual") //male bi ou hetero
-        {
-            $attributes['gender'] = "Male";
-            $attributes['orientation'] = "Heterosexual";
-        } else if ($gender === "Female" && $orientation === "Homosexual") //female bi ou hetero
-        {
-            $attributes['gender'] = "Female";
-            $attributes['orientation'] = "Homosexual";
-        } else if ($gender === "Male" && $orientation === "Bisexual") //homosexual male / heterosexual female / bi female / bi male
-        {
-            $query = "SELECT * FROM `user_info` 
-                  RIGHT JOIN `user` ON user_info.user_id = user.id 
-                  WHERE (`gender` = 'Male' AND (`orientation` = 'Bisexual' OR `orientation` = 'Homosexual') 
-                  AND `user_id` != :id AND `birth_year` >= :bystart AND `birth_year` <= :byend)
-                  OR (`gender` = 'Female' AND (`orientation` = 'Bisexual' OR `orientation` = 'Heterosexual') 
-                  AND `user_id` != :id AND `birth_year` >= :bystart AND `birth_year` <= :byend)";
-        } else if ($gender === "Female" && $orientation === "Bisexual") //homosexual female / heterosexual male / bi male / bi female
-        {
-            $query = "SELECT * FROM `user_info`
-                  RIGHT JOIN `user` ON user_info.user_id = user.id 
-                  WHERE (`gender` = 'Female' AND (`orientation` = 'Bisexual' OR `orientation` = 'Homosexual') 
-                  AND `user_id` != :id AND `birth_year` >= :bystart AND `birth_year` <= :byend)
-                  OR (`gender` = 'Male' AND (`orientation` = 'Bisexual' OR `orientation` = 'Heterosexual') 
-                  AND `user_id` != :id AND `birth_year` >= :bystart AND `birth_year` <= :byend) ";
-        }
-
+        $query = "SELECT * FROM `user_info` RIGHT JOIN `user` ON user_info.user_id = user.id WHERE `birth_year` >= :bystart AND `birth_year` <= :byend AND `user_id` != :id";
         $attributes['bystart'] = $bystart;
         $attributes['byend'] = $byend;
         $basics = $db->prepare($query, $attributes);
@@ -165,31 +102,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 else
                     $info['score'] = 0;
                 $tags_arr = array();
-                foreach ($tags as $tag) {
-                    $attributes2['tag'] = $tag;
-                    $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id AND `tag` = :tag", $attributes2);
-                    if ($req) {
-                        $tags_arr[] = $req[0]->tag;
-                        $info['tagscore']++;
+                if ($required_tags) {
+                    foreach ($required_tags as $tag) {/////////////////////////////////
+                        $attributes2['tag'] = $tag;
+                        $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id AND `tag` = :tag", $attributes2);
+                        if ($req) {
+                            $tags_arr[] = $req[0]->tag;
+                            $info['tagscore']++;
+                        }
                     }
-                    $info['tags'] = $tags_arr;
                 }
+                else {
+                    $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id", $attributes2);
+                    if ($req) {
+                        foreach ($req as $tag) {
+                            $tags_arr[] = $tag->tag;
+                        }
+                    }
+                }
+                $info['tags'] = $tags_arr;
                 $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => $basic->user_id));
                 if ($req) {
-                    foreach ($req as $loc)
-                    {
+                    foreach ($req as $loc) {
                         $attributes_loc['lat2'] = $loc->lat;
                         $attributes_loc['lng2'] = $loc->lng;
                     }
-                }
-                else
+                } else
                     $error_dist = 1;
                 if ($error_dist != 1)
                     $info['distance'] = round(distance($attributes_loc['lat1'], $attributes_loc['lng1'], $attributes_loc['lat2'], $attributes_loc['lng2'], "K"));
-                $oriscore = 100;
-                if ($basic->orientation === "Bisexual")
-                    $oriscore = 75;
-                $info['totalscore'] = $oriscore - ($info['distance'] * 10) + ($info['tagscore'] * 50) + ($info['score'] * 5); //+ geo score+ maybe orientation score (orientation/geoscore/tagscore/pop)
                 if ($info['score'] >= $minscore && $info['score'] <= $maxscore) {
                     foreach ($required_tags as $rtag) {
                         foreach ($tags_arr as $utag) {
@@ -212,29 +153,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             asort($arr);
 
         $sorted = array();
-        foreach ($arr as $key => $value)
-        {
-            foreach ($matched_user as $user)
-            {
+        foreach ($arr as $key => $value) {
+            foreach ($matched_user as $user) {
                 if ($key == $user[0])
                     $sorted[] = $user;
             }
         }
 
-        foreach ($sorted as $match)
-        {
+        foreach ($sorted as $match) {
             echo "<div style='border: 1px solid red;'>";
             if ($match['profile_pic'])
-                echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
-            echo "<p><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a> (".$match['birthyear']."), <i>".$match[2].", ".$match[3]."</i> - ".$match['distance']." KM away</p>";
-            echo "<p>Popularity score: <b>".$match['score']."</b></p>";
-            echo "<p>You're both interested in: </p>";
+                echo "<img class='profile_main' alt='profile_picture' src='" . $match['profile_pic'] . "' />";
+            echo "<p><a href='/Matcha/profile?u=" . $match[1] . "'>" . $match[1] . "</a> (" . $match['birthyear'] . "), <i>" . $match[2] . ", " . $match[3] . "</i> - " . $match['distance'] . " KM away</p>";
+            echo "<p>Popularity score: <b>" . $match['score'] . "</b></p>";
+            echo "<p>Interested in: </p>";
             foreach ($match['tags'] as $tag)
-                echo "<div class='profile_tag'><p>".$tag."</p></div>";
+                echo "<div class='profile_tag'><p>" . $tag . "</p></div>";
             echo "</div><br />";
         }
-    }
-    else {
+    } else {
         echo alert_bootstrap("danger", "You left a <b>required field</b> empty", "text-align: center;");
         return;
     }

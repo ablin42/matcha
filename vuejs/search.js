@@ -5,19 +5,30 @@ document.head.appendChild(imported);
 let account = new Vue({
     el: '#sort',
     data: {
-      //  display: true,
         byStart: '',
         byEnd: '',
         pStart: '',
         pEnd: '',
         location: '',
-        selectedSort: 'Standard',
+        selectedSort: 'Tags',
+        selectedGender: 'ALL',
+        selectedOrientation: 'ALL',
         sortOptions: [
-            { text: 'Standard', value: 'Standard' },
             { text: 'Age', value: 'Age' },
             { text: 'Location', value: 'Location' },
             { text: 'Popularity', value: 'Popularity' },
             { text: 'Tags', value: 'Tags' }
+        ],
+        genderOptions: [
+            { text: 'ALL', value: 'ALL' },
+            { text: 'Male', value: 'Male' },
+            { text: 'Female', value: 'Female' }
+        ],
+        orientationOptions: [
+            { text: 'ALL', value: 'ALL' },
+            { text: 'Heterosexual', value: 'Heterosexual' },
+            { text: 'Homosexual', value: 'Homosexual' },
+            { text: 'Bisexual', value: 'Bisexual' }
         ],
         selectedOrder: 'des',
         orderOptions : [
@@ -41,7 +52,6 @@ let account = new Vue({
     },
     methods: {
         processSort: function () {
-            //this.display = false;
             let tagInput = document.getElementsByClassName("label-info"),
                 tags = [];
             for (i = 0; i < tagInput.length; i++)
@@ -56,12 +66,13 @@ let account = new Vue({
                     '            </div>', document.getElementById("header"))
             }
             else {
-                fetch('handlers/filter_suggestion.php', {
+                fetch('handlers/search_user.php', {
                     method: 'post',
                     mode: 'same-origin',
                     headers: {'Content-Type': 'application/json'}, //sent
                     body: JSON.stringify({
                         sort: this.selectedSort, order: this.selectedOrder,
+                        gender: this.selectedGender, orientation: this.selectedOrientation,
                         bystart: this.byStart, byend: this.byEnd,
                         pstart: this.pStart, pend: this.pEnd,
                         tags: tags, location: this.location

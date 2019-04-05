@@ -34,8 +34,9 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
 <div class="container mt-5 small-page-wrapper">
     <div class="wrapper col-12">
         <h1>Profiles you might be interested in</h1>
-        <div class="container">
-        <form id="sort" name="sort" @submit.prevent="processSort" class="register-form my-2" method="post">
+        <div id="sort" class="container">
+         <!--   <button @click="display = !display" class="btn btn-outline-warning btn-sign-in">Display/Hide filters and sorting options</button>-->
+        <form name="sort" @submit.prevent="processSort" class="register-form my-2" method="post">
             <div class="form-group">
                 <label for="sort" class="lab">Sort Type</label>
                 <select name="sort" v-model="selectedSort" required>
@@ -77,10 +78,19 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                        @blur="validateByEnd">
                 <span v-if="errors.byEnd">The birth year must be in the range 1940-2001</span>
             </div>
-            <!--<div class="form-group">
-                <label for="location" class="lab">Location</label>
-                <input type="text" class="form-control" disabled />
-            </div>-->
+            <div class="form-group">
+                <label for="location" class="lab">Maximum distance (in KM)</label>
+                <input type="number"
+                       name="location"
+                       placeholder="10"
+                       id="location"
+                       class="form-control"
+                       min="1"
+                       max="2000"
+                       v-model="location"
+                       :style="{ borderColor: borderColor.location }"
+                       @blur="validateLocation">
+            </div>
             <div class="form-group">
                 <label for="pstart" class="lab">Minimum popularity score</label>
                 <input type="number"
@@ -109,9 +119,10 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                        @blur="validatepEnd">
                 <span v-if="errors.pEnd">The popularity score must be between -100.000 and 100.000</span>
             </div>
+
             <div class="form-group">
                 <label for="tagInput" class="lab">Tag filter</label>
-                <h6>Filterings tags will match only the users with <b>ALL</b> the filtered tags!</h6>
+                <h6>Filtering tags will match only the users with <b>ALL</b> the filtered tags!</h6>
                 <input type="text" value="" data-role="tagsinput" id="tagInput" name="tagInput" class="form-control">
             </div>
 
@@ -120,6 +131,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
             </div>
         </form>
         </div>
+
         <div id="suggestion">
             <div id="gen-sugg">
             <?php
@@ -129,7 +141,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                     echo "<div style='border: 1px solid red;'>";
                     if ($match['profile_pic'])
                         echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
-                    echo "<p><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a>, <i>".$match[2].", ".$match[3]."</i></p>";
+                    echo "<p><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a> (".$match['birthyear']."), <i>".$match[2].", ".$match[3]."</i> - ".$match['distance']." KM away</p>";
                     echo "<p>Popularity score: <b>".$match['score']."</b></p>";
                     echo "<p>You're both interested in: </p>";
                     foreach ($match['tags'] as $tag)

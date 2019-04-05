@@ -97,4 +97,29 @@ if (!empty($_GET['u'])) {
     }
     else
         $req = $db->prepare("INSERT INTO `visit` (`id_visitor`, `id_visited`, `date`) VALUES (:reporter, :reported, NOW())", $attributes);
+
+    $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
+    if ($req) {
+        foreach ($req as $loc)
+        {
+            $attributes_loc['lat1'] = $loc->lat;
+            $attributes_loc['lng1'] = $loc->lng;
+        }
+    }
+    else
+        $error_dist = 1;
+
+    $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => $id));
+    if ($req) {
+        foreach ($req as $loc)
+        {
+            $attributes_loc['lat2'] = $loc->lat;
+            $attributes_loc['lng2'] = $loc->lng;
+        }
+    }
+    else
+        $error_dist = 1;
+
+    if ($error_dist != 1)
+        $distance = round(distance($attributes_loc['lat1'], $attributes_loc['lng1'], $attributes_loc['lat2'], $attributes_loc['lng2'], "K"));
 }
