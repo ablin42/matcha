@@ -6,6 +6,73 @@ html {min-width: 450px; min-height: 250px;}
     position: unset!important;
 }
 
+#nbnotif {
+    display: inline;
+    float: right;
+    color: #ffc107;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    /*background-color: #2980B9;*/
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown-notif {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-notif-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-notif-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-notif-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+/*.dropdown-menu-notif:active {
+    position:relative;
+    top:1px;
+}
+
+.dropdown-notif-content{
+    overflow: auto;
+    display: none;
+    position: absolute;
+    background-color: #262626;
+    min-width: 284px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    margin: 45px 0px 0px 0px;
+    z-index: 1;
+    border: 2px solid #3881ff;
+    box-sizing: border-box;
+}
+
+.dropdown:hover .dropdown-notif-content {display: block;}*/
+
 .bootstrap-tagsinput {
     background-color: #fff;
     border: 1px solid #ccc;

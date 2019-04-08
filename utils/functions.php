@@ -1,5 +1,15 @@
 <?php
 
+function is_notified($db, $type, $id_notifier, $user_id){
+    $attributes['type'] = secure_input($type);
+    $attributes['id_notifier'] = secure_input($id_notifier);
+    $attributes['user_id'] = secure_input($user_id);
+    $req = $db->prepare("SELECT * FROM `notif` WHERE `id_notifier` = :id_notifier AND `type` = :type AND `user_id` = :user_id", $attributes);
+    if ($req)
+        return 1;
+    return 0;
+}
+
 function distance($lat1, $lon1, $lat2, $lon2, $unit) {
 
     $theta = $lon1 - $lon2;

@@ -26,10 +26,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $attributes['voter'] = $voter;
                 $attributes['voted'] = $voted;
                 $attributes['vote'] = $vote;
-                if (has_voted($db, $voter, $voted, $vote) === 0)
+                $username = ucfirst($req[0]->username);
+                $notify['id'] = $voted;
+                $notify['body'] = "<a href='profile?u=".$username."'>".$username."</a> liked your profile";
+                $notify['notifier'] = $voter;
+                if (has_voted($db, $voter, $voted, $vote) === 0) {
                     $req = $db->prepare("INSERT INTO `vote` (`id_voter`, `id_voted`, `type`, `date`) VALUES (:voter, :voted, :vote, NOW())", $attributes);
-                else if (has_voted($db, $voter, $voted, $vote) === 2)
+                    if ($vote == 1 && is_notified($db, "like", $voter, $voted) === 0)
+                        $req = $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`) VALUES (:notifier, :id, 'like',:body, NOW())", $notify);
+                }
+                else if (has_voted($db, $voter, $voted, $vote) === 2){
                     $req = $db->prepare("UPDATE `vote` SET `type` = :vote, `date` = NOW() WHERE `id_voter` = :voter AND `id_voted` = :voted", $attributes);
+                    if ($vote == 1 && is_notified($db, "like", $voter, $voted) === 0)
+                        $req = $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`) VALUES (:notifier, :id, 'like',:body, NOW())", $notify);
+                }
                 else{
                     array_pop($attributes);
                     $req = $db->prepare("DELETE FROM `vote` WHERE `id_voter` = :voter AND `id_voted` = :voted", $attributes);

@@ -65,6 +65,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $required_tags = $data->{'tags'};
         if (!empty($data->{'location'}) && is_numeric($data->{'location'}))
             $mdistance = secure_input($data->{'location'});
+        if (!empty($data->{'gender'}))
+            $gender = secure_input($data->{'gender'});
+        if (!empty($data->{'orientation'}))
+            $orientation = secure_input($data->{'orientation'});
 
         $attributes['id'] = $id;
         $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
@@ -75,10 +79,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else
             $error_dist = 1;
-
-        $query = "SELECT * FROM `user_info` RIGHT JOIN `user` ON user_info.user_id = user.id WHERE `birth_year` >= :bystart AND `birth_year` <= :byend AND `user_id` != :id";
+       // var_dump($gender, $orientation);
+        if (!empty($gender) && $gender == "ALL" && !empty($orientation) && $orientation == "ALL")
+            $query = "SELECT * FROM `user_info` RIGHT JOIN `user` ON user_info.user_id = user.id WHERE `birth_year` >= :bystart AND `birth_year` <= :byend AND `user_id` != :id";
+        else if ((empty($orientation) || $orientation == "ALL") && !empty($gender) && $gender != "ALL") {
+            $attributes['gender'] = $gender;
+            $query = "SELECT * FROM `user_info` RIGHT JOIN `user` ON user_info.user_id = user.id WHERE `birth_year` >= :bystart AND `birth_year` <= :byend AND `user_id` != :id AND `gender` = :gender";
+        } else if (!empty($orientation) && (empty($gender) || $gender == "ALL") && $orientation != "ALL") {
+            $attributes['orientation'] = $orientation;
+            $query = "SELECT * FROM `user_info` RIGHT JOIN `user` ON user_info.user_id = user.id WHERE `birth_year` >= :bystart AND `birth_year` <= :byend AND `user_id` != :id AND `orientation` = :orientation";
+        }
+        else if (!empty($gender) && $gender != "ALL" && !empty($orientation) && $orientation != "ALL"){
+            $attributes['gender'] = $gender;
+            $attributes['orientation'] = $orientation;
+            $query = "SELECT * FROM `user_info` RIGHT JOIN `user` ON user_info.user_id = user.id WHERE `birth_year` >= :bystart AND `birth_year` <= :byend AND `user_id` != :id AND `orientation` = :orientation AND `gender` = :gender";
+        }
         $attributes['bystart'] = $bystart;
         $attributes['byend'] = $byend;
+        //var_dump($query, $attributes);
         $basics = $db->prepare($query, $attributes);
         $matched_user = array();
         foreach ($basics as $basic) {

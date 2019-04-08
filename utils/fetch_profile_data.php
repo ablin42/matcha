@@ -98,6 +98,7 @@ if (!empty($_GET['u'])) {
     else
         $req = $db->prepare("INSERT INTO `visit` (`id_visitor`, `id_visited`, `date`) VALUES (:reporter, :reported, NOW())", $attributes);
 
+//
     $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
     if ($req) {
         foreach ($req as $loc)
