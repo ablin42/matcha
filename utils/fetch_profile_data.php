@@ -98,7 +98,16 @@ if (!empty($_GET['u'])) {
     else
         $req = $db->prepare("INSERT INTO `visit` (`id_visitor`, `id_visited`, `date`) VALUES (:reporter, :reported, NOW())", $attributes);
 
-//
+    $notify['id'] = $attributes['reported'];
+    $notify['notifier'] = $attributes['reporter'];
+    $notify['body'] = "<a href='profile?u=".$username."'>".$username."</a> <b>visited</b> your profile";
+    if (is_notified($db, "visit", $attributes['reporter'], $attributes['reported']) === 0)
+        $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`) VALUES (:notifier, :id, 'visit',:body, NOW())", $notify);
+    else if (is_notified($db, "visit", $attributes['reporter'], $attributes['reported']) === 1) {
+        array_pop($notify);
+        $db->prepare("UPDATE `notif` SET `date` = NOW() WHERE `type` = 'visit' AND `id_notifier` = :notifier AND `user_id` = :id", $notify);
+    }
+
     $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
     if ($req) {
         foreach ($req as $loc)
@@ -123,4 +132,19 @@ if (!empty($_GET['u'])) {
 
     if ($error_dist != 1)
         $distance = round(distance($attributes_loc['lat1'], $attributes_loc['lng1'], $attributes_loc['lat2'], $attributes_loc['lng2'], "K"));
+
+    if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) === 1) {
+        $user1 = $id;
+        $user2 = secure_input($_SESSION['id']);
+        if ($user2 > $user1)
+            swap($user2, $user1);
+        $roomid = substr("".hash('whirlpool', $user1)."".hash('whirlpool', $user2)."", 120, 50);
+        $chat['roomid'] = $roomid;
+        $req = $db->prepare("SELECT * FROM `chatroom` WHERE `roomid` = :roomid", $chat);
+        if (!$req){
+            $chat['user1_id'] = $user1;
+            $chat['user2_id'] = $user2;
+            $req = $db->prepare("INSERT INTO `chatroom` (`roomid`, `user1_id`, `user2_id`) VALUES (:roomid, :user1_id, :user2_id)", $chat);
+        }
+    }
 }

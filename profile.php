@@ -34,7 +34,7 @@ if ($id === $_SESSION['id'])
         <?php if ($distance) echo "<h6>".$distance."KM away</h6>";?>
         <?php
             if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) === 1)
-                echo "<h5>You matched with ".$username."</h5>";
+                echo "<h5>You matched with " . $username . "! Click <a href='chat?r=".$roomid."'>here</a> to send a message</h5>";
             else if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), -1) === 1)
                 echo "<h5>".$username." liked your profile and you disliked ".$username."'s profile</h5>";
             else if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), -1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), -1) === 1)

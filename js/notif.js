@@ -34,7 +34,7 @@ var updateNotif = setInterval(function () {
             document.getElementById('dropdown-notif').innerHTML += newdata;
         })
         .catch((error) => console.log(error));
-}, 10000);////////////*/
+}, 5000);////////////
 
 function dropDown() {
     document.getElementById("dropdown-notif-content").classList.toggle("show");

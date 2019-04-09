@@ -25,24 +25,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($req) {
                 $attributes['voter'] = $voter;
                 $attributes['voted'] = $voted;
-                $attributes['vote'] = $vote;
                 $username = ucfirst($req[0]->username);
                 $notify['id'] = $voted;
-                $notify['body'] = "<a href='profile?u=".$username."'>".$username."</a> liked your profile";
+                $notify['body'] = "<a href='profile?u=".$username."'>".$username."</a> <b>liked</b> your profile";
                 $notify['notifier'] = $voter;
-                if (has_voted($db, $voter, $voted, $vote) === 0) {
-                    $req = $db->prepare("INSERT INTO `vote` (`id_voter`, `id_voted`, `type`, `date`) VALUES (:voter, :voted, :vote, NOW())", $attributes);
-                    if ($vote == 1 && is_notified($db, "like", $voter, $voted) === 0)
-                        $req = $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`) VALUES (:notifier, :id, 'like',:body, NOW())", $notify);
+                $like = $db->prepare("SELECT * FROM `vote` WHERE `id_voter` = :voted AND `id_voted` = :voter AND `type` = 1", $attributes);
+                $attributes['vote'] = $vote;
+                if ($like)
+                    $notify['body'] = "<b>Match! </b><a href='profile?u=" . $username . "'>" . $username . "</a> <b>liked</b> your profile back! You can now <b>message eachother</b>!";
+                if ($vote == 1 && is_notified($db, "like", $voter, $voted) === 0) {
+                    $req = $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`)
+                                                   VALUES (:notifier, :id, 'like',:body, NOW())", $notify);
                 }
-                else if (has_voted($db, $voter, $voted, $vote) === 2){
-                    $req = $db->prepare("UPDATE `vote` SET `type` = :vote, `date` = NOW() WHERE `id_voter` = :voter AND `id_voted` = :voted", $attributes);
-                    if ($vote == 1 && is_notified($db, "like", $voter, $voted) === 0)
-                        $req = $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`) VALUES (:notifier, :id, 'like',:body, NOW())", $notify);
+                else if ($vote == 1 && is_notified($db, "like", $voter, $voted) === 1) {
+                    $req = $db->prepare("UPDATE `notif` 
+                                                   SET `date` = NOW(), `body` = :body 
+                                                   WHERE `id_notifier` = :notifier 
+                                                   AND `user_id` = :id 
+                                                   AND `type` = 'like'", $notify);
                 }
-                else{
+                if (has_voted($db, $voter, $voted, $vote) === 0)
+                    $req = $db->prepare("INSERT INTO `vote` (`id_voter`, `id_voted`, `type`, `date`) 
+                                                   VALUES (:voter, :voted, :vote, NOW())", $attributes);
+                else if (has_voted($db, $voter, $voted, $vote) === 2) {
+                    $req = $db->prepare("UPDATE `vote` 
+                                                   SET `type` = :vote, `date` = NOW() 
+                                                   WHERE `id_voter` = :voter 
+                                                   AND `id_voted` = :voted", $attributes);
+                    if ($vote == -1){
+                        $db->prepare("DELETE FROM `notif` 
+                                                WHERE `id_notifier` = :notifier 
+                                                AND `user_id` = :user_id 
+                                                AND `type` = 'like'",
+                                                array("notifier" => $voter, "user_id" => $voted));
+                        if ($like) {
+                            $notify['body'] = "You matched with <a href='profile?u=".$username."'>".$username."</a> but he<b>unliked</b> your profile... :(";
+                            $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`) 
+                                                VALUES (:notifier, :id, 'like',:body, NOW())", $notify);
+                        }
+                    }
+                }
+                else {
                     array_pop($attributes);
-                    $req = $db->prepare("DELETE FROM `vote` WHERE `id_voter` = :voter AND `id_voted` = :voted", $attributes);
+                    $db->prepare("DELETE FROM `vote` WHERE `id_voter` = :voter AND `id_voted` = :voted", $attributes);
+                    if ($like && $vote == 1) {
+                        $notify['body'] = "You matched with <a href='profile?u=" . $username . "'>" . $username . "</a> but he<b>unliked</b> your profile... :(";
+                        $db->prepare("UPDATE `notif` 
+                                                SET `body` = :body, `date` = NOW() 
+                                                WHERE `id_notifier` = :notifier 
+                                                AND `user_id` = :id
+                                                AND `type` = 'like'", $notify);
+                    }
+                    else if (is_notified($db, "like", $voter, $voted) === 1 && $vote != -1)
+                        $db->prepare("DELETE FROM `notif` WHERE `id_notifier` = :notifier AND `user_id` = :id AND `type` = 'like'", array("notifier" => $voter, "id" => $voted));
                     echo alert_bootstrap("info" , "Your <b>vote</b> has been <b>deleted!</b>", "text-align: center;");
                     return;
                 }

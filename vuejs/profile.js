@@ -1,3 +1,7 @@
+var imported = document.createElement('script');
+imported.src = 'js/functions.js';
+document.head.appendChild(imported);
+
 let report = new Vue({
     el: '#report-btn',
     data: {reported: false},

@@ -80,49 +80,13 @@ function has_voted($db, $voter, $voted, $vote)
     return 0;
 }
 
-function mail_on_comment($db, $id_img)
-{
-
-    $req = $db->prepare("SELECT * FROM `image` LEFT JOIN `user` ON image.id_user = user.id WHERE image.id = :id", array('id' => $id_img));
-    foreach ($req as $item)
-    {
-        if ($item->mail_notify == 1)
-        {
-            $subject = "Camagru - Someone commented one of your picture";
-            $message = "The picture you posted at http://localhost:8080/Camagru/image?id={$id_img} got a comment!";
-            mail($item->email, $subject, $message);
-        }
-    }
-}
-
-function notif_state($db, $id)
-{
-    $req = $db->prepare("SELECT `mail_notify` FROM `user` WHERE `id` = :id", array("id" => $id));
-    foreach ($req as $item)
-    {
-        if ($item->mail_notify == 1)
-            return true;
-        else
-            return false;
-    }
-}
-
-function scrolling_state($db, $id)
-{
-    $req = $db->prepare("SELECT `infinite_scroll` FROM `user` WHERE `id` = :id", array("id" => $id));
-    foreach ($req as $item)
-    {
-        if ($item->infinite_scroll == 1)
-            return true;
-        else
-            return false;
-    }
-}
-
 function redirection_handler($error)
 {
     switch ($error)
     {
+        case "chat":
+            echo alert_bootstrap("danger", "Acess <b>unauthorized</b>!", "text-align: center;");
+            break;
         case "sug":
             echo alert_bootstrap("info", "You need to be <b>logged in</b> to access this page!", "text-align: center;");
             break;
@@ -153,35 +117,6 @@ function redirection_handler($error)
         default:
             echo alert_bootstrap("danger", "ERROR!", "text-align: center;");
     }
-}
-
-function get_filter_position($filtername)
-{
-    $info = array();
-
-    if ($filtername === "solomonk.png" || $filtername === "rdv.png" || $filtername === "comte.png"
-        || $filtername === "gein.png" || $filtername === "ouga.png" || $filtername === "ben.png")
-    {
-        $info['src_w'] = 200;
-        $info['src_h'] = 200;
-        $info['dst_x'] = 200;
-        $info['dst_y'] = 0;
-    }
-    else if ($filtername === "ivoire.png" || $filtername === "ebene.png" || $filtername === "ocre.png")
-    {
-        $info['src_w'] = 200;
-        $info['src_h'] = 200;
-        $info['dst_x'] = 400;
-        $info['dst_y'] = 150;
-    }
-    else if ($filtername === "emeraude.png" || $filtername === "turquoise.png" || $filtername === "pourpre.png")
-    {
-        $info['src_w'] = 200;
-        $info['src_h'] = 200;
-        $info['dst_x'] = 0;
-        $info['dst_y'] = 150;
-    }
-    return $info;
 }
 
 function check_length($str, $min, $max)
