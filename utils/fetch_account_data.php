@@ -7,7 +7,10 @@
  */
 use \ablin42\database;
 $db = database::getInstance('matcha');
-$req = $db->prepare("SELECT * FROM `user_info` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
+
+$id = secure_input($_SESSION['id']);
+
+$req = $db->prepare("SELECT * FROM `user_info` WHERE `user_id` = :user_id", array("user_id" => $id));
 if ($req) {
     foreach ($req as $item) {
         $gender = $item->gender;
@@ -18,7 +21,7 @@ if ($req) {
     }
 }
 
-$req = $db->prepare("SELECT `tag` FROM `user_tags` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
+$req = $db->prepare("SELECT `tag` FROM `user_tags` WHERE `user_id` = :user_id", array("user_id" => $id));
 if ($req) {
     $tags = array();
     foreach ($req as $item) {
@@ -27,7 +30,7 @@ if ($req) {
     $tags = json_encode($tags);
 }
 
-$req = $db->prepare("SELECT * FROM `user_photo` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
+$req = $db->prepare("SELECT * FROM `user_photo` WHERE `user_id` = :user_id", array("user_id" => $id));
 if ($req) {
     $photos = array();
     foreach ($req as $item) {
@@ -38,7 +41,7 @@ if ($req) {
     }
 }
 
-$req = $db->prepare("SELECT * FROM `user` WHERE `id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
+$req = $db->prepare("SELECT * FROM `user` WHERE `id` = :user_id", array("user_id" => $id));
 if ($req) {
     foreach ($req as $item) {
         $username = $item->username;

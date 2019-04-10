@@ -39,12 +39,17 @@ let lostpw = new Vue({
             }
         },
         validateEmail: function () {
-            const isValid = isValidEmail(this.email);
-            if (isValid)
-                this.borderColor.email = "#56c93f";
-            else
-                this.borderColor.email = "#FF0000";
-            this.errors.email = !isValid;
+            if (this.email.localeCompare('') !== 0) {
+                const isValid = isValidEmail(this.email);
+                if (isValid)
+                    this.borderColor.email = "#56c93f";
+                else
+                    this.borderColor.email = "#FF0000";
+                this.errors.email = !isValid;
+            } else {
+                this.borderColor.email = '';
+                this.errors.email = false;
+            }
         }
     }
 });

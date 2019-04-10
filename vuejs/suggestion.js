@@ -81,54 +81,85 @@ let account = new Vue({
             }
         },
         validateByStart: function () {
-            if (this.byStart >= 1940 && this.byStart <= 2001)
-                this.borderColor.byStart = "#56c93f";
-            else
-                this.borderColor.byStart = "#FF0000";
-            if (this.byStart < 1940 || this.byStart > 2001)
-                this.errors.byStart = true;
-            else
+            if (this.byStart.localeCompare('') !== 0) {
+                if (this.byStart >= 1940 && this.byStart <= 2001)
+                    this.borderColor.byStart = "#56c93f";
+                else
+                    this.borderColor.byStart = "#FF0000";
+                if (this.byStart < 1940 || this.byStart > 2001)
+                    this.errors.byStart = true;
+                else
+                    this.errors.byStart = false;
+            }
+            else {
+                this.borderColor.byStart = '';
                 this.errors.byStart = false;
+            }
         },
         validateByEnd: function () {
-            if (this.byEnd >= 1940 && this.byEnd <= 2001)
-                this.borderColor.byEnd = "#56c93f";
-            else
-                this.borderColor.byEnd = "#FF0000";
-            if (this.byEnd < 1940 || this.byEnd > 2001)
-                this.errors.byEnd = true;
-            else
+            if (this.byEnd.localeCompare('') !== 0) {
+                if (this.byEnd >= 1940 && this.byEnd <= 2001)
+                    this.borderColor.byEnd = "#56c93f";
+                else
+                    this.borderColor.byEnd = "#FF0000";
+                if (this.byEnd < 1940 || this.byEnd > 2001)
+                    this.errors.byEnd = true;
+                else
+                    this.errors.byEnd = false;
+            }
+            else {
+                this.borderColor.byEnd = '';
                 this.errors.byEnd = false;
+            }
         },
         validatepStart: function () {
-            if (this.pStart >= -100000 && this.pStart <= 100000)
-                this.borderColor.pStart = "#56c93f";
-            else
-                this.borderColor.pStart = "#FF0000";
-            if (this.pStart < -100000 || this.pStart > 100000)
-                this.errors.pStart = true;
-            else
+            if (this.pStart.localeCompare('') !== 0) {
+                if (this.pStart >= -100000 && this.pStart <= 100000)
+                    this.borderColor.pStart = "#56c93f";
+                else
+                    this.borderColor.pStart = "#FF0000";
+                if (this.pStart < -100000 || this.pStart > 100000)
+                    this.errors.pStart = true;
+                else
+                    this.errors.pStart = false;
+            }
+            else {
+                this.borderColor.pStart = '';
                 this.errors.pStart = false;
+            }
+
         },
         validatepEnd: function () {
-            if (this.pEnd >= -100000 && this.pEnd <= 100000)
-                this.borderColor.pEnd = "#56c93f";
-            else
-                this.borderColor.pEnd = "#FF0000";
-            if (this.pEnd < -100000 || this.pEnd > 100000)
-                this.errors.pEnd = true;
-            else
+            if (this.pEnd.localeCompare('') !== 0) {
+                if (this.pEnd >= -100000 && this.pEnd <= 100000)
+                    this.borderColor.pEnd = "#56c93f";
+                else
+                    this.borderColor.pEnd = "#FF0000";
+                if (this.pEnd < -100000 || this.pEnd > 100000)
+                    this.errors.pEnd = true;
+                else
+                    this.errors.pEnd = false;
+            }
+            else {
+                this.borderColor.pEnd = '';
                 this.errors.pEnd = false;
+            }
         },
         validateLocation: function () {
-            if (this.location >= 1 && this.location <= 2000)
-                this.borderColor.location = "#56c93f";
-            else
-                this.borderColor.location = "#FF0000";
-            if (this.location < 1 || this.location > 2000)
-                this.errors.location = true;
-            else
+            if (this.location.localeCompare('') !== 0) {
+                if (this.location >= 1 && this.location <= 2000)
+                    this.borderColor.location = "#56c93f";
+                else
+                    this.borderColor.location = "#FF0000";
+                if (this.location < 1 || this.location > 2000)
+                    this.errors.location = true;
+                else
+                    this.errors.location = false;
+            }
+            else {
+                this.borderColor.location = '';
                 this.errors.location = false;
+            }
         }
     }
 });

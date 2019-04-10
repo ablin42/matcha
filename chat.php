@@ -62,6 +62,7 @@ if (isset($_GET['e']))
 <?php require_once("includes/footer.php");?>
 <script src="js/chat.js"></script>
 <script src="js/online.js"></script>
+<script src="js/notif.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>

@@ -10,34 +10,30 @@ let account = new Vue({
         currGender: "",
         currOrientation: "",
         currBio: "",
+        selectedTags: "",
         genderOptions: [
             { text: 'Male', value: 'Male' },
             { text: 'Female', value: 'Female' }
-            /*{ text: 'Agender', value: 'Agender' },
-            { text: 'Androgyne', value: 'Androgyne' },
-            { text: 'Androgynous', value: 'Androgynous' },
-            { text: 'Bigender', value: 'Bigender'},
-            { text: 'Cis', value: 'Cis'},
-            { text: 'Cisgender', value: 'Cisgender'}*/
         ],
         orientationOptions: [
             { text: 'Heterosexual', value: 'Heterosexual' },
             { text: 'Homosexual', value: 'Homosexual' },
-            { text: 'Bisexual', value: 'Bisexual'}/*,
-            { text: 'Lesbian', value: 'Lesbian' },
-            { text: 'Pansexual', value: 'Pansexual'},
-            { text: 'Bicurious', value: 'Bicurious'}*/
+            { text: 'Bisexual', value: 'Bisexual'}
         ],
         bio: ""
     },
     methods: {
         processForm: function () {
+            let tagInput = document.getElementsByClassName("label-info"),
+                tags = [];
+            for (i = 0; i < tagInput.length; i++)
+                tags.push(tagInput[i].textContent);
             fetch('handlers/update_info.php', {
                 method: 'post',
                 mode: 'same-origin',
                 headers: {'Content-Type': 'application/json'}, //sent
                 body: JSON.stringify({
-                    gender: this.selectedGender, orientation: this.selectedOrientation, bio: this.bio
+                    gender: this.selectedGender, orientation: this.selectedOrientation, bio: this.bio, tags: tags
                 })
             })
                 .then((res) => res.text())
@@ -68,6 +64,7 @@ Vue.component("photo-upload",{
             name: "component_photo_name_" + this.idComponent,
             id: "component_photo_id_" + this.idComponent,
             submit: "submit_photo_id_" + this.idComponent,
+            photoid: "photoid_" + this.idComponent,
             selectedFile: "",
             path: this.dbPath
         }
@@ -77,8 +74,8 @@ Vue.component("photo-upload",{
        '            <label v-if="!path" v-bind:for="id" class="lab file-lab">{{ btn }}</label>\n' +
        '            <input v-if="!path" type="file" v-bind:name="name" v-bind:id="id" class="inputfile" @change="onFileUpload">\n' +
        '        </div>\n' +
-       '<img @click="removePhoto" v-if="path" :src=path style="max-width: 250px; max-height: 250px;" :alt="name"/>\n'+
-       '<a v-if="dbPath" @click.prevent="deletePhoto" href=""><i class="fas fa-trash rmv-img"></i></a>\n'+
+       '<img @click="removePhoto" v-if="path" :src=path style="max-width: 250px; max-height: 250px;" :alt="name" :id="photoid"/>\n'+
+       '<a v-if="path" @click.prevent="deletePhoto" href="#"><i class="fas fa-trash rmv-img"></i></a>\n'+
        '        <div v-if="selectedFile" class="form-group">\n' +
        '            <button type="submit" name="submit" id="submit" class="btn btn-outline-warning btn-sign-in">Upload</button>\n' +
        '        </div>\n' +
@@ -106,10 +103,14 @@ Vue.component("photo-upload",{
             console.log(this.idComponent);
         },
         removePhoto: function (){
-            this.path = "";
-            this.selectedFile = "";
+            if (this.selectedFile.toString().localeCompare('') !== 0) {
+                this.path = "";
+                this.selectedFile = "";
+            }
         },
         deletePhoto: function (){
+            this.path = "";
+            this.selectedFile = "";
             fetch('handlers/delete_photo.php', {
                 method: 'post',
                 mode: 'same-origin',
@@ -121,6 +122,7 @@ Vue.component("photo-upload",{
                 .then((res) => res.text())
                 .then((data) => addAlert(data, document.getElementById("header")))
                 .catch((error) => console.log(error))
+
         }
     }
 });
@@ -149,33 +151,6 @@ let locat = new Vue({
     }
 });
 
-let tags = new Vue({
-    el: '#tags',
-    data: {
-      selectedTags: ""
-    },
-    methods: {
-        processForm: function () {
-            let tagInput = document.getElementsByClassName("label-info"),
-                tags = [];
-            console.log(tagInput);
-            for (i = 0; i < tagInput.length; i++)
-                tags.push(tagInput[i].textContent);
-            console.log(tags);
-            fetch('handlers/update_tags.php', {
-                method: 'post',
-                mode: 'same-origin',
-                headers: {'Content-Type': 'application/json'}, //sent
-                body: JSON.stringify({
-                    tags: tags
-                })
-            })
-                .then((res) => res.text())
-                .then((data) => addAlert(data, document.getElementById("header")))
-                .catch((error) => console.log(error))
-        }
-    }
-});
 
 let acc = new Vue({
     el: '#account',
@@ -232,39 +207,56 @@ let acc = new Vue({
             }
         },
         validateFirstname: function () {
-            const isValid = isValidLength(this.firstname, 2, 16);
-            if (isValid)
-                this.borderColor.firstname = "#56c93f";
-            else
-                this.borderColor.firstname = "#FF0000";
-
-            this.errors.firstname = !isValid;
+            if (this.firstname.localeCompare('') !== 0) {
+                const isValid = isValidLength(this.firstname, 2, 16);
+                if (isValid)
+                    this.borderColor.firstname = "#56c93f";
+                else
+                    this.borderColor.firstname = "#FF0000";
+                this.errors.firstname = !isValid;
+            } else {
+                this.borderColor.firstname = '';
+                this.errors.firstname = false;
+            }
         },
         validateLastname: function () {
-            const isValid = isValidLength(this.lastname, 2, 16);
-            if (isValid)
-                this.borderColor.lastname = "#56c93f";
-            else
-                this.borderColor.lastname = "#FF0000";
-
-            this.errors.lastname = !isValid;
+            if (this.lastname.localeCompare('') !== 0) {
+                const isValid = isValidLength(this.lastname, 2, 16);
+                if (isValid)
+                    this.borderColor.lastname = "#56c93f";
+                else
+                    this.borderColor.lastname = "#FF0000";
+                this.errors.lastname = !isValid;
+            } else {
+                this.borderColor.lastname = '';
+                this.errors.lastname = false;
+            }
         },
         validateUsername: function () {
-            const isValid = isValidLength(this.username, 4, 30);
-            if (isValid)
-                this.borderColor.username = "#56c93f";
-            else
-                this.borderColor.username = "#FF0000";
-
-            this.errors.username = !isValid;
+            if (this.username.localeCompare('') !== 0) {
+                const isValid = isValidLength(this.username, 4, 30);
+                if (isValid)
+                    this.borderColor.username = "#56c93f";
+                else
+                    this.borderColor.username = "#FF0000";
+                this.errors.username = !isValid;
+            } else {
+                this.borderColor.username = '';
+                this.errors.username = false;
+            }
         },
         validateEmail: function () {
-            const isValid = isValidEmail(this.email);
-            if (isValid)
-                this.borderColor.email = "#56c93f";
-            else
-                this.borderColor.email = "#FF0000";
-            this.errors.email = !isValid;
+            if (this.email.localeCompare('') !== 0) {
+                const isValid = isValidEmail(this.email);
+                if (isValid)
+                    this.borderColor.email = "#56c93f";
+                else
+                    this.borderColor.email = "#FF0000";
+                this.errors.email = !isValid;
+            } else {
+                this.borderColor.email = '';
+                this.errors.email= false;
+            }
         },
         assignFirstname: function (firstname) {
             this.currFirstname = firstname;
@@ -287,7 +279,7 @@ let acc = new Vue({
 }
 });
 
-let register = new Vue({
+let security = new Vue({
     el: '#security',
     data: {
         password: '',
@@ -328,21 +320,30 @@ let register = new Vue({
             }
         },
         validatePassword: function () {
-            const isValid = isValidPassword(this.password);
-            if (isValid)
-                this.borderColor.password = "#56c93f";
-            else
-                this.borderColor.password = "#FF0000";
-            this.errors.password = !isValid;
+            if (this.password.localeCompare('') !== 0) {
+                const isValid = isValidPassword(this.password);
+                if (isValid)
+                    this.borderColor.password = "#56c93f";
+                else
+                    this.borderColor.password = "#FF0000";
+                this.errors.password = !isValid;
+            } else {
+                this.borderColor.password = '';
+                this.errors.password = false;
+            }
         },
         validatePassword2: function () {
-            if (this.password2 !== this.password) {
-                this.errors.password2 = true;
-                this.borderColor.password2 = "#FF0000";
-            }
-            else {
+            if (this.password2.localeCompare('') !== 0) {
+                if (this.password2 !== this.password) {
+                    this.errors.password2 = true;
+                    this.borderColor.password2 = "#FF0000";
+                } else {
+                    this.errors.password2 = false;
+                    this.borderColor.password2 = "#56c93f";
+                }
+            } else {
+                this.borderColor.password2 = '';
                 this.errors.password2 = false;
-                this.borderColor.password2 = "#56c93f";
             }
         }
     }

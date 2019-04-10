@@ -86,12 +86,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $db->prepare("INSERT INTO `user_info` (`user_id`, `firstname`, `lastname`, `birth_year`) VALUES (:user_id, :firstname, :lastname, :birth)", $attributes_info);
 
             $ipaddress = get_client_ip();
-            $PublicIP = "62.210.34.50"; //get_client_ip();
-            //$json = file_get_contents("http://ipinfo.io/$PublicIP/geo");
-            $json = file_get_contents("http://api.ipstack.com/62.210.34.50?access_key=39cbaf113fdf77368d7b438232d1428c");
+            $json = file_get_contents("http://api.ipstack.com/".$ipaddress."?access_key=39cbaf113fdf77368d7b438232d1428c");
             $data = json_decode($json, true);
             $lat = $data['latitude'];
+            if ($lat === NULL)
+                $lat = 48.856783210696854;
             $lng = $data['longitude'];
+            if ($lng === NULL)
+                $lng = 2.345733642578125;
             $req = $db->prepare("INSERT INTO `user_location` (`user_id`, `lat`, `lng`) VALUES (:user_id, :lat, :lng)",
                                 array("user_id" => $user_id, "lat" => $lat, "lng" => $lng));
 

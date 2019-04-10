@@ -199,68 +199,102 @@ Vue.component('login-signup-tab', {
                                         this.register.username, this.register.email, this.register.password, this.register.password2, );
         },
         validateFirstname: function () {
-            const isValid = isValidLength(this.register.firstname, 2, 16);
-            if (isValid)
-                this.register.borderColor.firstname = "#56c93f";
-            else
-                this.register.borderColor.firstname = "#FF0000";
+            if (this.register.firstname.localeCompare('') !== 0) {
+                const isValid = isValidLength(this.register.firstname, 2, 16);
+                if (isValid)
+                    this.register.borderColor.firstname = "#56c93f";
+                else
+                    this.register.borderColor.firstname = "#FF0000";
 
-            this.register.errors.firstname = !isValid;
+                this.register.errors.firstname = !isValid;
+            } else {
+                this.register.borderColor.firstname = '';
+                this.register.errors.firstname = false;
+            }
         },
         validateLastname: function () {
-            const isValid = isValidLength(this.register.lastname, 2, 16);
-            if (isValid)
-                this.register.borderColor.lastname = "#56c93f";
-            else
-                this.register.borderColor.lastname = "#FF0000";
+            if (this.register.lastname.localeCompare('') !== 0) {
+                const isValid = isValidLength(this.register.lastname, 2, 16);
+                if (isValid)
+                    this.register.borderColor.lastname = "#56c93f";
+                else
+                    this.register.borderColor.lastname = "#FF0000";
 
-            this.register.errors.lastname = !isValid;
+                this.register.errors.lastname = !isValid;
+            } else {
+                this.register.borderColor.lastname = '';
+                this.register.errors.lastname = false;
+            }
         },
         validateBirthYear: function () {
-            const isValid = isValidLength(this.register.birthYear.toString(), 4, 4);
-            if (isValid && this.register.birthYear >= 1940 && this.register.birthYear <= 2001)
-                this.register.borderColor.birthYear = "#56c93f";
-            else
-                this.register.borderColor.birthYear = "#FF0000";
+            if (this.register.birthYear.toString().localeCompare('') !== 0) {
+                const isValid = isValidLength(this.register.birthYear.toString(), 4, 4);
+                if (isValid && this.register.birthYear >= 1940 && this.register.birthYear <= 2001)
+                    this.register.borderColor.birthYear = "#56c93f";
+                else
+                    this.register.borderColor.birthYear = "#FF0000";
 
-            if (this.register.birthYear < 1940 || this.register.birthYear > 2001)
-                this.register.errors.birthYear = true;
-            else
+                if (this.register.birthYear < 1940 || this.register.birthYear > 2001)
+                    this.register.errors.birthYear = true;
+                else
+                    this.register.errors.birthYear = false;
+            } else {
+                this.register.borderColor.birthYear = '';
                 this.register.errors.birthYear = false;
+            }
         },
         validateUsername: function () {
-            const isValid = isValidLength(this.register.username, 4, 30);
-            if (isValid)
-                this.register.borderColor.username = "#56c93f";
-            else
-                this.register.borderColor.username = "#FF0000";
+            if (this.register.username.localeCompare('') !== 0) {
+                const isValid = isValidLength(this.register.username, 4, 30);
+                if (isValid)
+                    this.register.borderColor.username = "#56c93f";
+                else
+                    this.register.borderColor.username = "#FF0000";
 
-            this.register.errors.username = !isValid;
+                this.register.errors.username = !isValid;
+            } else {
+                this.register.borderColor.username = '';
+                this.register.errors.username = false;
+            }
         },
         validateEmail: function () {
-            const isValid = isValidEmail(this.register.email);
-            if (isValid)
-                this.register.borderColor.email = "#56c93f";
-            else
-                this.register.borderColor.email = "#FF0000";
-            this.register.errors.email = !isValid;
+            if (this.register.email.localeCompare('') !== 0) {
+                const isValid = isValidEmail(this.register.email);
+                if (isValid)
+                    this.register.borderColor.email = "#56c93f";
+                else
+                    this.register.borderColor.email = "#FF0000";
+                this.register.errors.email = !isValid;
+            } else {
+                this.register.borderColor.email = '';
+                this.register.errors.email = false;
+            }
         },
         validatePassword: function () {
-            const isValid = isValidPassword(this.register.password);
-            if (isValid)
-                this.register.borderColor.password = "#56c93f";
-            else
-                this.register.borderColor.password = "#FF0000";
-            this.register.errors.password = !isValid;
+            if (this.register.password.localeCompare('') !== 0) {
+                const isValid = isValidPassword(this.register.password);
+                if (isValid)
+                    this.register.borderColor.password = "#56c93f";
+                else
+                    this.register.borderColor.password = "#FF0000";
+                this.register.errors.password = !isValid;
+            } else {
+                this.register.borderColor.password = '';
+                this.register.errors.password = false;
+            }
         },
         validatePassword2: function () {
-            if (this.register.password2 !== this.register.password) {
-                this.register.errors.password2 = true;
-                this.register.borderColor.password2 = "#FF0000";
-            }
-            else {
+            if (this.register.password2.localeCompare('') !== 0) {
+                if (this.register.password2 !== this.register.password) {
+                    this.register.errors.password2 = true;
+                    this.register.borderColor.password2 = "#FF0000";
+                } else {
+                    this.register.errors.password2 = false;
+                    this.register.borderColor.password2 = "#56c93f";
+                }
+            } else {
+                this.register.borderColor.password2 = '';
                 this.register.errors.password2 = false;
-                this.register.borderColor.password2 = "#56c93f";
             }
         }
     }
@@ -316,7 +350,7 @@ let login = new Vue({
                         if (data.indexOf("successfully") !== -1)
                             setTimeout(function () {
                                 window.location.href = "/Matcha";
-                            }, 1000);
+                            }, 1500);
                     })
                     .catch((error) => console.log(error))
             }

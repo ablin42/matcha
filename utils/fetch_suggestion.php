@@ -162,10 +162,8 @@ if (!empty($_SESSION['id'])) {
                 $error_dist = 1;
             if ($error_dist != 1)
                 $info['distance'] = round(distance($attributes_loc['lat1'], $attributes_loc['lng1'], $attributes_loc['lat2'], $attributes_loc['lng2'], "K"));
-            $oriscore = 100;
-            if ($basic->orientation === "Bisexual")
-                $oriscore = 75;
-            $info['totalscore'] = $oriscore - ($info['distance'] * 10) + ($info['tagscore'] * 50) + ($info['score'] * 5); //+ geo score+ maybe orientation score (orientation/geoscore/tagscore/pop)
+
+            $info['totalscore'] =  ($info['tagscore'] * 50) + ($info['score'] * 5) - ($info['distance'] * 10); //+ geo score+ maybe orientation score (orientation/geoscore/tagscore/pop)
             if ($info['score'] >= $minscore && $info['score'] <= $maxscore)
                 array_push($matched_user, $info);
         }

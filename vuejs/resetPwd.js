@@ -43,28 +43,37 @@ let resetpwd = new Vue({
                         addAlert(data, document.getElementById("header"));
                         if (data.indexOf("Congratulations!") !== -1)
                             setTimeout(function () {
-                                window.location.href = "/Matcha/Login";
+                                window.location.href = "/Matcha/";
                             }, 1000);
                     })
                     .catch((error) => console.log(error))
             }
         },
         validatePassword: function () {
-            const isValid = isValidPassword(this.password);
-            if (isValid)
-                this.borderColor.password = "#56c93f";
-            else
-                this.borderColor.password = "#FF0000";
-            this.errors.password = !isValid;
+            if (this.password.localeCompare('') !== 0) {
+                const isValid = isValidPassword(this.password);
+                if (isValid)
+                    this.borderColor.password = "#56c93f";
+                else
+                    this.borderColor.password = "#FF0000";
+                this.errors.password = !isValid;
+            } else {
+                this.borderColor.password = '';
+                this.errors.password = false;
+            }
         },
         validatePassword2: function () {
-            if (this.password2 !== this.password) {
-                this.errors.password2 = true;
-                this.borderColor.password2 = "#FF0000";
-            }
-            else {
+            if (this.password2.localeCompare('') !== 0) {
+                if (this.password2 !== this.password) {
+                    this.errors.password2 = true;
+                    this.borderColor.password2 = "#FF0000";
+                } else {
+                    this.errors.password2 = false;
+                    this.borderColor.password2 = "#56c93f";
+                }
+            } else {
+                this.borderColor.password2 = '';
                 this.errors.password2 = false;
-                this.borderColor.password2 = "#56c93f";
             }
         }
     }

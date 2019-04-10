@@ -23,7 +23,7 @@
 <?php
 require_once("includes/header.php");
 if (isset($_SESSION['logged']) && $_SESSION['logged'] === 1)
-    header('Location: /Matcha/?e=pw');
+    header('Location: /Matcha/Account?e=logg');
 ?>
 <div class="container mt-5 small-page-wrapper">
     <div class="wrapper col-8 offset-2 p-2">
@@ -49,9 +49,6 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] === 1)
                 </div>
             </form>
         </div>
-    </div>
-    <div class="col-12 p-3 mt-5">
-        <h5>If you're logged and simply wish to change your password, click <a href="/Matcha/account">here</a></h5>
     </div>
 </div>
 

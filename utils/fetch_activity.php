@@ -27,8 +27,14 @@ if ($_SESSION['id'])
                 $matched[] = $matching;
             }
         }
-
+    $req = $db->prepare("SELECT SUM(`type`) as sum, COUNT(*) as total FROM `vote` WHERE `id_voted` = :voted", array("voted" => $id));
+    if ($req) {
+        $sum = $req[0]->sum;
+        $nbvote = $req[0]->total;
+        $score = $sum * $nbvote;
+    }
+    else
+        $score = 0;
 }
-
 
 

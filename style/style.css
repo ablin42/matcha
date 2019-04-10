@@ -6,6 +6,11 @@ html {min-width: 450px; min-height: 250px;}
     position: unset!important;
 }
 
+.dropdown-notif-content{
+    max-height: 350px;
+    overflow: scroll;
+}
+
 #nbnotif {
     display: inline;
     float: right;

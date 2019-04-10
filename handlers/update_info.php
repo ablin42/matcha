@@ -32,6 +32,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $attributes['bio'] = $bio;
         $req = $db->prepare("UPDATE `user_info` SET 
                              `gender` = :gender, `orientation` = :orientation, `bio` = :bio WHERE `user_id`=:user_id", $attributes);
+        if (!empty($data->{'tags'})){
+            $attributes2['user_id'] = secure_input($_SESSION['id']);
+            foreach ($data->tags as $tag)
+            {
+                $attributes2['tag'] = secure_input($tag);
+                $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id AND `tag` = :tag", $attributes2);
+                if (!$req) {
+                    $req = $db->prepare("INSERT INTO `user_tags` (`user_id`, `tag`) VALUES (:user_id, :tag)", $attributes2);
+                    if ($req) {
+                        echo alert_bootstrap("danger", "Error: tag update failed, please try again", "text-align: center;");
+                        return;
+                    }
+                }
+            }
+        }
         echo alert_bootstrap("success", "Your infos has been <b>successfully updated</b>!", "text-align: center;");
     }
     else

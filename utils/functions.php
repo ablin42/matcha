@@ -84,6 +84,9 @@ function redirection_handler($error)
 {
     switch ($error)
     {
+        case "logg":
+            echo alert_bootstrap("danger", "You're <b>logged in</b>, no need to access this page.", "text-align: center;");
+            break;
         case "chat":
             echo alert_bootstrap("danger", "Acess <b>unauthorized</b>!", "text-align: center;");
             break;

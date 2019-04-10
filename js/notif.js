@@ -7,13 +7,9 @@ $(document).ready(function() {
         .then(function(data){
             var lines = data.split('\n');
             document.getElementById('nbnotif').innerText = lines[0];
-            //console.log(lines[0]);
             lines.splice(0, 1);
-            var newdata = lines.join('\n');
-            //console.log(newdata);
-            if (document.getElementById('dropdown-notif-content') !== null)
-                document.getElementById('dropdown-notif-content').remove();
-            document.getElementById('dropdown-notif').innerHTML += newdata;
+            newdata = lines.join('\n');
+            document.getElementById('dropdown-notif-content').innerHTML = newdata;
         })
         .catch((error) => console.log(error));
 });
@@ -28,10 +24,8 @@ var updateNotif = setInterval(function () {
             var lines = data.split('\n');
             document.getElementById('nbnotif').innerText = lines[0];
             lines.splice(0, 1);
-            var newdata = lines.join('\n');
-            if (document.getElementById('dropdown-notif-content') !== null)
-                document.getElementById('dropdown-notif-content').remove();
-            document.getElementById('dropdown-notif').innerHTML += newdata;
+            newdata = lines.join('\n');
+            document.getElementById('dropdown-notif-content').innerHTML = newdata;
         })
         .catch((error) => console.log(error));
 }, 5000);////////////

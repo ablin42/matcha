@@ -30,7 +30,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
 
 <div class="container mt-5 small-page-wrapper">
     <div class="wrapper col-12">
-        <h1>Profiles you might be interested in</h1>
+        <h1>Search a profile</h1>
         <div id="sort" class="container">
             <!--   <button @click="display = !display" class="btn btn-outline-warning btn-sign-in">Display/Hide filters and sorting options</button>-->
             <form name="sort" @submit.prevent="processSort" class="register-form my-2" method="post">
@@ -153,6 +153,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
 <?php require_once("includes/footer.php");?>
 <script src="js/online.js"></script>
 <script src="vuejs/search.js"></script>
+<script src="js/notif.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>

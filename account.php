@@ -67,16 +67,12 @@ require_once("utils/fetch_account_data.php");
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" name="submit_infos" class="btn btn-outline-warning btn-sign-in">Update Infos</button>
-                </div>
-            </form>
-
-            <form id="tags" name="tags" @submit.prevent="processForm" class="my-2 my-lg-0" method="post">
-                <div class="form-group">
                     <input v-bind="selectedTags" type="text" value="" data-role="tagsinput" id="tagInput" class="form-control">
                 </div>
+
+
                 <div class="form-group">
-                    <button type="submit" name="submit_tags" class="btn btn-outline-warning btn-sign-in">Update tags</button>
+                    <button type="submit" name="submit_infos" class="btn btn-outline-warning btn-sign-in">Update Infos</button>
                 </div>
             </form>
 
@@ -282,6 +278,7 @@ if ($tags)
 ?>
 <script src="js/online.js"></script>
 <script src="vuejs/account.js"></script>
+<script src="js/notif.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>

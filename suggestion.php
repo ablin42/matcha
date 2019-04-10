@@ -157,6 +157,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
 <?php require_once("includes/footer.php");?>
 <script src="js/online.js"></script>
 <script src="vuejs/suggestion.js"></script>
+<script src="js/notif.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>

@@ -7,10 +7,16 @@ function dismissAlert(closeBtn)
 function addAlert(alert, where)
 {
     let node = document.createElement('div'),
-        alertDiv = document.getElementById("alert");
+        alertDiv = document.getElementById("alert"),
+        wrap = document.getElementById("alertwrapper");
 
-    if (alertDiv)
-        alertDiv.parentNode.parentNode.removeChild(alertDiv.parentNode);
+    node.setAttribute("id", "alertwrapper");
+    if (alertDiv){
+        if (wrap)
+            wrap.remove();
+        else
+            alertDiv.remove();
+    }
     node.innerHTML += alert;
     insertAfter(node, where);
 }

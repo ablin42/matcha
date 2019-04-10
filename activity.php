@@ -30,15 +30,18 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
 <div class="container mt-5 small-page-wrapper">
     <div class="wrapper col-12">
         <h1>Recent activity</h1>
+        <h5>Popularity score: <?= $score ?></h5>
         <?php
             foreach ($matched as $user) {
                 echo "<p><i>".$user[0]->date."</i>: ";
-                echo "<a href='/Matcha/profile?u=".$user['username']."'>".$user['username']."</a> liked you back</p>";
+                echo "You matched with <a href='/Matcha/profile?u=".$user['username']."'>".$user['username']."</a></p>";
             }
+            echo "<hr />";
             foreach ($likes as $like) {
                 echo "<p><i>".$like->date."</i>: <a href='/Matcha/profile?u=".$like->username."'>";
                 echo "".$like->username."</a> liked your profile!</p>";
             }
+            echo "<hr />";
             foreach ($visits as $visit) {
                 echo "<p><i>".$visit->date."</i>: <a href='/Matcha/profile?u=".$visit->username."'>";
                 echo "".$visit->username."</a> visited your profile</p>";
@@ -50,6 +53,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
 <?php require_once("includes/footer.php");?>
 <script src="js/online.js"></script>
 <script src="js/ajaxify.js"></script>
+<script src="js/notif.js"></script>
 <script src="js/alert.js"></script>
 </body>
 </html>

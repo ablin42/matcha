@@ -18,8 +18,14 @@ if (!empty($_GET['u'])) {
             $email = $item->email;
         }
     }
-    else
+    else{
         header('Location: /Matcha?e=pro');
+        return;
+    }
+    if ($id === $_SESSION['id']){
+        header('Location: /Matcha/account');
+        return;
+    }
     $req = $db->prepare("SELECT * FROM `user_info` WHERE `user_id` = :user_id", array("user_id" => $id));
     if ($req) {
         foreach ($req as $item) {

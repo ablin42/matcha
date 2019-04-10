@@ -24,8 +24,6 @@ require_once("includes/header.php");
 require_once("utils/fetch_profile_data.php");
 if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
     header('Location: /Matcha/?e=prolog');
-if ($id === $_SESSION['id'])
-    header('Location: /Matcha/account');//might show preview
 ?>
 
 <div class="container mt-5 small-page-wrapper">
@@ -120,6 +118,7 @@ if ($id === $_SESSION['id'])
 <?php require_once("includes/footer.php");?>
 <script src="js/online.js"></script>
 <script src="vuejs/profile.js"></script>
+<script src="js/notif.js"></script>
 <script src="js/ajaxify.js"></script>
 <script src="js/alert.js"></script>
 </body>

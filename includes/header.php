@@ -45,7 +45,7 @@ $form->changeSurr('div class="form-group"', 'div');
         <ul class="nav navbar-nav navbar-right ml-auto">
             <?php
                 if (isset($_SESSION['logged']) && isset($_SESSION['username'])) {
-                    echo "<div id=\"dropdown-notif\" class='dropdown'><li class=\"nav-item\"><p id='nbnotif'></p><a href='#' id='dropdown-menu-notif' onclick='dropDown()' class='dropbtn'><i id='notif' class=\"far fa-bell fa-2x\"></i></a></li></div>";
+                    echo "<div id=\"dropdown-notif\" class='dropdown'><li class=\"nav-item\"><p id='nbnotif'></p><a href='#' id='dropdown-menu-notif' onclick='dropDown()' class='dropbtn'><i id='notif' class=\"far fa-bell fa-2x\"></i></a></li><div id='dropdown-notif-content' class='dropdown-notif-content'></div></div>";
                     echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"search\">Search</a></li>";
                     echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"suggestion\">Suggestions</a></li>";
                     echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"activity\">Activity</a></li>";
