@@ -98,9 +98,20 @@ Vue.component("photo-upload",{
         },
         onFileUpload: function (event){
             this.selectedFile = event.target.files[0];
+            console.log(this.selectedFile.name);
+            split = this.selectedFile.name.split(".");
+            extension = split[split.length - 1].toLowerCase();
+            if (extension !== 'jpg' || extension !== "jpeg" || extension !== 'png')
+            {
+                this.selectedFile = "";
+                addAlert('<div id="alert" class="alert alert-danger" style="text-align: center;" role="alert"><b>Error:</b> File extension is not valid! <b>(Extension authorized: jpg, jpeg, png)</b>\n' +
+                    '            <button type="button" class="close" onclick="dismissAlert(this)" data-dismiss="alert" aria-label="Close">\n' +
+                    '                <span aria-hidden="true">×</span>\n' +
+                    '            </button>\n' +
+                    '            </div>', document.getElementById("header"));
+                return;
+            }
             this.path = URL.createObjectURL(this.selectedFile);
-            console.log(this.selectedFile, this.path);
-            console.log(this.idComponent);
         },
         removePhoto: function (){
             if (this.selectedFile.toString().localeCompare('') !== 0) {
@@ -122,7 +133,6 @@ Vue.component("photo-upload",{
                 .then((res) => res.text())
                 .then((data) => addAlert(data, document.getElementById("header")))
                 .catch((error) => console.log(error))
-
         }
     }
 });

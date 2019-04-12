@@ -11,10 +11,10 @@ if (!empty($_GET['r'])){
             $user1 = $item->user1_id;
             $user2 = $item->user2_id;
             if ($userid != $user1 && $userid != $user2)
-                header('Location: /Matcha/?e=chat');
+                header('Location: /Matcha/Account?e=chat');
         }
     }
     if (has_voted($db, $user1, $user2, 1) !== 1 || has_voted($db, $user2, $user1, 1) !== 1)
-        header('Location: /Matcha/?e=chat');
+        header('Location: /Matcha/Account?e=chat');
     $req = $db->prepare("SELECT * FROM `chat` WHERE `roomid` = :roomid", $attributes);
 }

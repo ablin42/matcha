@@ -35,7 +35,6 @@ require_once("utils/fetch_account_data.php");
 <div class="container mt-5 small-page-wrapper">
     <div class="wrapper col-12 p-2">
         <h1>profile settings</h1>
-        <div class="gallery-wrapper">
         <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
             <form id="infos" name="infos" @submit.prevent="processForm" class="my-2 my-lg-0" method="post">
                 {{ assignGender(<?= json_encode($gender) ?>) }}
@@ -77,15 +76,20 @@ require_once("utils/fetch_account_data.php");
             </form>
 
             <div id="photos">
-                <photo-upload <?php if ($photos[0]) echo "v-bind:db-path=' $photos[0] '";?> v-bind:id-component="1" btn="Profile picture"></photo-upload>
-                <photo-upload <?php if ($photos[1]) echo "v-bind:db-path=' $photos[1] '";?> v-bind:id-component="2" btn="Photo 2"></photo-upload>
-                <photo-upload <?php if ($photos[2]) echo "v-bind:db-path=' $photos[2] '";?> v-bind:id-component="3" btn="Photo 3"></photo-upload>
-                <photo-upload <?php if ($photos[3]) echo "v-bind:db-path=' $photos[3] '";?> v-bind:id-component="4" btn="Photo 4"></photo-upload>
-                <photo-upload <?php if ($photos[4]) echo "v-bind:db-path=' $photos[4] '";?> v-bind:id-component="5" btn="Photo 5"></photo-upload>
+                <photo-upload <?php if ($photos[0] !== "null") echo "v-bind:db-path=' $photos[0] '";?> v-bind:id-component="1" btn="Profile picture"></photo-upload>
+                <?php
+                if ($photos[0] !== "null")
+                {
+                    for ($i = 1; $i <= 4; $i++){
+                        echo "<photo-upload ";
+                        if ($photos[$i])
+                            echo "v-bind:db-path='".$photos[$i]."'";
+                        echo 'v-bind:id-component="'.($i + 1).'" btn="Photo '.($i + 1).'"></photo-upload>';
+                    }
+                }
+                ?>
             </div>
         </div>
-        </div>
-
         <hr />
         <h1>account settings</h1>
         <div class="gallery-wrapper">
