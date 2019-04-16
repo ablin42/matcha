@@ -33,8 +33,8 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
         <h5>Popularity score: <?= $score ?></h5>
         <?php
             foreach ($matched as $user) {
-                echo "<p><i>".$user[0]->date."</i>: ";
-                echo "You matched with <a href='/Matcha/profile?u=".$user['username']."'>".$user['username']."</a></p>";
+             /*   echo "<p><i>".$user[0]->date."</i>: ";*/
+                echo "<p>You matched with <a href='/Matcha/profile?u=".$user['username']."'>".$user['username']."</a></p>";
             }
             echo "<hr />";
             foreach ($likes as $like) {

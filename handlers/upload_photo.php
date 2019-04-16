@@ -45,21 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['picture']) && !empty
         echo alert_bootstrap("danger", "<b>Error:</b> File dimensions aren't valid! <b>(height has to be smaller than width!)</b>", "text-align: center;");
         return ;
     }
-    /*
-     * this part is useless and used in delete_photo.com, theorically you can't upload a photo if the field is taken since
-     * you'd have to delete it first thus calling to delete_photo.php
-    $req = $db->prepare("SELECT $photo FROM `user_photo` WHERE `user_id` = :user_id", $attributes);
-    if ($req) {
-        foreach ($req as $item){
-            $photopath = "../" . $item->$photo;
-        }
-    }
-    else {
-        echo alert_bootstrap("warning", "You did not upload any picture yet.", "text-align: center;");
-        return;
-    }
-    if ($photopath !== NULL)
-        unlink($photopath);*/
 
     $req = $db->prepare("SELECT * FROM `user_photo` WHERE `user_id` = :user_id", $attributes);
     $filename = gen_token(40);

@@ -6,8 +6,8 @@ $(document).ready(function() {
         .then((res) => res.text())
         .then(function(data){
             var lines = data.split('\n');
-            document.getElementById('nbnotif').innerText = lines[0];
-            lines.splice(0, 1);
+            document.getElementById('nbnotif').innerText = lines[1];
+            lines.splice(1, 1);
             newdata = lines.join('\n');
             document.getElementById('dropdown-notif-content').innerHTML = newdata;
         })
@@ -22,13 +22,13 @@ var updateNotif = setInterval(function () {
         .then((res) => res.text())
         .then(function(data){
             var lines = data.split('\n');
-            document.getElementById('nbnotif').innerText = lines[0];
-            lines.splice(0, 1);
+            document.getElementById('nbnotif').innerText = lines[1];
+            lines.splice(1, 1);
             newdata = lines.join('\n');
             document.getElementById('dropdown-notif-content').innerHTML = newdata;
         })
         .catch((error) => console.log(error));
-}, 5000);////////////
+}, 5000);
 
 function dropDown() {
     document.getElementById("dropdown-notif-content").classList.toggle("show");

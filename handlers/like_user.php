@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 AND `type` = 'like'",
                                                 array("notifier" => $voter, "user_id" => $voted));
                         if ($like) {
-                            $notify['body'] = "You matched with <a href='profile?u=".$username."'>".$username."</a> but he<b>unliked</b> your profile... :(";
+                            $notify['body'] = "You matched with <a href='profile?u=".$username."'>".$username."</a> but he <b>unliked</b> your profile... :(";
                             $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`) 
                                                 VALUES (:notifier, :id, 'like',:body, NOW())", $notify);
                         }

@@ -18,9 +18,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $attributes['id'] = secure_input($_SESSION['id']);
 
         $req = $db->prepare("SELECT * FROM `notif` WHERE `user_id` = :id ORDER BY `date` DESC", $attributes);
-        echo "".sizeof($req) . PHP_EOL."";
+        $block = $db->prepare("SELECT * FROM `block` WHERE `id_blocker` = :id", $attributes);
+
+        $count = 0;
         foreach ($req as $notif) {
-            echo "<div onclick=\"removeNotif(this)\" id=\"notif_".$notif->id."\"><p>".$notif->body . PHP_EOL . $notif->date."</p></div>";
+            $blocked = 0;
+            foreach ($block as $b) {
+                if ($b->id_blocked === $notif->id_notifier)
+                    $blocked = 1;
+            }
+            if ($blocked === 0)
+            {
+                echo "<div onclick=\"removeNotif(this)\" id=\"notif_".$notif->id."\"><p>".$notif->body . " " . $notif->date."</p></div>";
+                $count++;
+            }
         }
+        echo PHP_EOL .$count;
     }
 }

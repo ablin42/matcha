@@ -14,7 +14,7 @@ autoloader::register();
 $db = database::getInstance('matcha');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'));
-    if (!empty($data->{'function'}))// && !empty($data->{'roomid'})) {
+    if (!empty($data->{'function'}))
     {
         $function = secure_input($data->{'function'});
         switch ($function){

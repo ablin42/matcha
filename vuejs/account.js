@@ -101,7 +101,8 @@ Vue.component("photo-upload",{
             console.log(this.selectedFile.name);
             split = this.selectedFile.name.split(".");
             extension = split[split.length - 1].toLowerCase();
-            if (extension !== 'jpg' || extension !== "jpeg" || extension !== 'png')
+            console.log(extension);
+            if (extension !== 'jpg' && extension !== "jpeg" && extension !== 'png')
             {
                 this.selectedFile = "";
                 addAlert('<div id="alert" class="alert alert-danger" style="text-align: center;" role="alert"><b>Error:</b> File extension is not valid! <b>(Extension authorized: jpg, jpeg, png)</b>\n' +
@@ -219,11 +220,13 @@ let acc = new Vue({
         validateFirstname: function () {
             if (this.firstname.localeCompare('') !== 0) {
                 const isValid = isValidLength(this.firstname, 2, 16);
-                if (isValid)
+                if (isValid && this.firstname.match(/^[a-z ,.'-]+$/i))
                     this.borderColor.firstname = "#56c93f";
                 else
                     this.borderColor.firstname = "#FF0000";
                 this.errors.firstname = !isValid;
+                if (!this.firstname.match(/^[a-z ,.'-]+$/i))
+                    this.errors.firstname = true;
             } else {
                 this.borderColor.firstname = '';
                 this.errors.firstname = false;
@@ -232,11 +235,13 @@ let acc = new Vue({
         validateLastname: function () {
             if (this.lastname.localeCompare('') !== 0) {
                 const isValid = isValidLength(this.lastname, 2, 16);
-                if (isValid)
+                if (isValid && this.lastname.match(/^[a-z ,.'-]+$/i))
                     this.borderColor.lastname = "#56c93f";
                 else
                     this.borderColor.lastname = "#FF0000";
                 this.errors.lastname = !isValid;
+                if (!this.lastname.match(/^[a-z ,.'-]+$/i))
+                    this.errors.lastname = true;
             } else {
                 this.borderColor.lastname = '';
                 this.errors.lastname = false;

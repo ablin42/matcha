@@ -201,12 +201,13 @@ Vue.component('login-signup-tab', {
         validateFirstname: function () {
             if (this.register.firstname.localeCompare('') !== 0) {
                 const isValid = isValidLength(this.register.firstname, 2, 16);
-                if (isValid)
+                if (isValid && this.register.firstname.match(/^[a-z ,.'-]+$/i))
                     this.register.borderColor.firstname = "#56c93f";
                 else
                     this.register.borderColor.firstname = "#FF0000";
-
                 this.register.errors.firstname = !isValid;
+                if (!this.register.firstname.match(/^[a-z ,.'-]+$/i))
+                    this.register.errors.firstname = true;
             } else {
                 this.register.borderColor.firstname = '';
                 this.register.errors.firstname = false;
@@ -215,12 +216,13 @@ Vue.component('login-signup-tab', {
         validateLastname: function () {
             if (this.register.lastname.localeCompare('') !== 0) {
                 const isValid = isValidLength(this.register.lastname, 2, 16);
-                if (isValid)
+                if (isValid && this.register.lastname.match(/^[a-z ,.'-]+$/i))
                     this.register.borderColor.lastname = "#56c93f";
                 else
                     this.register.borderColor.lastname = "#FF0000";
-
                 this.register.errors.lastname = !isValid;
+                if (!this.register.lastname.match(/^[a-z ,.'-]+$/i))
+                    this.register.errors.lastname = true;
             } else {
                 this.register.borderColor.lastname = '';
                 this.register.errors.lastname = false;

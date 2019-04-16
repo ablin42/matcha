@@ -10,6 +10,7 @@ $db = database::getInstance('matcha');
 
 if (!empty($_GET['u'])) {
     $username = secure_input($_GET['u']);
+    $score = 0;
     $req = $db->prepare("SELECT * FROM `user` WHERE `username` = :username", array("username" => $username));
     if ($req) {
         foreach ($req as $item) {
@@ -18,12 +19,12 @@ if (!empty($_GET['u'])) {
             $email = $item->email;
         }
     }
-    else{
-        header('Location: /Matcha?e=pro');
+    else {
+        header('Location: /Matcha/Account?e=pro');
         return;
     }
     if ($id === $_SESSION['id']){
-        header('Location: /Matcha/account');
+        header('Location: /Matcha/Account');
         return;
     }
     $req = $db->prepare("SELECT * FROM `user_info` WHERE `user_id` = :user_id", array("user_id" => $id));
@@ -94,8 +95,10 @@ if (!empty($_GET['u'])) {
         $nbvote = $req[0]->total;
         $score = $sum * $nbvote;
     }
-    else
-        $score = 0;
+
+    $req = $db->prepare("SELECT COUNT(*) AS nbvisit FROM `visit` WHERE `id_visited` = :user_id", array("user_id" => $id), true);
+    if ($req)
+        $score += ($req->nbvisit * $nbvote);
 
     $req = $db->prepare("SELECT * FROM `visit` WHERE `id_visitor` = :reporter AND `id_visited` = :reported", $attributes);
     if ($req) {
@@ -104,34 +107,28 @@ if (!empty($_GET['u'])) {
     else
         $req = $db->prepare("INSERT INTO `visit` (`id_visitor`, `id_visited`, `date`) VALUES (:reporter, :reported, NOW())", $attributes);
 
-    $notify['id'] = $attributes['reported'];
-    $notify['notifier'] = $attributes['reporter'];
-    $notify['body'] = "<a href='profile?u=".$username."'>".$username."</a> <b>visited</b> your profile";
-    if (is_notified($db, "visit", $attributes['reporter'], $attributes['reported']) === 0)
-        $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`) VALUES (:notifier, :id, 'visit',:body, NOW())", $notify);
-    else if (is_notified($db, "visit", $attributes['reporter'], $attributes['reported']) === 1) {
-        array_pop($notify);
-        $db->prepare("UPDATE `notif` SET `date` = NOW() WHERE `type` = 'visit' AND `id_notifier` = :notifier AND `user_id` = :id", $notify);
+    $notify['user_id'] = $id;
+    $notify['notifier'] = secure_input($_SESSION['id']);
+    $visitor_name = secure_input($_SESSION['username']);
+    $notify['body'] = "<a href='profile?u=".$visitor_name."'>".$visitor_name."</a> <b>visited</b> your profile";
+    if (is_notified($db, "visit", $notify['notifier'], $notify['user_id']) === 0)
+        $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`) VALUES (:notifier, :user_id, 'visit',:body, NOW())", $notify);
+    else if (is_notified($db, "visit", $notify['notifier'], $notify['user_id']) === 1) {
+        $db->prepare("UPDATE `notif` SET `date` = NOW(), `body` = :body WHERE `type` = 'visit' AND `id_notifier` = :notifier AND `user_id` = :user_id", $notify);
     }
 
-    $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
+    $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])), true);
     if ($req) {
-        foreach ($req as $loc)
-        {
-            $attributes_loc['lat1'] = $loc->lat;
-            $attributes_loc['lng1'] = $loc->lng;
-        }
+        $attributes_loc['lat1'] = $req->lat;
+        $attributes_loc['lng1'] = $req->lng;
     }
     else
         $error_dist = 1;
 
-    $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => $id));
+    $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => $id), true);
     if ($req) {
-        foreach ($req as $loc)
-        {
-            $attributes_loc['lat2'] = $loc->lat;
-            $attributes_loc['lng2'] = $loc->lng;
-        }
+        $attributes_loc['lat2'] = $req->lat;
+        $attributes_loc['lng2'] = $req->lng;
     }
     else
         $error_dist = 1;
@@ -154,3 +151,5 @@ if (!empty($_GET['u'])) {
         }
     }
 }
+else
+    header('Location: /Matcha/Account?e=pro');

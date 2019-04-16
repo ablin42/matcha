@@ -48,9 +48,9 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
         <div class="col-12">
             <?php
                 for ($i = 0; $i < 5; $i++) {
-                    if ($photos[0] != NULL && $i === 0)
+                    if ($photos[0] && $photos[0] !== "null" && $i === 0)
                         echo '<img src="'. $photos[$i] .'" alt="photo'.$i.'" class="profile_main"/>';
-                    else if ($photos[$i] != NULL)
+                    else if ($photos[$i] && $photos[$i] !== "null")
                         echo '<img src="'. $photos[$i] .'" alt="photo'.$i.'" class="profile_secondary"/>';
                 }
             ?>

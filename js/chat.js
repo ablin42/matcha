@@ -8,6 +8,7 @@ var chat = new Vue({
         sendChat: function (id, roomid) {
             this.roomid = roomid;
             this.updateChat(roomid);
+            document.getElementById("message").value = "";
             fetch('utils/process_chat.php', {
                 method: 'post',
                 mode: 'same-origin',

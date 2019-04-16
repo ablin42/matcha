@@ -56,20 +56,14 @@ if (!empty($_SESSION['id'])) {
     $id = secure_input($_SESSION['id']);
     $attributes['id'] = $id;
 
-    $req = $db->prepare("SELECT SUM(`type`) as sum, COUNT(*) as total FROM `vote` WHERE `id_voted` = :voted", array("voted" => $id));
-    if ($req)
-        $score = $req[0]->sum * $req[0]->total;
-    else
-        $score = 0;
-
-    $req = $db->prepare("SELECT `tag` FROM `user_tags` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
+    $req = $db->prepare("SELECT `tag` FROM `user_tags` WHERE `user_id` = :user_id", array("user_id" => $id));
     if ($req) {
         $tags = array();
         foreach ($req as $item)
             array_push($tags, $item->tag);
     }
 
-    $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
+    $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => $id));
     if ($req) {
         foreach ($req as $loc)
         {
@@ -127,6 +121,7 @@ if (!empty($_SESSION['id'])) {
             $info = array();
             $info['birthyear'] = $basic->birth_year;
             $info['tagscore'] = 0;
+            $info['score'] = 0;
             array_push($info, $basic->user_id, $basic->username, $basic->gender, $basic->orientation);
             $attributes2['user_id'] = $basic->user_id;
             $req = $db->prepare("SELECT * FROM `user_photo` WHERE `user_id` = :user_id", array("user_id" => $basic->user_id));
@@ -135,11 +130,14 @@ if (!empty($_SESSION['id'])) {
                     $info['profile_pic'] = $item->photo1;
             else
                 $info['profile_pic'] = null;
-            $req = $db->prepare("SELECT SUM(`type`) as sum, COUNT(*) as total FROM `vote` WHERE `id_voted` = :voted", array("voted" => $basic->user_id));
+            $reqvote = $db->prepare("SELECT SUM(`type`) as sum, COUNT(*) as total FROM `vote` WHERE `id_voted` = :voted", array("voted" => $basic->user_id), true);
+            if ($reqvote)
+                $info['score'] = $reqvote->sum * $reqvote->total;
+
+            $req = $db->prepare("SELECT COUNT(*) AS nbvisit FROM `visit` WHERE `id_visited` = :user_id", array("user_id" => $basic->user_id), true);
             if ($req)
-                $info['score'] = $req[0]->sum * $req[0]->total;
-            else
-                $info['score'] = 0;
+                $info['score'] += ($req->nbvisit * $reqvote->total);
+
             $tags_arr = array();
             foreach ($tags as $tag) {
                 $attributes2['tag'] = $tag;
@@ -186,8 +184,4 @@ if (!empty($_SESSION['id'])) {
                 $sorted[] = $user;
         }
     }
-
-    //echo "<pre style='color:white'>";var_dump($sorted); echo "</pre><hr />";
-    //echo "<pre style='color:white'>";var_dump($matched_user); echo "</pre><hr />";
-
 }

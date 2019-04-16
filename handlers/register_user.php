@@ -90,10 +90,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $data = json_decode($json, true);
             $lat = $data['latitude'];
             if ($lat === NULL)
-                $lat = 48.856783210696854;
+                $lat = 48.8963;
             $lng = $data['longitude'];
             if ($lng === NULL)
-                $lng = 2.345733642578125;
+                $lng = 2.32024;
             $req = $db->prepare("INSERT INTO `user_location` (`user_id`, `lat`, `lng`) VALUES (:user_id, :lat, :lng)",
                                 array("user_id" => $user_id, "lat" => $lat, "lng" => $lng));
 

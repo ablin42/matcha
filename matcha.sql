@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  ven. 12 avr. 2019 à 10:57
+-- Généré le :  mar. 16 avr. 2019 à 12:58
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.1.22
 
@@ -40,7 +40,8 @@ CREATE TABLE `block` (
 
 INSERT INTO `block` (`id`, `id_blocker`, `id_blocked`) VALUES
 (1, 6, 10),
-(2, 6, 11);
+(2, 6, 11),
+(3, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -73,7 +74,11 @@ INSERT INTO `chat` (`id`, `roomid`, `user_id`, `username`, `message`, `date`) VA
 (10, '646bd6c94ccaee3e1d93ada771852f3c56f105648a95b7ec4b', 8, 'Secaly', 'oof', '2019-04-10 00:40:05'),
 (11, '2e8f10aebdce7f9429b4a7efda777af403cc154903b0771232', 6, 'Kiwyz', 'death', '2019-04-10 18:31:20'),
 (12, '2e8f10aebdce7f9429b4a7efda777af403cc154903b0771232', 4, 'harbinger42', 'dumb shit', '2019-04-10 20:14:34'),
-(13, '646bd6c94ccaee3e1d93ada771852f3c56f105648a95b7ec4b', 6, 'Kiwyz', 'kug', '2019-04-11 18:27:02');
+(13, '646bd6c94ccaee3e1d93ada771852f3c56f105648a95b7ec4b', 6, 'Kiwyz', 'kug', '2019-04-11 18:27:02'),
+(14, '920bc626bdce7f9429b4a7efda777af403cc154903b0771232', 16, 'dawn', 'salut', '2019-04-15 20:16:03'),
+(15, '920bc626bdce7f9429b4a7efda777af403cc154903b0771232', 16, 'dawn', 'ça va mon bro?', '2019-04-15 20:16:10'),
+(16, '920bc626bdce7f9429b4a7efda777af403cc154903b0771232', 4, 'harbinger42', 'salam khey', '2019-04-15 20:17:14'),
+(17, '646bd6c94ccaee3e1d93ada771852f3c56f105648a95b7ec4b', 6, 'Kiwyz', 'death', '2019-04-16 19:33:32');
 
 -- --------------------------------------------------------
 
@@ -93,7 +98,9 @@ CREATE TABLE `chatroom` (
 
 INSERT INTO `chatroom` (`roomid`, `user1_id`, `user2_id`) VALUES
 ('2e8f10aebdce7f9429b4a7efda777af403cc154903b0771232', 6, 4),
-('646bd6c94ccaee3e1d93ada771852f3c56f105648a95b7ec4b', 8, 6);
+('646bd6c94ccaee3e1d93ada771852f3c56f105648a95b7ec4b', 8, 6),
+('920bc626bdce7f9429b4a7efda777af403cc154903b0771232', 16, 4),
+('ffb5d6034ccaee3e1d93ada771852f3c56f105648a95b7ec4b', 7, 6);
 
 -- --------------------------------------------------------
 
@@ -115,17 +122,15 @@ CREATE TABLE `notif` (
 --
 
 INSERT INTO `notif` (`id`, `id_notifier`, `user_id`, `type`, `body`, `date`) VALUES
-(29, 0, 1, 'like', '<a href=\'profile?u=Kiwyz\'>Kiwyz</a> liked your profile', '2019-04-09 16:22:39'),
-(30, 6, 5, 'like', '<a href=\'profile?u=Kiwyz\'>Kiwyz</a> liked your profile', '2019-04-09 16:22:39'),
-(32, 6, 5, 'visit', '<a href=\'profile?u=Harbinger43\'>Harbinger43</a> <b>visited</b> your profile', '2019-04-09 17:01:35'),
-(33, 6, 1, 'visit', '<a href=\'profile?u=Harbinger\'>Harbinger</a> <b>visited</b> your profile', '2019-04-11 18:26:17'),
-(137, 6, 4, 'message', '<a href=\'profile?u=Kiwyz\'>Kiwyz</a> <b>sent</b> you a message!', '2019-04-10 18:31:20'),
-(140, 4, 8, 'visit', '<a href=\'profile?u=Secaly\'>Secaly</a> <b>visited</b> your profile', '2019-04-10 20:03:06'),
-(144, 6, 4, 'visit', '<a href=\'profile?u=Harbinger42\'>Harbinger42</a> <b>visited</b> your profile', '2019-04-10 20:25:47'),
-(146, 6, 8, 'message', '<a href=\'profile?u=Kiwyz\'>Kiwyz</a> <b>sent</b> you a message!', '2019-04-11 18:27:02'),
-(147, 8, 6, 'visit', '<a href=\'profile?u=Kiwyz\'>Kiwyz</a> <b>visited</b> your profile', '2019-04-12 18:07:50'),
-(148, 8, 6, 'like', '<b>Match! </b><a href=\'profile?u=Secaly\'>Secaly</a> <b>liked</b> your profile back! You can now <b>message eachother</b>!', '2019-04-12 18:07:49'),
-(149, 8, 11, 'visit', '<a href=\'profile?u=Tabtest\'>Tabtest</a> <b>visited</b> your profile', '2019-04-12 19:30:44');
+(165, 6, 13, 'visit', '<a href=\'profile?u=Kiwyz\'>Kiwyz</a> <b>visited</b> your profile', '2019-04-16 19:58:57'),
+(166, 6, 8, 'visit', '<a href=\'profile?u=Kiwyz\'>Kiwyz</a> <b>visited</b> your profile', '2019-04-16 21:52:35'),
+(167, 6, 4, 'visit', '<a href=\'profile?u=Kiwyz\'>Kiwyz</a> <b>visited</b> your profile', '2019-04-16 21:52:29'),
+(168, 6, 1, 'visit', '<a href=\'profile?u=Kiwyz\'>Kiwyz</a> <b>visited</b> your profile', '2019-04-16 21:47:24'),
+(169, 1, 6, 'visit', '<a href=\'profile?u=Harbinger\'>Harbinger</a> <b>visited</b> your profile', '2019-04-16 20:12:28'),
+(170, 1, 6, 'like', '<a href=\'profile?u=Harbinger\'>Harbinger</a> <b>liked</b> your profile', '2019-04-16 20:04:20'),
+(171, 13, 6, 'like', '<a href=\'profile?u=Harbinger\'>gran</a> <b>liked</b> your profile', '2019-04-16 20:04:20'),
+(172, 6, 7, 'visit', '<a href=\'profile?u=Kiwyz\'>Kiwyz</a> <b>visited</b> your profile', '2019-04-16 21:52:32'),
+(173, 8, 6, 'visit', '<a href=\'profile?u=Secaly\'>Secaly</a> <b>visited</b> your profile', '2019-04-16 21:20:28');
 
 -- --------------------------------------------------------
 
@@ -179,7 +184,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`, `mail_token`, `confir
 (11, 'tabtest', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'tabtest@byom.de', 'NULL', '2019-04-01 19:42:27', NULL),
 (13, 'granma67', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'granma67@byom.de', 'NULL', '2019-04-04 20:42:33', NULL),
 (14, 'crashtest', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'crashtest@byom.de', NULL, '2019-04-10 08:26:27', NULL),
-(15, 'aaaa', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'aaaa@byom.de', '66ymzasxbw7rl608lvpyy2tw95wrt2uemob90gien8a1kcrjor0eopjsy046s7y6uyodzza4ml14xzs5qvx56w36r9m4wncvurl097hwoo1gye118gibh70ihwi41emy', NULL, NULL);
+(15, 'aaaa', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'aaaa@byom.de', '66ymzasxbw7rl608lvpyy2tw95wrt2uemob90gien8a1kcrjor0eopjsy046s7y6uyodzza4ml14xzs5qvx56w36r9m4wncvurl097hwoo1gye118gibh70ihwi41emy', NULL, NULL),
+(16, 'dawn', 'ac487e1212b849e370931cff6c3b36f32df7e5e97e87024fb5bccf389353eb5338e9b3571c6930e0c770c930de09c15bf3935add173adedea6a10cc5dcd3381b', 'dawn@byom.de', 'NULL', '2019-04-15 19:32:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -204,18 +210,19 @@ CREATE TABLE `user_info` (
 --
 
 INSERT INTO `user_info` (`id`, `user_id`, `firstname`, `lastname`, `birth_year`, `bio`, `gender`, `orientation`, `last_online`) VALUES
-(8, 4, 'Andreas', 'Dogezz', 1998, 'extremely inclusived', 'Male', 'Heterosexual', '2019-04-10 20:14:45'),
-(9, 6, 'Antonio', 'Marijuanga', 1992, 'je suisfdfs un petit khey qui boit de l\'eau', 'Male', 'Bisexual', '2019-04-11 18:38:03'),
+(8, 4, 'Andreas', 'Dogezz', 1998, 'extremely inclusived', 'Male', 'Heterosexual', '2019-04-15 20:18:59'),
+(9, 6, 'Antonio', 'Marijuanga', 1992, 'je suisfdfs un petit khey qui boit de l\'eau', 'Male', 'Bisexual', '2019-04-16 21:57:37'),
 (10, 7, 'Johnny', 'TikTokDoe', 1995, 'autiste\n\nautodiag\n\ndas', 'Female', 'Heterosexual', '2019-04-05 19:26:54'),
-(11, 8, 'Kévin', 'Secaly', 1990, 'je suis un pedophile', 'Female', 'Bisexual', '2019-04-12 19:56:55'),
+(11, 8, 'Kévin', 'Secaly', 1990, 'je suis un pedophile', 'Female', 'Bisexual', '2019-04-16 21:20:31'),
 (12, 9, 'Andreas', 'Blin', 1998, 'men fou', 'Female', 'Homosexual', '2019-04-05 19:28:19'),
 (13, 10, 'asdad', 'asdasd', 1999, 'im a fag', 'Male', 'Bisexual', '2019-04-05 19:29:13'),
 (14, 11, 'tab', 'test', 1999, 'furfag', 'Female', 'Bisexual', '2019-04-05 19:29:42'),
 (16, 13, 'OG', 'lord', 1967, 'dsaadafasfa', 'Female', 'Heterosexual', '2019-04-11 00:15:48'),
-(17, 1, 'Andreas', 'Blin', 1998, 'dark overlord', 'Male', 'Heterosexual', '2019-04-05 21:47:15'),
+(17, 1, 'Andreas', 'Blin', 1998, 'dark overlord', 'Male', 'Heterosexual', '2019-04-16 20:12:28'),
 (18, 5, 'Doombringer', 'Zedaar', 1997, 'les petits bras de micron', 'Female', 'Bisexual', '2019-04-05 21:47:15'),
 (19, 14, 'trysha', 'crashito', 1984, 'i suck', 'Male', 'Bisexual', '2019-04-10 18:12:02'),
-(20, 15, 'aaaaa', 'aaaaaa', 1999, NULL, NULL, 'Bisexual', '2019-04-11 00:27:50');
+(20, 15, 'aaaaa', 'aaaaaa', 1999, NULL, NULL, 'Bisexual', '2019-04-11 00:27:50'),
+(21, 16, 'after', 'dawnie', 1984, 'this is bio', 'Male', 'Homosexual', '2019-04-16 18:31:42');
 
 -- --------------------------------------------------------
 
@@ -235,7 +242,7 @@ CREATE TABLE `user_location` (
 --
 
 INSERT INTO `user_location` (`id`, `user_id`, `lat`, `lng`) VALUES
-(1, 6, 48.8581, 2.30968),
+(1, 6, 48.8963, 2.32024),
 (2, 13, 48.8543, 2.3527),
 (3, 8, 48.8848, 2.30213),
 (4, 1, 48.8416, 2.29492),
@@ -246,7 +253,8 @@ INSERT INTO `user_location` (`id`, `user_id`, `lat`, `lng`) VALUES
 (9, 10, 48.8613, 2.24617),
 (10, 11, 48.8622, 2.45251),
 (11, 14, 48.8475, 2.30316),
-(12, 15, 48.8568, 2.34573);
+(12, 15, 48.8568, 2.34573),
+(13, 16, 48.8414, 2.2987);
 
 -- --------------------------------------------------------
 
@@ -269,7 +277,7 @@ CREATE TABLE `user_photo` (
 --
 
 INSERT INTO `user_photo` (`id`, `user_id`, `photo1`, `photo2`, `photo3`, `photo4`, `photo5`) VALUES
-(5, 4, 'photos/0hje8lloy65jw2csy4b33uh7qj0y7zflfpp2rt84.jpg', NULL, 'photos/m5vaxt741hhxsf903yxrp2ab2clhvyl1iv7asn8y.png', NULL, NULL),
+(5, 4, 'photos/0hje8lloy65jw2csy4b33uh7qj0y7zflfpp2rt84.jpg', NULL, 'photos/ewu1an7t6un7eyw279zb8e8nhqtzpbuh5mkwwyex.jpeg', NULL, ''),
 (6, 6, 'photos/ewu1an7t6un7eyw279zb8e8nhqtzpbuh5mkwwyex.jpeg', NULL, NULL, NULL, 'photos/7csz1n96qnddgnetkd1o73uejprltho77k6to871.jpg'),
 (7, 8, 'photos/lwzemhxwo4qex7tj8fbs74i0wfcf01b8405g3ipv.jpeg', NULL, NULL, NULL, NULL),
 (8, 1, 'photos/kbso9psw97qqpj5y3ky6u87harywjavfkdtzlqu4.png', NULL, NULL, NULL, NULL),
@@ -278,7 +286,8 @@ INSERT INTO `user_photo` (`id`, `user_id`, `photo1`, `photo2`, `photo3`, `photo4
 (11, 9, 'photos/za3x27b9pec1h92wy205b0fav9nfxuzr18dycwof.jpeg', NULL, NULL, NULL, NULL),
 (12, 11, 'photos/3zvl6lzl171lqeiyoy3ve4k4m7s4dkmyfoxwfncy.jpeg', NULL, NULL, NULL, NULL),
 (13, 14, 'photos/03dwhpa2cx93jht18nzn7q1tqpdgh73n3b3nqp3a.png', NULL, NULL, NULL, NULL),
-(14, 13, 'photos/nfherhylxze4ho24ck3z8spzgo7jlcdfhsvqaxn4.jpeg', NULL, NULL, NULL, NULL);
+(14, 13, 'photos/nfherhylxze4ho24ck3z8spzgo7jlcdfhsvqaxn4.jpeg', NULL, NULL, NULL, NULL),
+(16, 16, 'photos/wte5b33ngm89o4rwy1fmjvndao7kw75rfc1ct6q6.png', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -323,7 +332,10 @@ INSERT INTO `user_tags` (`id`, `user_id`, `tag`) VALUES
 (40, 9, 'video games'),
 (41, 11, 'animals'),
 (42, 14, 'animals'),
-(47, 13, 'grandfathers');
+(47, 13, 'grandfathers'),
+(48, 16, 'animals'),
+(49, 16, 'veganism'),
+(50, 16, 'antispecist');
 
 -- --------------------------------------------------------
 
@@ -344,21 +356,28 @@ CREATE TABLE `visit` (
 
 INSERT INTO `visit` (`id`, `id_visitor`, `id_visited`, `date`) VALUES
 (1, 7, 6, '2019-03-27 18:15:35'),
-(3, 6, 7, '2019-04-05 19:07:37'),
-(4, 6, 8, '2019-04-11 18:37:03'),
+(3, 6, 7, '2019-04-16 21:52:32'),
+(4, 6, 8, '2019-04-16 21:52:35'),
 (5, 10, 8, '2019-03-31 18:59:51'),
-(6, 8, 6, '2019-04-12 18:07:50'),
-(7, 8, 8, '2019-04-01 17:05:04'),
+(6, 8, 6, '2019-04-16 21:20:28'),
 (8, 6, 10, '2019-04-05 21:54:57'),
 (9, 6, 11, '2019-04-05 21:54:59'),
-(10, 6, 4, '2019-04-10 20:25:47'),
-(11, 4, 6, '2019-04-10 20:14:20'),
-(12, 6, 1, '2019-04-11 18:26:17'),
+(10, 6, 4, '2019-04-16 21:52:29'),
+(11, 4, 6, '2019-04-15 20:18:31'),
+(12, 6, 1, '2019-04-16 21:47:24'),
 (13, 6, 5, '2019-04-09 17:01:35'),
-(14, 6, 6, '2019-04-10 18:14:38'),
-(15, 4, 4, '2019-04-10 20:05:19'),
 (16, 4, 8, '2019-04-10 20:03:06'),
-(17, 8, 11, '2019-04-12 19:30:44');
+(17, 8, 11, '2019-04-12 19:30:44'),
+(18, 4, 16, '2019-04-15 20:18:59'),
+(19, 8, 16, '2019-04-12 19:30:44'),
+(20, 16, 14, '2019-04-15 19:53:13'),
+(21, 16, 10, '2019-04-15 19:53:15'),
+(22, 16, 6, '2019-04-15 19:53:17'),
+(23, 16, 7, '2019-04-15 19:59:29'),
+(24, 16, 1, '2019-04-15 20:08:03'),
+(25, 16, 4, '2019-04-15 20:15:39'),
+(26, 6, 13, '2019-04-16 19:58:57'),
+(27, 1, 6, '2019-04-16 20:12:28');
 
 -- --------------------------------------------------------
 
@@ -382,7 +401,7 @@ INSERT INTO `vote` (`id`, `id_voter`, `id_voted`, `type`, `date`) VALUES
 (16, 3, 6, 1, '2019-03-22 13:20:23'),
 (17, 2, 6, 1, '2019-03-12 12:29:28'),
 (18, 4, 6, 1, '2019-03-27 07:24:36'),
-(19, 1, 6, -1, '2019-03-28 15:25:34'),
+(19, 1, 6, 1, '2019-04-16 20:04:20'),
 (20, 6, 7, 1, '2019-03-28 06:21:20'),
 (22, 7, 6, 1, '2019-03-28 06:19:20'),
 (104, 6, 8, 1, '2019-03-31 16:59:39'),
@@ -395,7 +414,9 @@ INSERT INTO `vote` (`id`, `id_voter`, `id_voted`, `type`, `date`) VALUES
 (228, 6, 4, 1, '2019-04-09 19:07:42'),
 (231, 7, 13, 1, '2019-04-10 00:00:00'),
 (232, 8, 13, 1, '2019-04-10 00:00:00'),
-(233, 8, 6, 1, '2019-04-12 18:07:49');
+(233, 8, 6, 1, '2019-04-12 18:07:49'),
+(235, 8, 16, 1, '2019-04-10 00:00:00'),
+(239, 16, 4, 1, '2019-04-15 20:14:46');
 
 --
 -- Index pour les tables déchargées
@@ -483,19 +504,19 @@ ALTER TABLE `vote`
 -- AUTO_INCREMENT pour la table `block`
 --
 ALTER TABLE `block`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT pour la table `notif`
 --
 ALTER TABLE `notif`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 
 --
 -- AUTO_INCREMENT pour la table `report`
@@ -507,43 +528,43 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `user_info`
 --
 ALTER TABLE `user_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT pour la table `user_location`
 --
 ALTER TABLE `user_location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `user_photo`
 --
 ALTER TABLE `user_photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `user_tags`
 --
 ALTER TABLE `user_tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT pour la table `visit`
 --
 ALTER TABLE `visit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT pour la table `vote`
 --
 ALTER TABLE `vote`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=234;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

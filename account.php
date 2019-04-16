@@ -76,9 +76,9 @@ require_once("utils/fetch_account_data.php");
             </form>
 
             <div id="photos">
-                <photo-upload <?php if ($photos[0] !== "null") echo "v-bind:db-path=' $photos[0] '";?> v-bind:id-component="1" btn="Profile picture"></photo-upload>
+                <photo-upload <?php if ($photos[0] && $photos[0] !== "null") echo "v-bind:db-path=' $photos[0] '";?> v-bind:id-component="1" btn="Profile picture"></photo-upload>
                 <?php
-                if ($photos[0] !== "null")
+                if ($photos[0] && $photos[0] !== "null")
                 {
                     for ($i = 1; $i <= 4; $i++){
                         echo "<photo-upload ";
@@ -225,10 +225,10 @@ require_once("utils/fetch_account_data.php");
         </form>
 
         <script>
-            document.getElementById('lat').value = parseFloat("48.856783210696854");
-            document.getElementById('lng').value = parseFloat("2.345733642578125");
+            document.getElementById('lat').value = parseFloat("<?= $lat ?>");
+            document.getElementById('lng').value = parseFloat("<?= $lng ?>");
             function initMap() {
-                var myLatLng = {lat: parseFloat("48.856783210696854"), lng: parseFloat("2.345733642578125")};
+                var myLatLng = {lat: parseFloat("<?= $lat ?>"), lng: parseFloat("<?= $lng ?>")};
                 var map = new google.maps.Map(document.getElementById('map'), {
                     center: myLatLng,
                     scrollwheel: false,

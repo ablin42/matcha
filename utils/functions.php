@@ -84,6 +84,9 @@ function redirection_handler($error)
 {
     switch ($error)
     {
+        case "block":
+            echo alert_bootstrap("danger", "<b>Access unauthorized:</b> You blocked this user/he blocked you.", "text-align: center;");
+            break;
         case "logg":
             echo alert_bootstrap("danger", "You're <b>logged in</b>, no need to access this page.", "text-align: center;");
             break;
