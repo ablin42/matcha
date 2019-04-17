@@ -139,6 +139,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                 foreach ($sorted as $match)
                 {
                     echo "<div style='border: 1px solid red;'>";
+                    //var_dump($match['totalscore'], ($match['tagscore'] * 100), ($match['score'] * 3), $match['distcore']);
                     if ($match['profile_pic'])
                         echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
                     echo "<p><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a> (".$match['birthyear']."), <i>".$match[2].", ".$match[3]."</i> - ".$match['distance']." KM away</p>";

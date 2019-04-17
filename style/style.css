@@ -6,6 +6,10 @@ html {min-width: 450px; min-height: 250px;}
     position: unset!important;
 }
 
+.banner {
+    font-size: 90px;
+}
+
 .dropdown-notif-content{
     max-height: 350px;
     overflow: scroll;

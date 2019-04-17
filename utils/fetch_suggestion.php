@@ -15,44 +15,7 @@ if (!empty($_SESSION['id'])) {
     $byend = 2001;
     $minscore = 0;
     $maxscore = 1000;
-    if ($_SERVER["REQUEST_METHOD"] == "GET")
-    {
-        if (!empty($_GET['pstart']) && is_numeric($_GET['pstart']))
-            $minscore = secure_input($_GET['pstart']);
-        if (!empty($_GET['pend']) && is_numeric($_GET['pend']))
-            $maxscore = secure_input($_GET['pend']);
-        if (!empty($_GET['type']))
-            if ($_GET['type'] == "asc")
-                $sorttype = "asc";
-        if (!empty($_GET['bystart']) && !empty($_GET['byend']) && is_numeric($_GET['bystart']) && is_numeric($_GET['byend']))
-        {
-            //check nbr range
-            $bystart = secure_input($_GET['bystart']);
-            $byend = secure_input($_GET['byend']);
-        }
-        if (!empty($_GET['sort'])) {
-            $sort = secure_input($_GET['sort']);
-            switch ($sort) {
-                case "Standard":
-                    $sortfield = 'totalscore';
-                    break;
-                case "Age":
-                    $sortfield = 'birthyear';
-                    break;
-                case "Location":
-                    $sortfield = 'location';
-                    break;
-                case "Popularity":
-                    $sortfield = 'score';
-                    break;
-                case "Tags":
-                    $sortfield = 'tagscore';
-                    break;
-                default:
-                    $sortfield = 'totalscore';
-            }
-        }
-    }
+
     $id = secure_input($_SESSION['id']);
     $attributes['id'] = $id;
 
@@ -161,9 +124,33 @@ if (!empty($_SESSION['id'])) {
             if ($error_dist != 1)
                 $info['distance'] = round(distance($attributes_loc['lat1'], $attributes_loc['lng1'], $attributes_loc['lat2'], $attributes_loc['lng2'], "K"));
 
-            $info['totalscore'] =  ($info['tagscore'] * 50) + ($info['score'] * 5) - ($info['distance'] * 10); //+ geo score+ maybe orientation score (orientation/geoscore/tagscore/pop)
-            if ($info['score'] >= $minscore && $info['score'] <= $maxscore)
+            switch (true)
+            {
+                case ($info['distance'] <= 2):
+                    $distscore = 150;
+                    break;
+
+                case ($info['distance'] > 2 && $info['distance'] <= 4):
+                    $distscore = 100;
+                    break;
+
+                case ($info['distance'] > 4 && $info['distance'] <= 8):
+                    $distscore = 50;
+                    break;
+
+                case ($info['distance'] > 8 && $info['distance'] <= 10):
+                    $distscore = 25;
+                    break;
+
+                default:
+                    $distscore = 0;
+            }
+
+            $info['distcore'] = $distscore;
+            $info['totalscore'] =  ($info['tagscore'] * 100) + ($info['score'] * 3) + $distscore; //+ geo score+ maybe orientation score (orientation/geoscore/tagscore/pop)
+            if ($info['score'] >= $minscore && $info['score'] <= $maxscore && $info['tagscore'] !== 0)
                 array_push($matched_user, $info);
+            //var_dump($match['totalscore'], ($info['tagscore'] * 50),  ($info['score'] * 5), ($info['distance'] * -10));
         }
     }
 

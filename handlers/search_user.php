@@ -16,7 +16,6 @@ $db = database::getInstance('matcha');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = secure_input($_SESSION['id']);
-    $sortfield = 'totalscore';
     $sorttype = "des";
     $bystart = 1940;
     $byend = 2001;
@@ -28,9 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($data->{'sort'}) && !empty($data->{'order'})) {
         $sort = secure_input($data->{'sort'});
         switch ($sort) {
-            case "Standard":
-                $sortfield = 'totalscore';
-                break;
             case "Age":
                 $sortfield = 'birthyear';
                 break;
@@ -44,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $sortfield = 'tagscore';
                 break;
             default:
-                $sortfield = 'totalscore';
+                $sortfield = 'tagscore';
         }
         if (!empty($data->{'order'}))
             if ($data->{'order'} == "asc")

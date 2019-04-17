@@ -12,8 +12,12 @@ $form->changeSurr('div class="form-group"', 'div');
 <script src="js/ajaxify.js"></script>
 <nav class="navbar navbar-expand-lg" id="header">
 <div class="container-fluid">
-    <a class="navbar-brand" href="/Matcha">Home</a>
-
+    <?php
+        if (isset($_SESSION['logged']) && isset($_SESSION['username']))
+            echo "<a class='navbar-brand' href='utils/logout.php'>Logout</a>";
+        else if (!isset($_SESSION['logged']))
+            echo "<a class='navbar-brand' href=\"index\">Log in/Sign up"
+    ?>
 
     <div class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="far fa-user"></i>
@@ -30,12 +34,7 @@ $form->changeSurr('div class="form-group"', 'div');
                 ?>
                 <?php
                 if (!isset($_SESSION['logged']))
-                {
-                    echo '<li class="nav-item"><a class="nav-link" href="index">Log in/Sign up</a></li>';
                     echo '<li class="nav-item"><a class="nav-link" href="lostpassword">Forgot your password?</a></li>';
-                }
-                else
-                    echo '<li class="nav-item"><a class="nav-link" href="utils/logout.php">Logout</a></li>';
                 ?>
             </ul>
         </div>
@@ -54,12 +53,7 @@ $form->changeSurr('div class="form-group"', 'div');
             ?>
             <?php
                 if (!isset($_SESSION['logged']))
-                {
-                    echo '<li class="nav-item"><a class="nav-link" href="index">Log in/Sign up</a></li>';
                     echo '<li class="nav-item"><a class="nav-link" href="lostpassword">Forgot your password?</a></li>';
-                }
-                else
-                    echo '<li class="nav-item"><a class="nav-link" href="utils/logout.php">Logout</a></li>';
                 ?>
         </ul>
     </div>

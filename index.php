@@ -28,11 +28,10 @@ if (isset($_GET['e']))
 ?>
 
 <div class="container mt-5 small-page-wrapper">
-    <div class="wrapper col-8 offset-2 p-2">
-        <div id="login-register" class="container col-8 p-2 mt-3 mb-3">
+    <h1 class="banner">Matcha <i class="far fa-heart"></i></h1>
+        <div id="login-register" class="container col-6 p-2 mt-3 mb-3">
             <login-signup-tab></login-signup-tab>
         </div>
-    </div>
 </div>
 
 <?php require_once("includes/footer.php");?>

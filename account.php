@@ -241,6 +241,7 @@ require_once("utils/fetch_account_data.php");
                     title: 'My position'
                 });
                 google.maps.event.addListener(marker, "dragend", function(evenement) {
+                    console.log(evenement.latLng.lat(), evenement.latLng.lng());
                     document.getElementById('lat').value = evenement.latLng.lat();
                     document.getElementById('lng').value = evenement.latLng.lng();
 

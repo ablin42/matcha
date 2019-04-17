@@ -184,15 +184,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $error_dist = 1;
                 if ($error_dist != 1)
                     $info['distance'] = round(distance($attributes_loc['lat1'], $attributes_loc['lng1'], $attributes_loc['lat2'], $attributes_loc['lng2'], "K"));
-                $info['totalscore'] = ($info['tagscore'] * 50) + ($info['score'] * 5) - ($info['distance'] * 10); //+ geo score+ maybe orientation score (orientation/geoscore/tagscore/pop)
-                if ($info['score'] >= $minscore && $info['score'] <= $maxscore) {
+
+                switch (true)
+                {
+                    case ($info['distance'] <= 2):
+                        $distscore = 150;
+                        break;
+
+                    case ($info['distance'] > 2 && $info['distance'] <= 4):
+                        $distscore = 100;
+                        break;
+
+                    case ($info['distance'] > 4 && $info['distance'] <= 8):
+                        $distscore = 50;
+                        break;
+
+                    case ($info['distance'] > 8 && $info['distance'] <= 10):
+                        $distscore = 25;
+                        break;
+
+                    default:
+                        $distscore = 0;
+                }
+                $info['distcore'] = $distscore;
+                $info['totalscore'] = ($info['tagscore'] * 100) + ($info['score'] * 3) + $distscore; //+ geo score+ maybe orientation score (orientation/geoscore/tagscore/pop)
+                if ($info['score'] >= $minscore && $info['score'] <= $maxscore && $info['distance'] <= $mdistance && $info['tagscore'] !== 0) {
                     foreach ($required_tags as $rtag) {
                         foreach ($tags_arr as $utag) {
                             if ($rtag == $utag)
                                 $rtagnb++;
                         }
                     }
-                    if ($rtagnb >= sizeof($required_tags) && $info['distance'] <= $mdistance)
+                    if ($rtagnb >= sizeof($required_tags))
                         array_push($matched_user, $info);
                 }
             }
@@ -219,10 +242,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach ($sorted as $match)
         {
             echo "<div style='border: 1px solid red;'>";
+            //var_dump($match['totalscore'], ($match['tagscore'] * 100), ($match['score'] * 3), $match['distcore']);
             if ($match['profile_pic'])
                 echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
             echo "<p><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a> (".$match['birthyear']."), <i>".$match[2].", ".$match[3]."</i> - ".$match['distance']." KM away</p>";
-            echo "<p>Popularity score: <b>".$match['score']."</b></p>";
+            echo "<p>Popularity score: <b>".$match['score']."</b> : ".$match['totalscore']."</p>";
             echo "<p>You're both interested in: </p>";
             foreach ($match['tags'] as $tag)
                 echo "<div class='profile_tag'><p>".$tag."</p></div>";

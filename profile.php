@@ -28,6 +28,12 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
 
 <div class="container mt-5 small-page-wrapper">
     <div class="wrapper col-12">
+        <div class="col-4">
+            <?php
+                if ($photos[0] && $photos[0] !== "null")
+                    echo '<img src="'. $photos[0] .'" alt="photo0" class="profile_main"/>';
+            ?>
+        </div>
         <h1><?= $username ?></h1>
         <?php if ($distance) echo "<h6>".$distance."KM away</h6>";?>
         <?php
