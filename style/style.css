@@ -238,8 +238,6 @@ footer
     border-bottom: none;
 }
 
-.lab {color: #DDDDDD;}
-
 a {color: #ffc107;}
 a:hover {color: #FFFFFF;}
 
@@ -532,26 +530,39 @@ input:focus:invalid + span {display: inline;}
 
 .form-control
 {
-    background-color: #1b1b1b;
+    /* background-color: #1b1b1b; */
+    background-color: white;
     border: 1px solid #1e2125;
     color: #BBBBBB;
 }
 
 .form-control:focus
 {
-    background-color: #1b1b1b;
+    /* background-color: #1b1b1b; */
+    background-color: white;
     box-shadow: none;
     color: #CCCCCC;
 }
 
 .register-form
 {
-    background-color: #0e0e0e;
+    background-color: #fffafa;
     padding: 15px;
     border: 1px solid black;
     box-shadow: 0 0 5px 0 rgba(4, 3, 0, 0.75);
     -webkit-box-shadow: 0 0 5px 0 rgba(4, 3, 0, 0.75);
     -moz-box-shadow: 0 0 5px 0 rgba(4, 3, 0, 0.75);
+}
+.lab {
+  color: #679ded;
+  font-family: Raleway;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.requirement_error {
+  color: #f95955;
+  font-size: 14px;
 }
 
 #username_l, #password_l {border: 1px solid black;}

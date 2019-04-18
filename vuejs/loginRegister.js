@@ -9,13 +9,13 @@ Vue.component('login-signup-tab', {
                 <h4
                     class="d-inline-block m-2"
                     :class="{ activeTab: selectedTab === tab} "
-                    v-for="(tab, index) in tabs" 
+                    v-for="(tab, index) in tabs"
                     :key="index"
                     @click="selectedTab = tab">
                     {{ tab }}
                 </h4>
             </div>
-            
+
              <form v-if="selectedTab === 'Log in'" name="login" @submit.prevent="processLogin" class="register-form col-10 offset-1 my-2 my-lg-0" method="post">
                 <div class="form-group">
                     <label for="username" class="lab">Username</label>
@@ -43,7 +43,7 @@ Vue.component('login-signup-tab', {
                     <button type="submit" name="submit_login" class="btn btn-outline-warning btn-sign-in">Log in</button>
                 </div>
             </form>
-            
+
             <div id="register-wrapper" v-if="selectedTab === 'Register'">
                 <h1>create an account</h1>
                 <h5 >a confirmation e-mail will be sent to you</h5>
@@ -60,7 +60,7 @@ Vue.component('login-signup-tab', {
                            :style="{ borderColor: register.borderColor.firstname }"
                            @blur="validateFirstname"
                            required>
-                    <span v-if="register.errors.firstname">First name must contain between 2 and 16 characters</span>
+                    <span class="requirement_error" v-if="register.errors.firstname">First name must contain between 2 and 16 characters</span>
                 </div>
                 <div class="form-group">
                     <label for="lastname" class="lab">Last Name</label>
@@ -74,7 +74,7 @@ Vue.component('login-signup-tab', {
                            :style="{ borderColor: register.borderColor.lastname }"
                            @blur="validateLastname"
                            required>
-                    <span v-if="register.errors.lastname">Last name must contain between 2 and 16 characters</span>
+                    <span class="requirement_error" v-if="register.errors.lastname">Last name must contain between 2 and 16 characters</span>
                 </div>
                 <div class="form-group">
                     <label for="birthyear" class="lab">Birth year</label>
@@ -89,7 +89,7 @@ Vue.component('login-signup-tab', {
                            :style="{ borderColor: register.borderColor.birthYear }"
                            @blur="validateBirthYear"
                            required>
-                    <span v-if="register.errors.birthYear">Your birth year must be in the range 1940-2001</span>
+                    <span class="requirement_error" v-if="register.errors.birthYear">Your birth year must be in the range 1940-2001</span>
                 </div>
                 <div class="form-group">
                     <label for="username" class="lab">Username</label>
@@ -103,7 +103,7 @@ Vue.component('login-signup-tab', {
                            :style="{ borderColor: register.borderColor.username }"
                            @blur="validateUsername"
                            required>
-                    <span v-if="register.errors.username">Username must contain between 4 and 30 characters</span>
+                    <span class="requirement_error" v-if="register.errors.username">Username must contain between 4 and 30 characters</span>
                 </div>
                 <div class="form-group">
                     <label for="email" class="lab">E-mail</label>
@@ -116,7 +116,7 @@ Vue.component('login-signup-tab', {
                            :style="{ borderColor: register.borderColor.email }"
                            @blur="validateEmail"
                            required>
-                    <span v-if="register.errors.email">E-mail has to be valid</span>
+                    <span class="requirement_error" v-if="register.errors.email">E-mail has to be valid</span>
                 </div>
                 <div class="form-group">
                     <label for="password" class="lab">Password</label>
@@ -130,7 +130,7 @@ Vue.component('login-signup-tab', {
                            :style="{ borderColor: register.borderColor.password }"
                            @blur="validatePassword"
                            required>
-                    <span v-if="register.errors.password">Password must contain between 8 and 30 characters and has to be atleast alphanumeric</span>
+                    <span class="requirement_error" v-if="register.errors.password">Password must contain between 8 and 30 characters and has to be atleast alphanumeric</span>
                 </div>
                 <div class="form-group">
                     <label for="password2" class="lab">Confirm your password</label>
@@ -144,7 +144,7 @@ Vue.component('login-signup-tab', {
                            :style="{ borderColor: register.borderColor.password2 }"
                            @blur="validatePassword2"
                            required>
-                    <span v-if="register.errors.password2">Password has to be the same as the one you just entered</span>
+                    <span class="requirement_error" v-if="register.errors.password2">Password has to be the same as the one you just entered</span>
                 </div>
                 <div class="form-group">
                     <button type="submit" name="submit_register" class="btn btn-outline-warning btn-sign-in">Sign up</button>
@@ -204,7 +204,7 @@ Vue.component('login-signup-tab', {
                 if (isValid && this.register.firstname.match(/^[a-z ,.'-]+$/i))
                     this.register.borderColor.firstname = "#56c93f";
                 else
-                    this.register.borderColor.firstname = "#FF0000";
+                    this.register.borderColor.firstname = "#f95955";
                 this.register.errors.firstname = !isValid;
                 if (!this.register.firstname.match(/^[a-z ,.'-]+$/i))
                     this.register.errors.firstname = true;
@@ -219,7 +219,7 @@ Vue.component('login-signup-tab', {
                 if (isValid && this.register.lastname.match(/^[a-z ,.'-]+$/i))
                     this.register.borderColor.lastname = "#56c93f";
                 else
-                    this.register.borderColor.lastname = "#FF0000";
+                    this.register.borderColor.lastname = "#f95955";
                 this.register.errors.lastname = !isValid;
                 if (!this.register.lastname.match(/^[a-z ,.'-]+$/i))
                     this.register.errors.lastname = true;
@@ -234,7 +234,7 @@ Vue.component('login-signup-tab', {
                 if (isValid && this.register.birthYear >= 1940 && this.register.birthYear <= 2001)
                     this.register.borderColor.birthYear = "#56c93f";
                 else
-                    this.register.borderColor.birthYear = "#FF0000";
+                    this.register.borderColor.birthYear = "#f95955";
 
                 if (this.register.birthYear < 1940 || this.register.birthYear > 2001)
                     this.register.errors.birthYear = true;
@@ -251,7 +251,7 @@ Vue.component('login-signup-tab', {
                 if (isValid)
                     this.register.borderColor.username = "#56c93f";
                 else
-                    this.register.borderColor.username = "#FF0000";
+                    this.register.borderColor.username = "#f95955";
 
                 this.register.errors.username = !isValid;
             } else {
@@ -265,7 +265,7 @@ Vue.component('login-signup-tab', {
                 if (isValid)
                     this.register.borderColor.email = "#56c93f";
                 else
-                    this.register.borderColor.email = "#FF0000";
+                    this.register.borderColor.email = "#f95955";
                 this.register.errors.email = !isValid;
             } else {
                 this.register.borderColor.email = '';
@@ -278,7 +278,7 @@ Vue.component('login-signup-tab', {
                 if (isValid)
                     this.register.borderColor.password = "#56c93f";
                 else
-                    this.register.borderColor.password = "#FF0000";
+                    this.register.borderColor.password = "#f95955";
                 this.register.errors.password = !isValid;
             } else {
                 this.register.borderColor.password = '';
@@ -292,7 +292,7 @@ Vue.component('login-signup-tab', {
                     this.register.borderColor.password2 = "#FF0000";
                 } else {
                     this.register.errors.password2 = false;
-                    this.register.borderColor.password2 = "#56c93f";
+                    this.register.borderColor.password2 = "#f95955";
                 }
             } else {
                 this.register.borderColor.password2 = '';
