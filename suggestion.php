@@ -139,15 +139,17 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                 require_once("utils/fetch_suggestion.php");
                 foreach ($sorted as $match)
                 {
+                    $match['birthyear'] = 2019 - (int)$match['birthyear'];
                     echo "<div class='result_block'>";
-                    //var_dump($match['totalscore'], ($match['tagscore'] * 100), ($match['score'] * 3), $match['distcore']);
                     if ($match['profile_pic'])
                     echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
-                    echo "<p class='user_info'><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a> (".$match['birthyear']."), <i>".$match[2].", ".$match[3]."</i> - ".$match['distance']." KM away</p>";
+                    echo "<div class='text_block'>";
+                    echo "<div class='user_info'><p class='user_name'><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a> (".$match['birthyear'].")</p><i>".$match[2].", ".$match[3]."</i> - ".$match['distance']." KM away</p></div>";
                     echo "<p>Popularity score: <b>".$match['score']."</b></p>";
                     echo "<p>You're both interested in: </p>";
                     foreach ($match['tags'] as $tag)
                         echo "<div class='profile_tag'><p>".$tag."</p></div>";
+                    echo "</div>";
                     echo "</div>";
                 }
             ?>

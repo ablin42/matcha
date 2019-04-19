@@ -335,6 +335,19 @@ p {color: #AAAAAA;}
     margin-bottom: 20px;
 }
 
+.text_block {
+    max-width: 250px;
+    margin: 0 auto;
+}
+.user_info {
+    margin-top:15px;
+}
+.user_name {
+    color: rgb(59, 163, 59)!important;
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: 600;
+}
 .btn-sign-in {
     width: 100%;
     background-color: rgb(115, 189, 115);

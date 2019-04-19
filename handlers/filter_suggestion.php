@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (!$req) {
                 $rtagnb = 0;
                 $info = array();
-                $info['birthyear'] = $basic->birth_year;
+                $info['birthyear'] = 2019 - (int)$basic->birth_year;
                 $info['tagscore'] = 0;
                 $info['score'] = 0;
                 array_push($info, $basic->user_id, $basic->username, $basic->gender, $basic->orientation);
@@ -241,16 +241,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         foreach ($sorted as $match)
         {
-            echo "<div style='border: 1px solid red;'>";
+            echo "<div class='result_block'>";
             //var_dump($match['totalscore'], ($match['tagscore'] * 100), ($match['score'] * 3), $match['distcore']);
             if ($match['profile_pic'])
-                echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
-            echo "<p><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a> (".$match['birthyear']."), <i>".$match[2].", ".$match[3]."</i> - ".$match['distance']." KM away</p>";
-            echo "<p>Popularity score: <b>".$match['score']."</b> : ".$match['totalscore']."</p>";
+            echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
+            echo "<div class='text_block'>";
+            echo "<p class='user_info'><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a> (".$match['birthyear']."), <i>".$match[2].", ".$match[3]."</i> - ".$match['distance']." KM away</p>";
+            echo "<p>Popularity score: <b>".$match['score']."</b></p>";
             echo "<p>You're both interested in: </p>";
             foreach ($match['tags'] as $tag)
                 echo "<div class='profile_tag'><p>".$tag."</p></div>";
-            echo "</div><br />";
+            echo "</div>";
+            echo "</div>";
         }
     }
     else {
