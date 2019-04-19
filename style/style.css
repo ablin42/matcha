@@ -288,14 +288,14 @@ p {color: #AAAAAA;}
 }
 
 .btn-sign-in:hover {
-    background-color: rgb(59, 163, 59);
+    background-color: rgb(59, 163, 59)!important;
     color: white;
     border: 1px solid transparent;
     font-family: Lato;
     margin-top: 20px;
 }
 
-.btn-sign-in:focus {
+.btn-sign-in:active {
     background-color: rgb(43, 117, 43);
     color: white;
     border: 1px solid transparent;

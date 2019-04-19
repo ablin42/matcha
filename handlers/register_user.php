@@ -5,9 +5,11 @@
  * Date: 2/26/19
  * Time: 8:29 PM
  **/
+
 session_start();
 use \ablin42\database;
 use \ablin42\autoloader;
+
 require ("../class/autoloader.php");
 require_once("../utils/functions.php");
 autoloader::register();
@@ -23,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = secure_input($data->{'email'});
         $password = $data->{'password'};
         $password2 = $data->{'password2'};
+    
         if ($password === $password2)
         {
             $attributes = array();
@@ -56,7 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo alert_bootstrap("warning", "Your <b>e-mail</b> has to be 3 characters minimum and 255 characters maximum! (and valid!)", "text-align: center;");
                 return ;
             }
-
             $req = $db->prepare("SELECT * FROM `user` WHERE `username` = :username", $attributes);
             if ($req) {
                 echo alert_bootstrap("warning", "The <b>username</b> you entered is already taken, <b>please pick another one.</b>", "text-align: center;");
