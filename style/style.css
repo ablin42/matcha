@@ -1,4 +1,6 @@
-body {background-color: #0e0e0e;}
+body {background-color: white;
+
+    }
 
 html {min-width: 450px; min-height: 250px;}
 
@@ -137,7 +139,8 @@ html {min-width: 450px; min-height: 250px;}
 }
 
 .activeTab {
-    color: #ffc107!important;
+    font-weight: black;
+    color:  rgb(115, 189, 115)!important;
 }
 
 .report-btn {
@@ -201,7 +204,7 @@ html {min-width: 450px; min-height: 250px;}
 h1, h2, h3, h4, h5, h6
 {
     text-align: center;
-    color: #DDDDDD !important;
+    /* color: #DDDDDD !important; */
     font-family: 'Titillium Web', sans-serif;
     font-weight: 500;
     word-break: break-word;
@@ -209,9 +212,10 @@ h1, h2, h3, h4, h5, h6
 
 h1
 {
-    color: #EEEEEE !important;
-    font-style: italic;
-    font-weight: bold;
+    /* color: #EEEEEE !important; */
+    color: black;
+    font-family: Lato;
+    font-weight: 300;
 }
 
 h2
@@ -268,6 +272,10 @@ p {color: #AAAAAA;}
     box-shadow: 0 0 1px 0 rgba(4, 3, 0, 0.75);
 }
 
+#register-wrapper h6 {
+    padding:10px;
+}
+
 .btn-sign-in {
     width: 100%;
     background-color: rgb(115, 189, 115);
@@ -285,6 +293,13 @@ p {color: #AAAAAA;}
     font-family: Lato;
     margin-top: 20px;
 }
+
+.btn-sign-in:focus {
+    background-color: rgb(43, 117, 43);
+    color: white;
+    border: 1px solid transparent;
+    font-family: Lato;
+    margin-top: 20px;
 }
 
 .btn {min-width: 60px;}
@@ -554,10 +569,7 @@ input:focus:invalid + span {display: inline;}
     color: rgb(48, 48, 48);
     
 }
-#register {
-    border-radius: 15px;
-    padding: 30px;
-}
+
 .form-group input {
     background-color: rgb(230, 230, 230);
 }
@@ -575,12 +587,13 @@ input:focus:invalid + span {display: inline;}
 
 .register-form
 {
+    border-radius: 15px;
+    padding: 30px;
     background-color: #ffffff;
-    padding: 15px;
-    border: 1px solid black;
+    /* border: 1px solid black;
     box-shadow: 0 0 5px 0 rgba(4, 3, 0, 0.75);
     -webkit-box-shadow: 0 0 5px 0 rgba(4, 3, 0, 0.75);
-    -moz-box-shadow: 0 0 5px 0 rgba(4, 3, 0, 0.75);
+    -moz-box-shadow: 0 0 5px 0 rgba(4, 3, 0, 0.75); */
 }
 .lab {
   color: #0f0f0f;
@@ -591,8 +604,10 @@ input:focus:invalid + span {display: inline;}
 
 .requirement_error {
   color: #f95955;
-  font-size: 14px;
+  font-size: 12px;
 }
+
+.requirement_error 
 
 #username_l, #password_l {border: 1px solid black;}
 

@@ -7,7 +7,7 @@ Vue.component('login-signup-tab', {
         <div>
             <div class="text-center">
                 <h4
-                    class="d-inline-block m-2"
+                    class="d-inline-block m-4"
                     :class="{ activeTab: selectedTab === tab} "
                     v-for="(tab, index) in tabs"
                     :key="index"
@@ -46,7 +46,7 @@ Vue.component('login-signup-tab', {
 
             <div id="register-wrapper" v-if="selectedTab === 'Register'">
                 <h1>create an account</h1>
-                <h5 >a confirmation e-mail will be sent to you</h5>
+                <h6 >a confirmation e-mail will be sent to you</h6>
             <form id="register" name="register" @submit.prevent="processRegister" class="register-form col-10 offset-1 my-2 my-lg-0" method="post">
                 <div class="form-group">
                     <label for="firstname" class="lab">First Name</label>
