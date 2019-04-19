@@ -69,13 +69,13 @@ Vue.component("photo-upload",{
             path: this.dbPath
         }
     },
-   template: '<form @submit.prevent="processForm" name="upload" action="" method="post" enctype="multipart/form-data" class="text-center">\n' +
+   template: '<form @submit.prevent="processForm" name="upload" action="" method="post" enctype="multipart/form-data" class="col-2 text-center test">\n' +
        '        <div class="form-group">\n' +
        '            <label v-if="!path" v-bind:for="id" class="lab file-lab">{{ btn }}</label>\n' +
        '            <input v-if="!path" type="file" v-bind:name="name" v-bind:id="id" class="inputfile" @change="onFileUpload">\n' +
        '        </div>\n' +
-       '<img @click="removePhoto" v-if="path" :src=path style="max-width: 250px; max-height: 250px;" :alt="name" :id="photoid"/>\n'+
-       '<a v-if="path" @click.prevent="deletePhoto" href="#"><i class="fas fa-trash rmv-img"></i></a>\n'+
+       '<img @click="removePhoto" v-if="path" :src=path style="max-width: 150px; max-height: 150px; height: 150px; width: 150px;" :alt="name" :id="photoid"/>\n'+
+       '<a v-if="path" @click.prevent="deletePhoto" href="#"><i class="fas fa-trash"></i></a>\n'+
        '        <div v-if="selectedFile" class="form-group">\n' +
        '            <button type="submit" name="submit" id="submit" class="btn btn-outline-warning btn-sign-in">Upload</button>\n' +
        '        </div>\n' +
@@ -147,7 +147,7 @@ let locat = new Vue({
     methods: {
         processLocation: function (){
             let lat = document.getElementById("lat").value,
-                lng = document.getElementById("lng").value
+                lng = document.getElementById("lng").value;
             fetch('handlers/update_location.php', {
                 method: 'post',
                 mode: 'same-origin',

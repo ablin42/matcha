@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/bootstrap-tagsinput.js"></script>
@@ -33,10 +34,11 @@ if (isset($_GET['e']))
 require_once("utils/fetch_account_data.php");
 ?>
 <div class="container mt-5 small-page-wrapper">
-    <div class="wrapper col-12 p-2">
+    <div class="col-12 p-2">
         <h1>profile settings</h1>
-        <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
-            <form id="infos" name="infos" @submit.prevent="processForm" class="my-2 my-lg-0" method="post">
+        <hr />
+        <div class="container col-6 p-3 mt-3 mb-3">
+            <form id="infos" name="infos" @submit.prevent="processForm" class="register-form my-2 my-lg-0" method="post">
                 {{ assignGender(<?= json_encode($gender) ?>) }}
                 {{ assignOrientation(<?= json_encode($orientation) ?>) }}
                 {{ assignBio(<?= json_encode($bio) ?>) }}
@@ -74,27 +76,27 @@ require_once("utils/fetch_account_data.php");
                     <button type="submit" name="submit_infos" class="btn btn-outline-warning btn-sign-in">Update Infos</button>
                 </div>
             </form>
-
-            <div id="photos">
-                <photo-upload <?php if ($photos[0] && $photos[0] !== "null") echo "v-bind:db-path=' $photos[0] '";?> v-bind:id-component="1" btn="Profile picture"></photo-upload>
-                <?php
-                if ($photos[0] && $photos[0] !== "null")
-                {
-                    for ($i = 1; $i <= 4; $i++){
-                        echo "<photo-upload ";
-                        if ($photos[$i])
-                            echo "v-bind:db-path='".$photos[$i]."'";
-                        echo 'v-bind:id-component="'.($i + 1).'" btn="Photo '.($i + 1).'"></photo-upload>';
-                    }
-                }
-                ?>
-            </div>
         </div>
-        <hr />
+
+        <div id="photos" class="col-12 text-center">
+            <photo-upload <?php if ($photos[0] && $photos[0] !== "null") echo "v-bind:db-path=' $photos[0] '";?> v-bind:id-component="1" btn="Profile picture"></photo-upload>
+            <?php
+            if ($photos[0] && $photos[0] !== "null")
+            {
+                for ($i = 1; $i <= 4; $i++){
+                    echo "<photo-upload ";
+                    if ($photos[$i])
+                        echo "v-bind:db-path='".$photos[$i]."'";
+                    echo 'v-bind:id-component="'.($i + 1).'" btn="Photo '.($i + 1).'"></photo-upload>';
+                }
+            }
+            ?>
+        </div>
+
         <h1>account settings</h1>
-        <div class="gallery-wrapper">
-            <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
-                <form id="account" name="account" @submit.prevent="processForm" class="my-2 my-lg-0" method="post">
+        <hr />
+            <div class="container col-6 p-3 mt-3 mb-3">
+                <form id="account" name="account" @submit.prevent="processForm" class="register-form my-2 my-lg-0" method="post">
                     {{ assignFirstname("<?= $firstname ?>") }}
                     {{ assignLastname("<?= $lastname ?>") }}
                     {{ assignUsername("<?= $username ?>") }}
@@ -158,14 +160,12 @@ require_once("utils/fetch_account_data.php");
                         <button type="submit" name="submit_account" class="btn btn-outline-warning btn-sign-in">Update</button>
                     </div>
                 </form>
-            </div>
         </div>
 
-        <hr />
         <h1>security</h1>
-        <div class="gallery-wrapper">
-            <div class="register-form-wrapper container col-6 p-3 mt-3 mb-3">
-                <form id="security" name="security" @submit.prevent="processForm" class="my-2 my-lg-0" method="post">
+        <hr />
+            <div class="container col-6 p-3 mt-3 mb-3">
+                <form id="security" name="security" @submit.prevent="processForm" class="register-form my-2 my-lg-0" method="post">
                     <div class="form-group">
                         <label for="currpw" class="lab">Current password</label>
                         <input type="password"
@@ -210,18 +210,18 @@ require_once("utils/fetch_account_data.php");
                     </div>
                 </form>
             </div>
-        </div>
 
         <h3>pick your location</h3>
         <hr>
-        <div class="gallery-wrapper" style="min-height: 500px; overflow: hidden; position: relative;">
+        <div class="col-10 offset-1 map-wrapper">
             <div id="map"></div>
         </div>
 
         <form id="location" name="location" @submit.prevent="processLocation" class="my-2 my-lg-0" method="post">
             <input type="hidden" name="lat" id="lat" />
             <input type="hidden" name="lng" id="lng" />
-            <input type="submit" />
+            <button type="submit" name="submit_infos" class="btn btn-outline-warning btn-sign-in">Set Location</button>
+            <!--<input type="submit" />-->
         </form>
 
         <script>

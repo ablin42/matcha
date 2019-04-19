@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
@@ -26,11 +27,11 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] === 1)
     header('Location: /Matcha/Account?e=logg');
 ?>
 <div class="container mt-5 small-page-wrapper">
-    <div class="wrapper col-8 offset-2 p-2">
-        <h1>enter your e-mail</h1>
-        <h5>we will send you a mail to reset your password</h5>
-        <div class="register-form-wrapper container col-8 p-3 mt-3 mb-3">
-            <form id="lostpw" name="lostpw" @submit.prevent="processForm" class="col-10 offset-1 my-2 my-lg-0" method="post">
+    <div class="col-8 offset-2 p-2">
+        <h1 class="banner">enter your e-mail</h1>
+        <h3>we will send you a mail to reset your password</h3>
+        <div class=" container col-8 p-3 mt-3 mb-3">
+            <form id="lostpw" name="lostpw" @submit.prevent="processForm" class="register-form col-10 offset-1 my-2 my-lg-0" method="post">
                 <div class="form-group">
                     <label for="email" class="lab">E-mail</label>
                     <input type="email"

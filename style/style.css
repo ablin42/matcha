@@ -1,11 +1,19 @@
-body {background-color: rgb(239, 253, 240);
-
-    }
+body {background-color: rgb(239, 253, 240);}
 
 html {min-width: 450px; min-height: 250px;}
 
-#map{
-    position: unset!important;
+.test {
+    display: inline-block;
+}
+
+#map{position: unset!important;}
+
+.map-wrapper {
+    min-height: 500px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid rgb(115, 189, 115);
+    border-radius: 15px;
 }
 
 .banner {
@@ -228,8 +236,8 @@ h2
 
 hr
 {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    width: 90%;
+    border-top: 1px solid rgb(112, 190, 111);
+    width: 65%;
 }
 
 footer
@@ -243,7 +251,7 @@ footer
     border-bottom: none;
 }
 
-a {color: #ffc107;}
+a {color: #70be6f;}
 a:hover {color: #FFFFFF;}
 
 li > a {color: #ffc107 !important;}
@@ -495,8 +503,6 @@ p {color: #AAAAAA;}
     cursor: pointer;
 }
 
-.rmv-img {color: #ffc107;}
-
 .item {margin: 0;}
 
 .form-info
@@ -661,19 +667,17 @@ input[type='file'] {color: transparent;}
     font-weight: 700;
     color: #EEEEEE;
     display: inline-block;
-    border: 1px solid #808080;
-    background-color: #1e2125;
+    border: 1px solid #46da44;
+    background-color: #70be6f;
     padding: 5px 20px 5px 20px;
-    -webkit-box-shadow: 0 0 1px 0 rgba(140, 140, 140, 0.75);
+   /* -webkit-box-shadow: 0 0 1px 0 rgba(140, 140, 140, 0.75);
     -moz-box-shadow: 0 0 1px 0 rgba(140, 140, 140, 0.75);
-    box-shadow: 0 0 1px 0 rgba(140, 140, 140, 0.75);
+    box-shadow: 0 0 1px 0 rgba(140, 140, 140, 0.75);*/
 }
 
 #loader {
     display: none;
 }
-
-#gallery-wrapper {padding-bottom: 25px;}
 
 .fa-user {color: #ffc107;}
 

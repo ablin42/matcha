@@ -31,7 +31,9 @@ var updateNotif = setInterval(function () {
 }, 5000);
 
 function dropDown() {
-    document.getElementById("dropdown-notif-content").classList.toggle("show");
+    console.log("'",document.getElementById("dropdown-notif-content").innerHTML,"'", document.getElementById("dropdown-notif-content").innerHTML.localeCompare("  "));
+    if (document.getElementById("dropdown-notif-content").innerHTML.localeCompare("  ") !== -1)
+        document.getElementById("dropdown-notif-content").classList.toggle("show");
 }
 
 function removeNotif(notif){
