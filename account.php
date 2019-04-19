@@ -43,7 +43,7 @@ require_once("utils/fetch_account_data.php");
                 {{ assignOrientation(<?= json_encode($orientation) ?>) }}
                 {{ assignBio(<?= json_encode($bio) ?>) }}
                 <div class="form-group">
-                    <label for="gender" class="lab">Gender</label>
+                    <label for="gender" class="lab">Gender</label><br />
                     <select v-model="selectedGender" required>
                         <option disabled value="">Please select one</option>
                         <option v-for="gender in genderOptions" v-bind:value="gender.value">
@@ -53,18 +53,18 @@ require_once("utils/fetch_account_data.php");
                 </div>
 
                 <div class="form-group">
-                    <label for="orientation" class="lab">Sexual Orientation</label>
+                    <label for="orientation" class="lab">Sexual Orientation</label><br />
                     <select v-model="selectedOrientation" required>
                         <option disabled value="">Please select one</option>
                         <option v-for="orientation in orientationOptions" v-bind:value="orientation.value">
                             {{ orientation.text }}
-                        </option>-
+                        </option>
                     </select>
                 </div>
 
                 <div class="form-group" id="tests">
                     <label for="bio" class="lab">A short paragraph about yourself</label>
-                    <textarea maxlength="512" v-model="bio" placeholder="Your bio here..." required></textarea>
+                    <textarea style="width: 100%;" maxlength="512" v-model="bio" placeholder="Your bio here..." required></textarea>
                 </div>
 
                 <div class="form-group">
@@ -78,6 +78,8 @@ require_once("utils/fetch_account_data.php");
             </form>
         </div>
 
+        <h1>your photos</h1>
+        <hr />
         <div id="photos" class="col-12 text-center">
             <photo-upload <?php if ($photos[0] && $photos[0] !== "null") echo "v-bind:db-path=' $photos[0] '";?> v-bind:id-component="1" btn="Profile picture"></photo-upload>
             <?php

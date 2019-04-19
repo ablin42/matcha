@@ -31,8 +31,7 @@ var updateNotif = setInterval(function () {
 }, 5000);
 
 function dropDown() {
-    console.log("'",document.getElementById("dropdown-notif-content").innerHTML,"'", document.getElementById("dropdown-notif-content").innerHTML.localeCompare("  "));
-    if (document.getElementById("dropdown-notif-content").innerHTML.localeCompare("  ") !== -1)
+    if (document.getElementById("dropdown-notif-content").innerHTML.localeCompare('  ') !== -1)
         document.getElementById("dropdown-notif-content").classList.toggle("show");
 }
 
@@ -53,6 +52,8 @@ function removeNotif(notif){
                 let nbnotif = document.getElementById('nbnotif').innerText - 1;
                 if (nbnotif > 0)
                     document.getElementById('nbnotif').innerText = nbnotif;
+                else if (nbnotif === 0)
+                    document.getElementById("dropdown-notif-content").classList.toggle("show");
             }
         })
         .catch((error) => console.log(error));

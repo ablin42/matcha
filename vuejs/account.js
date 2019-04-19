@@ -66,24 +66,25 @@ Vue.component("photo-upload",{
             submit: "submit_photo_id_" + this.idComponent,
             photoid: "photoid_" + this.idComponent,
             selectedFile: "",
+            dbPath2: this.dbPath,
             path: this.dbPath
         }
     },
-   template: '<form @submit.prevent="processForm" name="upload" action="" method="post" enctype="multipart/form-data" class="col-2 text-center test">\n' +
+   template: '<form @submit.prevent="processForm" name="upload" action="" method="post" enctype="multipart/form-data" class="text-center photo-form">\n' +
        '        <div class="form-group">\n' +
-       '            <label v-if="!path" v-bind:for="id" class="lab file-lab">{{ btn }}</label>\n' +
+       '            <label v-if="!path" v-bind:for="id" class="btn btn-outline-warning btn-sign-in">{{ btn }}</label>\n' +
        '            <input v-if="!path" type="file" v-bind:name="name" v-bind:id="id" class="inputfile" @change="onFileUpload">\n' +
        '        </div>\n' +
-       '<img @click="removePhoto" v-if="path" :src=path style="max-width: 150px; max-height: 150px; height: 150px; width: 150px;" :alt="name" :id="photoid"/>\n'+
-       '<a v-if="path" @click.prevent="deletePhoto" href="#"><i class="fas fa-trash"></i></a>\n'+
+       '        <img @click="removePhoto" v-if="path" :src=path style="width: 100%; height: auto;" :alt="name" :id="photoid"/>\n'+
+       '        <div v-if="dbPath2" class="form-group text-center">\n' +
+       '            <button v-if="path" @click.prevent="deletePhoto" type="submit" name="submit" class="btn btn-outline-warning btn-sign-in photobtn">Delete</button>\n' +
+       '        </div>\n' +
        '        <div v-if="selectedFile" class="form-group">\n' +
-       '            <button type="submit" name="submit" id="submit" class="btn btn-outline-warning btn-sign-in">Upload</button>\n' +
+       '             <button type="submit" name="submit" class="btn btn-outline-warning btn-sign-in photobtn">Upload</button>\n' +
        '        </div>\n' +
        '      </form>',
     methods: {
         processForm: function (){
-            console.log(this.selectedFile);
-            console.log(JSON.stringify(this.selectedFile));
             let formdata = new FormData();
             formdata.append('picture', this.selectedFile);
             formdata.append('picture-id', this.idComponent);
@@ -95,13 +96,13 @@ Vue.component("photo-upload",{
                 .then((res) => res.text())
                 .then((data) => addAlert(data, document.getElementById("header")))
                 .catch((error) => console.log(error))
+            this.dbPath2 = "uploaded";
+            this.selectedFile = "";
         },
         onFileUpload: function (event){
             this.selectedFile = event.target.files[0];
-            console.log(this.selectedFile.name);
             split = this.selectedFile.name.split(".");
             extension = split[split.length - 1].toLowerCase();
-            console.log(extension);
             if (extension !== 'jpg' && extension !== "jpeg" && extension !== 'png')
             {
                 this.selectedFile = "";

@@ -2,8 +2,19 @@ body {background-color: rgb(239, 253, 240);}
 
 html {min-width: 450px; min-height: 250px;}
 
-.test {
+.photo-form {
     display: inline-block;
+    width: 18%;
+    margin: 0 0.93% 0 0.93%;
+}
+
+textarea {
+    border-radius: 5px;
+}
+
+.photobtn {
+    margin-top:12px!important;
+    background-color: rgb(57, 171, 57)!important;
 }
 
 #map{position: unset!important;}
