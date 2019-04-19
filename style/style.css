@@ -268,7 +268,24 @@ p {color: #AAAAAA;}
     box-shadow: 0 0 1px 0 rgba(4, 3, 0, 0.75);
 }
 
-.btn-sign-in {width: 100%;}
+.btn-sign-in {
+    width: 100%;
+    background-color: rgb(115, 189, 115);
+    border-radius: 20px;
+    color: white;
+    border: 1px solid transparent;
+    font-family: Lato;
+    margin-top: 20px;
+}
+
+.btn-sign-in:hover {
+    background-color: rgb(59, 163, 59);
+    color: white;
+    border: 1px solid transparent;
+    font-family: Lato;
+    margin-top: 20px;
+}
+}
 
 .btn {min-width: 60px;}
 
@@ -532,21 +549,33 @@ input:focus:invalid + span {display: inline;}
 {
     /* background-color: #1b1b1b; */
     background-color: white;
-    border: 1px solid #1e2125;
-    color: #BBBBBB;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    color: rgb(48, 48, 48);
+    
+}
+#register {
+    border-radius: 15px;
+    padding: 30px;
+}
+.form-group input {
+    background-color: rgb(230, 230, 230);
 }
 
+.form-group input::placeholder {
+    color: rgb(199, 199, 199);
+}
 .form-control:focus
 {
     /* background-color: #1b1b1b; */
     background-color: white;
     box-shadow: none;
-    color: #CCCCCC;
+    color: rgb(19, 19, 19);
 }
 
 .register-form
 {
-    background-color: #fffafa;
+    background-color: #ffffff;
     padding: 15px;
     border: 1px solid black;
     box-shadow: 0 0 5px 0 rgba(4, 3, 0, 0.75);
@@ -554,9 +583,9 @@ input:focus:invalid + span {display: inline;}
     -moz-box-shadow: 0 0 5px 0 rgba(4, 3, 0, 0.75);
 }
 .lab {
-  color: #679ded;
-  font-family: Raleway;
-  font-size: 16px;
+  color: #0f0f0f;
+  font-family: Lato;
+  font-size: 14px;
   font-weight: bold;
 }
 
