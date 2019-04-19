@@ -128,7 +128,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-outline-warning">Sort</button>
+                <button type="submit" class="btn btn-outline-warning btn-sign-in">Sort</button>
             </div>
         </form>
         </div>
@@ -139,16 +139,16 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                 require_once("utils/fetch_suggestion.php");
                 foreach ($sorted as $match)
                 {
-                    echo "<div style='border: 1px solid red;'>";
+                    echo "<div class='result_block'>";
                     //var_dump($match['totalscore'], ($match['tagscore'] * 100), ($match['score'] * 3), $match['distcore']);
                     if ($match['profile_pic'])
-                        echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
-                    echo "<p><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a> (".$match['birthyear']."), <i>".$match[2].", ".$match[3]."</i> - ".$match['distance']." KM away</p>";
+                    echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
+                    echo "<p class='user_info'><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a> (".$match['birthyear']."), <i>".$match[2].", ".$match[3]."</i> - ".$match['distance']." KM away</p>";
                     echo "<p>Popularity score: <b>".$match['score']."</b></p>";
                     echo "<p>You're both interested in: </p>";
                     foreach ($match['tags'] as $tag)
                         echo "<div class='profile_tag'><p>".$tag."</p></div>";
-                    echo "</div><br />";
+                    echo "</div>";
                 }
             ?>
             </div>
