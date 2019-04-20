@@ -157,9 +157,9 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                     echo "<p class='p_score'>Popularity score: <b class='score'>".$match['score']."</b></p>";
                     // echo "<p class='p_score'>You're both interested in: </p>";
                     foreach ($match['alltags'] as $tag)
-                        echo "<div class='profile_tag' style='border-color: green;'><p>" . $tag . "</p></div>";
+                        echo "<div class='profile_tag'><p>" . $tag . "</p></div>";
                     foreach ($match['tags'] as $tag)
-                        echo "<div class='profile_tag'><p>".$tag."</p></div>";
+                        echo "<div class='matched_tag'><p>".$tag."</p></div>";
                     echo "</div>";
                     echo "</div>";
                 }

@@ -111,7 +111,7 @@ if (!empty($_SESSION['id'])) {
                 }
                 $info['tags'] = $tags_arr;
             }
-
+            $alltags = array();
             $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id", array("user_id" => $basic->user_id));
             if ($req){
                 foreach ($req as $item){
