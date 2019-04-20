@@ -143,6 +143,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                     $match['birthyear'] = 2019 - (int)$match['birthyear'];
                     echo "<div class='result_block'>";
                     if ($match['profile_pic'])
+                    echo "<div class='col-8 offset-2'>";
                     echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
                     echo "<div class='text_block'>";
                     echo "<div class='user_info'>
@@ -160,6 +161,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                         echo "<div class='profile_tag'><p>" . $tag . "</p></div>";
                     foreach ($match['tags'] as $tag)
                         echo "<div class='matched_tag'><p>".$tag."</p></div>";
+                    echo "</div>";
                     echo "</div>";
                     echo "</div>";
                 }
