@@ -184,18 +184,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         foreach ($sorted as $match) {
-            echo "<div style='border: 1px solid red;'>";
-            if ($match['profile_pic'])
-                echo "<img class='profile_main' alt='profile_picture' src='" . $match['profile_pic'] . "' />";
-            echo $match['tagscore'];
-            echo "<p><a href='/Matcha/profile?u=" . $match[1] . "'>" . $match[1] . "</a> (" . $match['birthyear'] . "), <i>" . $match[2] . ", " . $match[3] . "</i> - " . $match['distance'] . " KM away</p>";
-            echo "<p>Popularity score: <b>" . $match['score'] . "</b></p>";
-            echo "<p>Interested in: </p>";
-            foreach ($match['rtags'] as $tag)
-                echo "<div class='profile_tag' style='border-color: green;'><p>" . $tag . "</p></div>";
-            foreach ($match['tags'] as $tag)
-                echo "<div class='profile_tag'><p>" . $tag . "</p></div>";
-            echo "</div><br />";
+            $match['birthyear'] = 2019 - (int)$match['birthyear'];
+                    echo "<div class='result_block'>";
+                    if ($match['profile_pic'])
+                    echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
+                    echo "<div class='text_block'>";
+                    echo "<div class='user_info'>
+                            <p class='user_name'><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a></p>
+                            <p class='age'>(".$match['birthyear'].")</p>
+                            </br>
+                            <div class='gender_distance'>
+                            <p class='gender'>".$match[2].", ".$match[3]." ,</p>
+                            <p class='distance'>".$match['distance']." KM away</p>
+                            </div>
+                            </div>";
+                    echo "<p class='p_score'>Popularity score: <b class='score'>".$match['score']."</b></p>";
+                    // echo "<p class='p_score'>You're both interested in: </p>";
+                    foreach ($match['rtags'] as $tag)
+                    echo "<div class='matched_tag'><p>" . $tag . "</p></div>";
+                     foreach ($match['tags'] as $tag)
+                    echo "<div class='profile_tag'><p>" . $tag . "</p></div>";
+                    echo "</div>";
+                    echo "</div>";
         }
     } else {
         echo alert_bootstrap("danger", "You left a <b>required field</b> empty", "text-align: center;");
