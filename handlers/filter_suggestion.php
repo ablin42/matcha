@@ -5,7 +5,8 @@
  * Date: 4/03/19
  * Time: 6:32 PM
  */
-
+/* SELECT COUNT(*), `username` FROM `user` RIGHT JOIN `user_tags` ON user.id = user_tags.user_id WHERE user_tags.tag = 'animals' OR user_tags.tag = 'vegan' GROUP BY `username`
+ORDER BY `COUNT(*)`  DESC*/
 session_start();
 use \ablin42\autoloader;
 use \ablin42\database;
@@ -88,8 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
         if ($req) {
-            foreach ($req as $loc)
-            {
+            foreach ($req as $loc) {
                 $attributes_loc['lat1'] = $loc->lat;
                 $attributes_loc['lng1'] = $loc->lng;
             }
@@ -163,15 +163,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $info['score'] += ($req->nbvisit * $reqvote->total);
 
                 $tags_arr = array();
-                foreach ($tags as $tag) {
-                    $attributes2['tag'] = $tag;
-                    $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id AND `tag` = :tag", $attributes2);
+
+
+                    $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id", $attributes2);
                     if ($req) {
-                        $tags_arr[] = $req[0]->tag;
-                        $info['tagscore']++;
+                        foreach ($req as $item) {
+                            $tags_arr[] = $item->tag;
+                        }
+                    }
+                    //var_dump($tags_arr);
+                    foreach ($tags_arr as $tag) {
+                        foreach ($tags as $tag_u) {;
+                            if ($tag === $tag_u)
+                                    $info['tagscore']++;
+                        }
                     }
                     $info['tags'] = $tags_arr;
+
+
+              /*  if ($required_tags) {
+                    foreach ($required_tags as $tag) {
+                        $attributes2['tag'] = $tag;
+                        $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id AND `tag` = :tag", $attributes2);
+                        if ($req) {
+                            $rtags_arr[] = $req[0]->tag;
+                            $info['tagscore']++;
+                        }
+                    }
                 }
+                $info['rtags'] = $rtags_arr;*/
+             //   var_dump($rtags_arr);
+
                 $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => $basic->user_id));
                 if ($req) {
                     foreach ($req as $loc)
@@ -259,7 +281,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           foreach ($match['rtags'] as $tag)
             echo "<div class='profile_tag' style='border-color: green;'><p>" . $tag . "</p></div>";
           foreach ($match['tags'] as $tag)
-            echo "<div class='profile_tag'><p>" . $tag . "</p></div>";
+            echo "<div class='profile_tag'><p>".$tag."</p></div>";
           echo "</div>";
           echo "</div>";
         }

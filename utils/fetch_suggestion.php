@@ -111,6 +111,17 @@ if (!empty($_SESSION['id'])) {
                 }
                 $info['tags'] = $tags_arr;
             }
+
+            $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id", array("user_id" => $basic->user_id));
+            if ($req){
+                foreach ($req as $item){
+                    $alltags[] = $item->tag;
+                }
+            }
+
+            $info['alltags'] = $alltags;
+            $info['tags'] = $tags_arr;
+
             $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => $basic->user_id));
             if ($req) {
                 foreach ($req as $loc)
