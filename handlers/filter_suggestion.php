@@ -241,18 +241,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         foreach ($sorted as $match)
         {
-            echo "<div class='result_block'>";
-            //var_dump($match['totalscore'], ($match['tagscore'] * 100), ($match['score'] * 3), $match['distcore']);
-            if ($match['profile_pic'])
-            echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
-            echo "<div class='text_block'>";
-            echo "<p class='user_info'><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a> (".$match['birthyear']."), <i>".$match[2].", ".$match[3]."</i> - ".$match['distance']." KM away</p>";
-            echo "<p>Popularity score: <b>".$match['score']."</b></p>";
-            echo "<p>You're both interested in: </p>";
-            foreach ($match['tags'] as $tag)
-                echo "<div class='profile_tag'><p>".$tag."</p></div>";
-            echo "</div>";
-            echo "</div>";
+          $age = 2019 - (int)$match['birthyear'];
+          echo "<div class='result_block'>";
+          if ($match['profile_pic'])
+          echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
+          echo "<div class='text_block'>";
+          echo "<div class='user_info'>
+                  <p class='user_name'><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a></p>
+                  <p class='age'>('$age')</p>
+                  </br>
+                  <div class='gender_distance'>
+                  <p class='gender'>".$match[2].", ".$match[3]." ,</p>
+                  <p class='distance'>".$match['distance']." KM away</p>
+                  </div>
+                  </div>";
+          echo "<p class='p_score'>Popularity score: <b class='score'>".$match['score']."</b></p>";
+          // echo "<p class='p_score'>You're both interested in: </p>";
+          foreach ($match['tags'] as $tag)
+              echo "<div class='profile_tag'><p>".$tag."</p></div>";
+          echo "</div>";
+          echo "</div>";
         }
     }
     else {

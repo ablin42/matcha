@@ -34,7 +34,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
 
 <div class="container mt-5 small-page-wrapper">
     <div class="wrapper col-12">
-        <h1>Profiles you might be interested in</h1>
+    <h1>Profiles you might be interested in</h1>
         <div id="sort" class="container">
          <!--   <button @click="display = !display" class="btn btn-outline-warning btn-sign-in">Display/Hide filters and sorting options</button>-->
         <form name="sort" @submit.prevent="processSort" class="register-form my-2" method="post">
@@ -63,7 +63,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                        v-model="byStart"
                        :style="{ borderColor: borderColor.byStart }"
                        @blur="validateByStart">
-                <span v-if="errors.byStart">The birth year must be in the range 1940-2001</span>
+                <span v-if="errors.byStart" class="requirment_error">The birth year must be in the range 1940-2001</span>
             </div>
             <div class="form-group">
                 <label for="byend" class="lab">Birth year <b>end</b></label>
@@ -77,7 +77,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                        v-model="byEnd"
                        :style="{ borderColor: borderColor.byEnd }"
                        @blur="validateByEnd">
-                <span v-if="errors.byEnd">The birth year must be in the range 1940-2001</span>
+                <span v-if="errors.byEnd" class="requirement_error ">The birth year must be in the range 1940-2001</span>
             </div>
             <div class="form-group">
                 <label for="location" class="lab">Maximum distance (in KM)</label>
@@ -104,7 +104,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                        v-model="pStart"
                        :style="{ borderColor: borderColor.pStart }"
                        @blur="validatepStart">
-                <span v-if="errors.pStart">The popularity score must be between -100.000 and 100.000</span>
+                <span v-if="errors.pStart" class="requirement_error">The popularity score must be between -100.000 and 100.000</span>
             </div>
             <div class="form-group">
                 <label for="pend" class="lab">Maximum popularity score</label>
@@ -118,7 +118,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                        v-model="pEnd"
                        :style="{ borderColor: borderColor.pEnd }"
                        @blur="validatepEnd">
-                <span v-if="errors.pEnd">The popularity score must be between -100.000 and 100.000</span>
+                <span v-if="errors.pEnd" class="requirement_error">The popularity score must be between -100.000 and 100.000</span>
             </div>
 
             <div class="form-group">
@@ -132,8 +132,8 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
             </div>
         </form>
         </div>
-
-        <div id="suggestion">
+     </div>
+        <div id="suggestion" class="col-12">
             <div id="gen-sugg">
             <?php
                 require_once("utils/fetch_suggestion.php");
@@ -144,9 +144,17 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                     if ($match['profile_pic'])
                     echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
                     echo "<div class='text_block'>";
-                    echo "<div class='user_info'><p class='user_name'><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a> (".$match['birthyear'].")</p><i>".$match[2].", ".$match[3]."</i> - ".$match['distance']." KM away</p></div>";
-                    echo "<p>Popularity score: <b>".$match['score']."</b></p>";
-                    echo "<p>You're both interested in: </p>";
+                    echo "<div class='user_info'>
+                            <p class='user_name'><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a></p>
+                            <p class='age'>(".$match['birthyear'].")</p>
+                            </br>
+                            <div class='gender_distance'>
+                            <p class='gender'>".$match[2].", ".$match[3]." ,</p>
+                            <p class='distance'>".$match['distance']." KM away</p>
+                            </div>
+                            </div>";
+                    echo "<p class='p_score'>Popularity score: <b class='score'>".$match['score']."</b></p>";
+                    // echo "<p class='p_score'>You're both interested in: </p>";
                     foreach ($match['tags'] as $tag)
                         echo "<div class='profile_tag'><p>".$tag."</p></div>";
                     echo "</div>";
@@ -155,7 +163,6 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
             ?>
             </div>
         </div>
-    </div>
 </div>
 
 <?php require_once("includes/footer.php");?>
