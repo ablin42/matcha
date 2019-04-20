@@ -22,8 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = secure_input($data->{'email'});
         $user_id = secure_input($_SESSION['id']);
         $attributes_info['user_id'] = $user_id;
-        $attributes_info['firstname'] = $firstname;
-        $attributes_info['lastname'] = $lastname;
+        $attributes_info['firstname'] = ucfirst($firstname);
+        $attributes_info['lastname'] = ucfirst($lastname);
         $attributes['username'] = $username;
 
         $pattern_email = "/^(([^<>()\[\]\\.,;:\s@\"]+(\.[^<>()\[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/";

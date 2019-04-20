@@ -119,6 +119,12 @@ if (!empty($_SESSION['id'])) {
                 }
             }
 
+            foreach ($alltags as $key => $all) {
+                foreach ($tags_arr as $tag) {
+                    if ($all === $tag)
+                        unset($alltags[$key]);
+                }
+            }
             $info['alltags'] = $alltags;
             $info['tags'] = $tags_arr;
 

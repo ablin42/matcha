@@ -16,10 +16,10 @@ $form->changeSurr('div class="form-group"', 'div');
         if (isset($_SESSION['logged']) && isset($_SESSION['username']))
             echo "<a class='navbar-brand' href='utils/logout.php'>Logout</a>";
         else if (!isset($_SESSION['logged']))
-            echo "<a class='navbar-brand' href=\"index\">Log in/Sign up"
+            echo "<a class='navbar-brand' href='index'>Log in/Sign up</a>";
     ?>
 
-    <div class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <div class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="far fa-user"></i>
         <div class="dropdown-content">
             <ul class="nav navbar-nav navbar-right ml-auto">
@@ -39,6 +39,7 @@ $form->changeSurr('div class="form-group"', 'div');
             </ul>
         </div>
     </div>
+
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="nav navbar-nav navbar-right ml-auto">

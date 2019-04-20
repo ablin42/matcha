@@ -82,8 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $attributes_info = array();
             $attributes_info['user_id'] = $user_id;
-            $attributes_info['firstname'] = $firstname;
-            $attributes_info['lastname'] = $lastname;
+            $attributes_info['firstname'] = ucfirst($firstname);
+            $attributes_info['lastname'] = ucfirst($lastname);
             $attributes_info['birth'] = $birth_year;
             $db->prepare("INSERT INTO `user_info` (`user_id`, `firstname`, `lastname`, `birth_year`) VALUES (:user_id, :firstname, :lastname, :birth)", $attributes_info);
 
