@@ -187,7 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $match['birthyear'] = 2019 - (int)$match['birthyear'];
                     echo "<div class='result_block'>";
                     if ($match['profile_pic'])
-                    echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
+                    echo "<img class='profile_main col-12' alt='profile_picture' src='".$match['profile_pic']."' />";
                     echo "<div class='text_block'>";
                     echo "<div class='user_info'>
                             <p class='user_name'><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a></p>

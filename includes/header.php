@@ -16,7 +16,7 @@ $form->changeSurr('div class="form-group"', 'div');
         if (isset($_SESSION['logged']) && isset($_SESSION['username']))
             echo "<a class='navbar-brand' href='utils/logout.php'>Logout</a>";
         else if (!isset($_SESSION['logged']))
-            echo "<a class='navbar-brand' href=\"index\">Log in/Sign up"
+            echo "<a class='navbar-brand' href=\"index\">Log in/Sign up</a>";
     ?>
 
     <div class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

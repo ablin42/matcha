@@ -139,8 +139,9 @@ textarea {
 .profile_main{
     max-width: 350px;
     max-height: 350px;
-    min-width: 350px;
-    min-height: 350px;
+    width: 100%;
+    /* min-width: 350px;
+    min-height: 350px; */
 }
 
 .profile_secondary{
@@ -337,6 +338,7 @@ p {color: #AAAAAA;}
 .result_block {
     display: inline-block;
     width: 50%;
+    min-width: 540px;
     text-align: center;
     padding: 10px;
     margin-bottom: 20px;
@@ -348,7 +350,6 @@ p {color: #AAAAAA;}
     -webkit-box-shadow: 0px 0px 10px -4px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 10px -4px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 10px -4px rgba(0,0,0,0.75);
-    max-width: 350px;
     margin: 0 auto;
 }
 .user_info {
