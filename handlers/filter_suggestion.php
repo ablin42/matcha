@@ -241,14 +241,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         foreach ($sorted as $match)
         {
-          $age = 2019 - (int)$match['birthyear'];
           echo "<div class='result_block'>";
           if ($match['profile_pic'])
           echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
           echo "<div class='text_block'>";
           echo "<div class='user_info'>
                   <p class='user_name'><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a></p>
-                  <p class='age'>('$age')</p>
+                  <p class='age'>(".$match['birthyear'].")</p>
                   </br>
                   <div class='gender_distance'>
                   <p class='gender'>".$match[2].", ".$match[3]." ,</p>
@@ -257,8 +256,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   </div>";
           echo "<p class='p_score'>Popularity score: <b class='score'>".$match['score']."</b></p>";
           // echo "<p class='p_score'>You're both interested in: </p>";
+          foreach ($match['rtags'] as $tag)
+            echo "<div class='profile_tag' style='border-color: green;'><p>" . $tag . "</p></div>";
           foreach ($match['tags'] as $tag)
-              echo "<div class='profile_tag'><p>".$tag."</p></div>";
+            echo "<div class='profile_tag'><p>" . $tag . "</p></div>";
           echo "</div>";
           echo "</div>";
         }
