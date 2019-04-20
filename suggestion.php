@@ -63,7 +63,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                        v-model="byStart"
                        :style="{ borderColor: borderColor.byStart }"
                        @blur="validateByStart">
-                <span v-if="errors.byStart" class="requirment_error">The birth year must be in the range 1940-2001</span>
+                <span v-if="errors.byStart" class="requirement_error">The birth year must be in the range 1940-2001</span>
             </div>
             <div class="form-group">
                 <label for="byend" class="lab">Birth year <b>end</b></label>
@@ -77,7 +77,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                        v-model="byEnd"
                        :style="{ borderColor: borderColor.byEnd }"
                        @blur="validateByEnd">
-                <span v-if="errors.byEnd" class="requirement_error ">The birth year must be in the range 1940-2001</span>
+                <span v-if="errors.byEnd" class="requirement_error">The birth year must be in the range 1940-2001</span>
             </div>
             <div class="form-group">
                 <label for="location" class="lab">Maximum distance (in KM)</label>

@@ -74,7 +74,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                            v-model="byStart"
                            :style="{ borderColor: borderColor.byStart }"
                            @blur="validateByStart">
-                    <span v-if="errors.byStart">The birth year must be in the range 1940-2001</span>
+                    <span v-if="errors.byStart" class="requirement_error">The birth year must be in the range 1940-2001</span>
                 </div>
                 <div class="form-group">
                     <label for="byend" class="lab">Birth year <b>end</b></label>
@@ -88,7 +88,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                            v-model="byEnd"
                            :style="{ borderColor: borderColor.byEnd }"
                            @blur="validateByEnd">
-                    <span v-if="errors.byEnd">The birth year must be in the range 1940-2001</span>
+                    <span v-if="errors.byEnd" class="requirement_error">The birth year must be in the range 1940-2001</span>
                 </div>
                 <div class="form-group">
                     <label for="location" class="lab">Maximum distance (in KM)</label>
@@ -115,7 +115,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                            v-model="pStart"
                            :style="{ borderColor: borderColor.pStart }"
                            @blur="validatepStart">
-                    <span v-if="errors.pStart">The popularity score must be between -100.000 and 100.000</span>
+                    <span v-if="errors.pStart" class="requirement_error">The birth year must be in the range 1940-2001</span>
                 </div>
                 <div class="form-group">
                     <label for="pend" class="lab">Maximum popularity score</label>
@@ -129,26 +129,23 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                            v-model="pEnd"
                            :style="{ borderColor: borderColor.pEnd }"
                            @blur="validatepEnd">
-                    <span v-if="errors.pEnd">The popularity score must be between -100.000 and 100.000</span>
+                    <span v-if="errors.pEnd" class="requirement_error">The birth year must be in the range 1940-2001</span>
                 </div>
-
                 <div class="form-group">
                     <label for="tagInput" class="lab">Tag filter</label>
                     <h6>Filtering tags will match only the users with <b>ALL</b> the filtered tags!</h6>
                     <input type="text" value="" data-role="tagsinput" id="tagInput" name="tagInput" class="form-control">
                 </div>
-
                 <div class="form-group">
-                    <button type="submit" class="btn btn-outline-warning">Sort</button>
+                    <button type="submit" class="btn btn-outline-warning btn-sign-in">Sort</button>
                 </div>
             </form>
         </div>
-
+    </div>
         <div id="suggestion">
             <div id="gen-sugg">
             </div>
         </div>
-    </div>
 </div>
 
 <?php require_once("includes/footer.php");?>
