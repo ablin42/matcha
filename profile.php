@@ -43,28 +43,31 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
             else if (has_voted($db, secure_input($_SESSION['id']), secure_input($id), 1) === 1)
                 echo "<h5>You liked <b class='username'>".$username."</b>'s profile</h5>";
             ?>
-
+            <h6><?= $status ?></h6>
             <h3 class="username d-inline-block"><?= $username ?>,</h3>
             <?php
                 if ($distance)
                     echo "<h5 class='d-inline-block'>".$distance."KM away</h5>"; ?>
         <div class="row">
-
-            <div class="col-4">
+            <div class="col-5">
                 <div class="profile_left">
                 <?php
                     if ($photos[0] && $photos[0] !== "null")
                         echo '<img src="'. $photos[0] .'" alt="photo0" class="profile_main"/>';
 
+                    echo "<div class='row no-gutters'>";
                     for ($i = 1; $i < 5; $i++) {
                         if ($photos[$i] && $photos[$i] !== "null")
-                            echo '<img src="'. $photos[$i] .'" alt="photo'.$i.'" class="profile_secondary"/>';
+                            echo '<div class="col-6 p-1"><img src="'. $photos[$i] .'" alt="photo'.$i.'" class="profile_secondary"/></div>';
                     }
+                    echo "</div>";
                 ?>
-            </div>
+                </div>
         </div>
-        </div>
-            <div class="col-6">
+
+            <div class="col-7">
+                <p><?= $firstname . " <b>" . $lastname . "</b> "?>(<?= $birth_year ?>)</p>
+                <p><?= $gender ?>, <?= $orientation ?></p>
                 <p>
                     <b><?= $firstname ?>'s bio:</b><br />
                     <?= $bio ?>
@@ -76,57 +79,51 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                     }
                     ?>
                 </div>
-
+                <div class="rep-block-btn">
+                    <div id="report-btn" class="d-inline-block">
+                    <?php if (!$report)
+                        echo '<a v-if="!reported" href="#" @click.prevent="reportUser('. $id .')" class="report-btn"><i class="far fa-flag"></i> Report as fake user</a>';
+                    ?>
+                    </div>
+                    <div id="block-btn" class="d-inline-block">
+                    <?php
+                        echo '<a id="block" href="#" @click.prevent="blockUser('. $id .')" class="report-btn"><i class="fas fa-ban"></i> '.$block.'</a>';
+                    ?>
+                    </div>
+                </div>
+                <div id="vote">
+                    <?php if (($photos[0] != NULL || $photos[1] != NULL || $photos[2] != NULL || $photos[3] != NULL || $photos[4]!= NULL) &&
+                        ($photos_curr_user[0] != NULL || $photos_curr_user[1] != NULL || $photos_curr_user[2] != NULL || $photos_curr_user[3] != NULL || $photos_curr_user[4]!= NULL))
+                    {
+                        echo "<button id='like-btn' @click=\"vote(".$id.", 1)\" class=\"btn-like\">
+                            <i class=\"fas fa-heart fa-4x like";
+                        if (has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) === 1)
+                            echo " liked";
+                        echo "\"></i>
+                        </button>
+                        <button id='dislike-btn' @click=\"vote(".$id.", -1)\" class=\"btn-like\">
+                            <i class=\"fas fa-heart-broken fa-4x dislike";
+                        if (has_voted($db, secure_input($_SESSION['id']), secure_input($id), -1) === 1)
+                            echo " disliked";
+                        echo "\"></i>
+                        </button>";
+                    }?>
+                </div>
             </div>
-        </div>
-        <div class="row col-6">
 
-        </div>
-        <div class="row col-4">
-            <p><?= $firstname . " <b>" . $lastname . "</b>"?>(<?= $birth_year ?>)</p>
-            <p><?= $gender ?>, <?= $orientation ?></p>
         </div>
 
 
-        <h6><?= $status ?></h6>
 
-        <div id="report-btn">
-            <?php if (!$report)
-                echo '<a v-if="!reported" href="#" @click.prevent="reportUser('. $id .')" class="report-btn"><i class="far fa-flag"></i> Report as fake user</a>';
-            ?>
-        </div>
-        <div id="block-btn">
-            <?php
-                echo '<a id="block" href="#" @click.prevent="blockUser('. $id .')" class="report-btn"><i class="fas fa-ban"></i> '.$block.'</a>';
-            ?>
-        </div>
-        <div>
+        <div>//////////////
         <?php
             if ($photos[0] != NULL || $photos[1] != NULL || $photos[2] != NULL || $photos[3] != NULL || $photos[4]!= NULL)
                 if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) !== 1)
                     echo alert_bootstrap("info", "<b>$username</b> has liked your profile, you can like back this profile.. or not!", "text-align: center;");
             ?>
         </div>
-        <div id="vote">
-        <?php if (($photos[0] != NULL || $photos[1] != NULL || $photos[2] != NULL || $photos[3] != NULL || $photos[4]!= NULL) &&
-                ($photos_curr_user[0] != NULL || $photos_curr_user[1] != NULL || $photos_curr_user[2] != NULL || $photos_curr_user[3] != NULL || $photos_curr_user[4]!= NULL))
-            {
-                echo "<button id='like-btn' @click=\"vote(".$id.", 1)\" class=\"btn-like\">
-                            <i class=\"fas fa-heart fa-4x like";
-                if (has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) === 1)
-                    echo " liked";
-                echo "\"></i>
-                        </button>
-                        <button id='dislike-btn' @click=\"vote(".$id.", -1)\" class=\"btn-like\">
-                            <i class=\"fas fa-heart-broken fa-4x dislike";
-                if (has_voted($db, secure_input($_SESSION['id']), secure_input($id), -1) === 1)
-                    echo " disliked";
-                echo "\"></i>
-                        </button>";
-            }?>
-        </div>
+
         <div id="popularity">
-            <h2>Popularity score:</h2>
             <h1><?= $score ?></h1>
         </div>
     </div>

@@ -19,13 +19,15 @@ $form->changeSurr('div class="form-group"', 'div');
             echo "<a class='navbar-brand' href=\"index\">Log in/Sign up</a>";
     ?>
 
-    <div class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <ul class="nav navbar-nav navbar-right">
+        <div id="dropdown-notif" class='dropdown'><li class="nav-item"><p id='nbnotif'></p><a href='#' id='dropdown-menu-notif' onclick='dropDown()' class='dropbtn'><i id='notif' class="far fa-bell fa-2x"></i></a></li><div id='dropdown-notif-content' class='dropdown-notif-content'></div></div>
+    </ul>
+    <div class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="far fa-user"></i>
         <div class="dropdown-content">
             <ul class="nav navbar-nav navbar-right ml-auto">
                 <?php
                 if (isset($_SESSION['logged']) && isset($_SESSION['username'])) {
-                    echo "<li class=\"nav-item\"><i id='dropdownnotif' class=\"far fa-bell fa-2x\"></i></li>";
                     echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"search\">Search</a></li>";
                     echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"suggestion\">Suggestions</a></li>";
                     echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"activity\">Activity</a></li>";
@@ -44,7 +46,6 @@ $form->changeSurr('div class="form-group"', 'div');
         <ul class="nav navbar-nav navbar-right ml-auto">
             <?php
                 if (isset($_SESSION['logged']) && isset($_SESSION['username'])) {
-                    echo "<div id=\"dropdown-notif\" class='dropdown'><li class=\"nav-item\"><p id='nbnotif'></p><a href='#' id='dropdown-menu-notif' onclick='dropDown()' class='dropbtn'><i id='notif' class=\"far fa-bell fa-2x\"></i></a></li><div id='dropdown-notif-content' class='dropdown-notif-content'></div></div>";
                     echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"search\">Search</a></li>";
                     echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"suggestion\">Suggestions</a></li>";
                     echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"activity\">Activity</a></li>";
