@@ -54,7 +54,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
 
 <?php require_once("includes/footer.php");?>
 <script src="js/online.js"></script>
-<script src="js/ajaxify.js"></script>
+
 <script src="js/notif.js"></script>
 <script src="js/alert.js"></script>
 </body>

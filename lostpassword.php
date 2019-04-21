@@ -46,7 +46,7 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] === 1)
                     <span v-if="errors.email">E-mail has to be valid</span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" name="submit_register" class="btn btn-outline-warning btn-sign-in">Reset my password</button>
+                    <button type="submit" name="submit_register" class="btn btn-outline-warning btn-sign-in"><span>Reset my password</span></button>
                 </div>
             </form>
         </div>
@@ -57,6 +57,6 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] === 1)
 <script src="js/online.js"></script>
 <script src="vuejs/lostPwd.js"></script>
 <script src="js/alert.js"></script>
-<script src="js/ajaxify.js"></script>
+
 </body>
 </html>

@@ -138,8 +138,11 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
             <div id="gen-sugg">
             <?php
                 require_once("utils/fetch_suggestion.php");
+                $i = 0;
                 foreach ($sorted as $match)
                 {
+                    if ($i % 2 === 0)
+                        echo "<div class='row'>";
                     $match['birthyear'] = date("Y") - (int)$match['birthyear'];
                     echo "<div class='result_block'>";
                     if ($match['profile_pic'])
@@ -164,6 +167,9 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                     echo "</div>";
                     echo "</div>";
                     echo "</div>";
+                    if ($i % 2 !== 0)
+                        echo "</div>";
+                    $i++;
                 }
             ?>
             </div>
@@ -174,7 +180,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
 <script src="js/online.js"></script>
 <script src="vuejs/suggestion.js"></script>
 <script src="js/notif.js"></script>
-<script src="js/ajaxify.js"></script>
+
 <script src="js/alert.js"></script>
 </body>
 </html>

@@ -37,7 +37,7 @@ require_once("utils/fetch_account_data.php");
     <div class="col-12 p-2">
         <h1>profile settings</h1>
         <hr />
-        <div class="container col-6 p-3 mt-3 mb-3">
+        <div class="container col-lg-6 p-3 mt-3 mb-3">
             <form id="infos" name="infos" @submit.prevent="processForm" class="register-form my-2 my-lg-0" method="post">
                 {{ assignGender(<?= json_encode($gender) ?>) }}
                 {{ assignOrientation(<?= json_encode($orientation) ?>) }}
@@ -80,7 +80,7 @@ require_once("utils/fetch_account_data.php");
 
         <h1>your photos</h1>
         <hr />
-        <div id="photos" class="col-12 text-center">
+        <div id="photos" class="col-lg-12 text-center">
             <photo-upload <?php if ($photos[0] && $photos[0] !== "null") echo "v-bind:db-path=' $photos[0] '";?> v-bind:id-component="1" btn="Profile picture"></photo-upload>
             <?php
             if ($photos[0] && $photos[0] !== "null")
@@ -97,7 +97,7 @@ require_once("utils/fetch_account_data.php");
 
         <h1>account settings</h1>
         <hr />
-            <div class="container col-6 p-3 mt-3 mb-3">
+            <div class="container col-lg-6 p-3 mt-3 mb-3">
                 <form id="account" name="account" @submit.prevent="processForm" class="register-form my-2 my-lg-0" method="post">
                     {{ assignFirstname("<?= $firstname ?>") }}
                     {{ assignLastname("<?= $lastname ?>") }}
@@ -166,7 +166,7 @@ require_once("utils/fetch_account_data.php");
 
         <h1>security</h1>
         <hr />
-            <div class="container col-6 p-3 mt-3 mb-3">
+            <div class="container col-lg-6 p-3 mt-3 mb-3">
                 <form id="security" name="security" @submit.prevent="processForm" class="register-form my-2 my-lg-0" method="post">
                     <div class="form-group">
                         <label for="currpw" class="lab">Current password</label>
@@ -286,7 +286,7 @@ if ($tags)
 <script src="js/online.js"></script>
 <script src="vuejs/account.js"></script>
 <script src="js/notif.js"></script>
-<script src="js/ajaxify.js"></script>
+
 <script src="js/alert.js"></script>
 </body>
 </html>

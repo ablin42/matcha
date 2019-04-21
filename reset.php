@@ -77,6 +77,6 @@ if (!isset($_GET['id']) && !isset($_GET['token']))
 <script src="js/online.js"></script>
 <script src="vuejs/resetPwd.js"></script>
 <script src="js/alert.js"></script>
-<script src="js/ajaxify.js"></script>
+
 </body>
 </html>

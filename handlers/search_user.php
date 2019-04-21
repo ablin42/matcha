@@ -183,12 +183,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
+        $i = 0;
         foreach ($sorted as $match) {
             $match['birthyear'] = date("Y") - $match['birthyear'];
-                    echo "<div class='result_block'>";
+            if ($i % 2 === 0)
+                echo "<div class='row'>";
+            echo "<div class='result_block'>";
                     if ($match['profile_pic'])
-                    echo "<div class='col-8 offset-2'>";
-                    echo "<img class='profile_main col-12' alt='profile_picture' src='".$match['profile_pic']."' />";
+                        echo "<div class='col-8 offset-2'>";
+                    echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
                     echo "<div class='text_block'>";
                     echo "<div class='user_info'>
                             <p class='user_name'><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a></p>
@@ -200,7 +203,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             </div>";
                     echo "<p class='p_score'>Popularity score: <b class='score'>".$match['score']."</b></p>";
-                    // echo "<p class='p_score'>You're both interested in: </p>";
                     foreach ($match['rtags'] as $tag)
                     echo "<div class='matched_tag'><p>" . $tag . "</p></div>";
                      foreach ($match['tags'] as $tag)
@@ -208,6 +210,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "</div>";
                     echo "</div>";
                     echo "</div>";
+            if ($i % 2 !== 0)
+                echo "</div>";
+            $i++;
         }
     } else {
         echo alert_bootstrap("danger", "You left a <b>required field</b> empty", "text-align: center;");

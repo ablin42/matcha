@@ -165,22 +165,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $tags_arr = array();
 
 
-                    $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id", $attributes2);
-                    if ($req) {
-                        foreach ($req as $item) {
-                            $tags_arr[] = $item->tag;
-                        }
+                $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id", $attributes2);
+                if ($req) {
+                    foreach ($req as $item) {
+                        $tags_arr[] = $item->tag;
                     }
-                    //var_dump($tags_arr);
-                    foreach ($tags_arr as $tag) {
-                        foreach ($tags as $tag_u) {;
-                            if ($tag === $tag_u)
-                                    $info['tagscore']++;
-                        }
+                }
+
+                foreach ($tags_arr as $tag) {
+                    foreach ($tags as $tag_u) {;
+                        if ($tag === $tag_u)
+                            $info['tagscore']++;
                     }
-                    $info['tags'] = $tags_arr;
+                }
+                $info['tags'] = $tags_arr;
+                $alltags = $tags_arr;
 
-
+                foreach ($alltags as $key => $value) {
+                    foreach ($tags as $tag) {
+                        if ($tag === $value)
+                            unset($alltags[$key]);
+                    }
+                    foreach ($required_tags as $tag) {
+                        if ($tag === $value)
+                            unset($alltags[$key]);
+                    }
+                }
+                $info['alltags'] = $alltags;
               /*  if ($required_tags) {
                     foreach ($required_tags as $tag) {
                         $attributes2['tag'] = $tag;
@@ -261,8 +272,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
+        $i = 0;
         foreach ($sorted as $match)
         {
+          if ($i % 2 === 0)
+              echo "<div class='row'>";
           echo "<div class='result_block'>";
           if ($match['profile_pic'])
           echo "<div class='col-8 offset-2'>";
@@ -278,14 +292,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   </div>
                   </div>";
           echo "<p class='p_score'>Popularity score: <b class='score'>".$match['score']."</b></p>";
-          // echo "<p class='p_score'>You're both interested in: </p>";
-          foreach ($match['rtags'] as $tag)
-            echo "<div class='matched_tag' style='border-color: green;'><p>" . $tag . "</p></div>";
-          foreach ($match['tags'] as $tag)
-            echo "<div class='profile_tag'><p>".$tag."</p></div>";
+          foreach ($required_tags as $tag)
+              echo "<div class='matched_tag'><p>".$tag."</p></div>";
+          foreach ($tags as $tag)
+              echo "<div class='matched_tag'><p>".$tag."</p></div>";
+          foreach ($match['alltags'] as $tag)
+              echo "<div class='profile_tag'><p>".$tag."</p></div>";
           echo "</div>";
           echo "</div>";
           echo "</div>";
+            if ($i % 2 !== 0)
+                echo "</div>";
+            $i++;
         }
     }
     else {

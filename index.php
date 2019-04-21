@@ -30,7 +30,7 @@ if (isset($_GET['e']))
 
 <div class="container mt-5 small-page-wrapper">
     <h1 class="banner">Matcha <i class="far fa-heart"></i></h1>
-        <div id="login-register" class="container col-6 p-2 mt-3 mb-3">
+        <div id="login-register" class="container col-lg-6 p-2 mt-3 mb-3">
             <login-signup-tab></login-signup-tab>
         </div>
 </div>
@@ -38,7 +38,8 @@ if (isset($_GET['e']))
 <?php require_once("includes/footer.php");?>
 <script src="js/online.js"></script>
 <script src="vuejs/loginRegister.js"></script>
-<script src="js/ajaxify.js"></script>
+
 <script src="js/alert.js"></script>
+<script src="js/notif.js"></script>
 </body>
 </html>

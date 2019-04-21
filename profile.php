@@ -49,7 +49,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                 if ($distance)
                     echo "<h5 class='d-inline-block'>".$distance."KM away</h5>"; ?>
         <div class="row">
-            <div class="col-5">
+            <div class="col-4">
                 <div class="profile_left">
                 <?php
                     if ($photos[0] && $photos[0] !== "null")
@@ -65,7 +65,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                 </div>
         </div>
 
-            <div class="col-7">
+            <div class="col-6">
                 <p><?= $firstname . " <b>" . $lastname . "</b> "?>(<?= $birth_year ?>)</p>
                 <p><?= $gender ?>, <?= $orientation ?></p>
                 <p>
@@ -79,30 +79,19 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                     }
                     ?>
                 </div>
-                <div class="rep-block-btn">
-                    <div id="report-btn" class="d-inline-block">
-                    <?php if (!$report)
-                        echo '<a v-if="!reported" href="#" @click.prevent="reportUser('. $id .')" class="report-btn"><i class="far fa-flag"></i> Report as fake user</a>';
-                    ?>
-                    </div>
-                    <div id="block-btn" class="d-inline-block">
-                    <?php
-                        echo '<a id="block" href="#" @click.prevent="blockUser('. $id .')" class="report-btn"><i class="fas fa-ban"></i> '.$block.'</a>';
-                    ?>
-                    </div>
-                </div>
-                <div id="vote">
+                <div id="vote" class="text-center">
                     <?php if (($photos[0] != NULL || $photos[1] != NULL || $photos[2] != NULL || $photos[3] != NULL || $photos[4]!= NULL) &&
                         ($photos_curr_user[0] != NULL || $photos_curr_user[1] != NULL || $photos_curr_user[2] != NULL || $photos_curr_user[3] != NULL || $photos_curr_user[4]!= NULL))
                     {
                         echo "<button id='like-btn' @click=\"vote(".$id.", 1)\" class=\"btn-like\">
-                            <i class=\"fas fa-heart fa-4x like";
+                            <i class=\"fas fa-heart fa-8x like";
                         if (has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) === 1)
                             echo " liked";
                         echo "\"></i>
                         </button>
+                        <p style=\"font-size: 220px; display: inline-block\">/</p>
                         <button id='dislike-btn' @click=\"vote(".$id.", -1)\" class=\"btn-like\">
-                            <i class=\"fas fa-heart-broken fa-4x dislike";
+                            <i class=\"fas fa-heart-broken fa-8x dislike";
                         if (has_voted($db, secure_input($_SESSION['id']), secure_input($id), -1) === 1)
                             echo " disliked";
                         echo "\"></i>
@@ -110,21 +99,22 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                     }?>
                 </div>
             </div>
-
-        </div>
-
-
-
-        <div>//////////////
-        <?php
-            if ($photos[0] != NULL || $photos[1] != NULL || $photos[2] != NULL || $photos[3] != NULL || $photos[4]!= NULL)
-                if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) !== 1)
-                    echo alert_bootstrap("info", "<b>$username</b> has liked your profile, you can like back this profile.. or not!", "text-align: center;");
-            ?>
+            <div class="rep-block-btn col-4">
+                <div id="report-btn" class="d-inline-block">
+                    <?php if (!$report)
+                        echo '<a v-if="!reported" href="#" @click.prevent="reportUser('. $id .')" class="report-btn"><i class="far fa-flag"></i> Report </a>';
+                    ?>
+                </div>
+                <div id="block-btn" class="d-inline-block">
+                    <?php
+                    echo '<a id="block" href="#" @click.prevent="blockUser('. $id .')" class="report-btn"><i class="fas fa-ban"></i> '.$block.'</a>';
+                    ?>
+                </div>
+            </div>
         </div>
 
         <div id="popularity">
-            <h1><?= $score ?></h1>
+            <h1 style="font-size: 60px;"><?= $score ?></h1>
         </div>
     </div>
 </div>
@@ -133,7 +123,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
 <script src="js/online.js"></script>
 <script src="vuejs/profile.js"></script>
 <script src="js/notif.js"></script>
-<script src="js/ajaxify.js"></script>
+
 <script src="js/alert.js"></script>
 </body>
 </html>
