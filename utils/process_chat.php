@@ -23,7 +23,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $attributes['roomid'] = secure_input($data->{'roomid'});
                     $req = $db->prepare("SELECT * FROM `chat` WHERE `roomid` = :roomid", $attributes);
                     foreach ($req as $msg) {
-                        echo "<div class='message'><p>[<i>" . $msg->date . "</i>] <b>" . ucfirst($msg->username) . "</b>: " . $msg->message . "</p></div>";
+                        echo "<div class=\"message";
+                        echo '"';
+                        echo "><div class='";
+                        if ($msg->username != $_SESSION['username']) 
+                            echo "sent_user";
+                        else
+                            echo "received_user";
+                        echo "'>";
+                        echo "".ucfirst($msg->username)."</div><p class='";
+                        if ($msg->username != $_SESSION['username']) 
+                            echo "sent_message";
+                        else
+                            echo "received_message";
+                        echo "'>";
+                        echo "".$msg->message."</p>";
+                        echo "<p class =\"";
+                        if ($msg->username != $_SESSION['username']) 
+                            echo "sent_date";
+                        else
+                         echo "received_date";
+                        echo '">';
+                        echo $msg->date;
+                        echo "</p></div>";
                     }
                 }
                 break;
