@@ -187,6 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $match['birthyear'] = date("Y") - $match['birthyear'];
                     echo "<div class='result_block'>";
                     if ($match['profile_pic'])
+                    echo "<div class='col-8 offset-2'>";
                     echo "<img class='profile_main col-12' alt='profile_picture' src='".$match['profile_pic']."' />";
                     echo "<div class='text_block'>";
                     echo "<div class='user_info'>
@@ -204,6 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<div class='matched_tag'><p>" . $tag . "</p></div>";
                      foreach ($match['tags'] as $tag)
                     echo "<div class='profile_tag'><p>" . $tag . "</p></div>";
+                    echo "</div>";
                     echo "</div>";
                     echo "</div>";
         }
