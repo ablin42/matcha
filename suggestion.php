@@ -140,7 +140,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                 require_once("utils/fetch_suggestion.php");
                 foreach ($sorted as $match)
                 {
-                    $match['birthyear'] = 2019 - (int)$match['birthyear'];
+                    $match['birthyear'] = date("Y") - (int)$match['birthyear'];
                     echo "<div class='result_block'>";
                     if ($match['profile_pic'])
                     echo "<div class='col-8 offset-2'>";

@@ -29,57 +29,67 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
 
 <div class="container mt-5 small-page-wrapper">
     <div class="wrapper col-12">
-        <div class="col-4">
             <?php
-                if ($photos[0] && $photos[0] !== "null")
-                    echo '<img src="'. $photos[0] .'" alt="photo0" class="profile_main"/>';
-            ?>
-        </div>
-        <h1><?= $username ?></h1>
-        <?php if ($distance) echo "<h6>".$distance."KM away</h6>";?>
-        <?php
             if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) === 1)
-                echo "<h5>You matched with " . $username . "! Click <a href='chat?r=".$roomid."'>here</a> to send a message</h5>";
+                echo "<h5>You matched with <b class='username'>" . $username . "</b>! Click <a href='chat?r=".$roomid."'>here</a> to send a message</h5>";
             else if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), -1) === 1)
-                echo "<h5>".$username." liked your profile and you disliked ".$username."'s profile</h5>";
+                echo "<h5><b class='username'>".$username."</b> liked your profile and you disliked <b class='username'>".$username."</b>'s profile</h5>";
             else if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), -1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), -1) === 1)
                 echo "<h5>You disliked eachothers</h5>";
             else if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) !== 1)
-                echo "<h5>".$username." liked your profile</h5>";
+                echo "<h5><b class='username'>".$username."</b> liked your profile</h5>";
             else if (has_voted($db, secure_input($_SESSION['id']),secure_input($id), -1) === 1)
-                echo "<h5>You disliked ".$username."'s profile</h5>";
+                echo "<h5>You disliked <b class='username'>".$username."</b>'s profile</h5>";
             else if (has_voted($db, secure_input($_SESSION['id']), secure_input($id), 1) === 1)
-                echo "<h5>You liked ".$username."'s profile</h5>";
-        ?>
-        <h6><?= $status ?></h6>
-        <div class="col-12">
-            <?php
-                for ($i = 0; $i < 5; $i++) {
-                    if ($photos[0] && $photos[0] !== "null" && $i === 0)
-                        echo '<img src="'. $photos[$i] .'" alt="photo'.$i.'" class="profile_main"/>';
-                    else if ($photos[$i] && $photos[$i] !== "null")
-                        echo '<img src="'. $photos[$i] .'" alt="photo'.$i.'" class="profile_secondary"/>';
-                }
+                echo "<h5>You liked <b class='username'>".$username."</b>'s profile</h5>";
             ?>
 
-        </div>
-        <div class="col-6">
-            <p><?= $firstname . " <b>" . $lastname . "</b>"?>, born in <b><?= $birth_year ?></b></p>
-            <p>Gender: <b><?= $gender ?></b></p>
-            <p>Sexual Orientation: <b><?= $orientation ?></b></p>
-            <div>
-                <h4 style="text-align: left;">Interested in:</h4>
+            <h3 class="username d-inline-block"><?= $username ?>,</h3>
+            <?php
+                if ($distance)
+                    echo "<h5 class='d-inline-block'>".$distance."KM away</h5>"; ?>
+        <div class="row">
+
+            <div class="col-4">
+                <div class="profile_left">
                 <?php
-                    foreach ($tags as $tag) {
-                        echo "<div class='profile_tag'><p>" . $tag . "</p></div> ";
+                    if ($photos[0] && $photos[0] !== "null")
+                        echo '<img src="'. $photos[0] .'" alt="photo0" class="profile_main"/>';
+
+                    for ($i = 1; $i < 5; $i++) {
+                        if ($photos[$i] && $photos[$i] !== "null")
+                            echo '<img src="'. $photos[$i] .'" alt="photo'.$i.'" class="profile_secondary"/>';
                     }
                 ?>
             </div>
-            <p>
-                <b><?= $firstname ?>'s bio:</b>
-                <?= $bio ?>
-            </p>
         </div>
+        </div>
+            <div class="col-6">
+                <p>
+                    <b><?= $firstname ?>'s bio:</b><br />
+                    <?= $bio ?>
+                </p>
+                <div>
+                    <?php
+                    foreach ($tags as $tag) {
+                        echo "<div class='matched_tag'><p>" . $tag . "</p></div> ";
+                    }
+                    ?>
+                </div>
+
+            </div>
+        </div>
+        <div class="row col-6">
+
+        </div>
+        <div class="row col-4">
+            <p><?= $firstname . " <b>" . $lastname . "</b>"?>(<?= $birth_year ?>)</p>
+            <p><?= $gender ?>, <?= $orientation ?></p>
+        </div>
+
+
+        <h6><?= $status ?></h6>
+
         <div id="report-btn">
             <?php if (!$report)
                 echo '<a v-if="!reported" href="#" @click.prevent="reportUser('. $id .')" class="report-btn"><i class="far fa-flag"></i> Report as fake user</a>';

@@ -2,6 +2,12 @@ body {background-color: rgb(239, 253, 240);}
 
 html {min-width: 450px; min-height: 250px;}
 
+.profile_left {
+    border: 2px solid #70be6f;;
+    border-radius: 5px;
+
+}
+
 .photo-form {
     display: inline-block;
     width: 18%;
@@ -10,6 +16,10 @@ html {min-width: 450px; min-height: 250px;}
 
 textarea {
     border-radius: 5px;
+}
+
+.username {
+    color: #70be6f;
 }
 
 .photobtn {
@@ -140,15 +150,20 @@ textarea {
     max-width: 350px;
     max-height: 350px;
     width: 100%;
+    margin-bottom: 5px;
     /* min-width: 350px;
     min-height: 350px; */
 }
 
 .profile_secondary{
-    max-width: 175px;
-    max-height: 175px;
-    min-width: 175px;
-    min-height: 175px;
+    max-width: 85px;
+    max-height: 85px;
+    min-width: 85px;
+    min-height: 85px;
+    border: 1px solid #6dbf6b;
+    box-sizing: border-box;
+
+    margin: 1px;
 }
 
 .activeTab {
@@ -414,6 +429,7 @@ p {color: #AAAAAA;}
 }
 
 .matched_tag {
+    margin: 5px 5px 5px 0!important;
     width: 120px;
     display: inline-block;
     padding: 5px;
@@ -614,7 +630,7 @@ p {color: #AAAAAA;}
 
 .like:hover, .like:active, .liked
 {
-    color: #ffc107;
+    color: #78ffd6;
     cursor: pointer;
 }
 

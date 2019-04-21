@@ -35,10 +35,11 @@ if (!empty($_GET['u'])) {
             $bio = $item->bio;
             $firstname = $item->firstname;
             $lastname = $item->lastname;
-            $birth_year = $item->birth_year;
+            $birth_year = date("Y") - $item->birth_year;
             $lastonline = $item->last_online;
         }
     }
+
 
     $datetime1 = new DateTime('', new DateTimeZone('Europe/Paris'));
     $datetime2 = new DateTime($lastonline, new DateTimeZone('Europe/Paris'));

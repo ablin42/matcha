@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (!$req) {
                 $rtagnb = 0;
                 $info = array();
-                $info['birthyear'] = 2019 - (int)$basic->birth_year;
+                $info['birthyear'] = date("Y") - (int)$basic->birth_year;
                 $info['tagscore'] = 0;
                 $info['score'] = 0;
                 array_push($info, $basic->user_id, $basic->username, $basic->gender, $basic->orientation);

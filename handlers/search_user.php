@@ -184,7 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         foreach ($sorted as $match) {
-            $match['birthyear'] = 2019 - (int)$match['birthyear'];
+            $match['birthyear'] = date("Y") - $match['birthyear'];
                     echo "<div class='result_block'>";
                     if ($match['profile_pic'])
                     echo "<img class='profile_main col-12' alt='profile_picture' src='".$match['profile_pic']."' />";
