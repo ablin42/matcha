@@ -28,7 +28,7 @@ if (!isset($_GET['id']) && !isset($_GET['token']))
     header('Location: /Matcha?e=reset');
 ?>
 <div class="container mt-5 small-page-wrapper">
-    <div class="col-8 offset-2 p-2">
+    <div class="col-lg-8 mx-auto p-2">
         <h1 class="banner">reset your password</h1>
         <h3>you will need to log in after changing your password</h3>
         <div class="container col-8 p-3 mt-3 mb-3">

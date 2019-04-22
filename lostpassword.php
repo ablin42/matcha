@@ -27,7 +27,7 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] === 1)
     header('Location: /Matcha/Account?e=logg');
 ?>
 <div class="container mt-5 small-page-wrapper">
-    <div class="col-8 offset-2 p-2">
+    <div class="col-lg-8 mx-auto p-2">
         <h1 class="banner">enter your e-mail</h1>
         <h3>we will send you a mail to reset your password</h3>
         <div class=" container col-8 p-3 mt-3 mb-3">

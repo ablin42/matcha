@@ -43,14 +43,14 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
             else if (has_voted($db, secure_input($_SESSION['id']), secure_input($id), 1) === 1)
                 echo "<div class='relations'>You liked <b class='username'>".$username."</b>'s profile</div>";
             ?>
-            <div class="username_and_distance">
+            <div class="row offset-1 username_and_distance">
             <h3 class="username d-inline-block"><?= $username ?>,</h3>
             <?php
                 if ($distance)
-                    echo "<h5 class='d-inline-block'>".$distance."KM away</h5>"; ?>
+                    echo "<h5 style='margin-top: 8px;' class='d-inline-block'>".$distance."KM away</h5>"; ?>
             </div>
         <div class="row">
-            <div class="col-4 profile_pictures">
+            <div class="col-4 offset-1">
                 <div class="profile_left">
                 <?php
                     if ($photos[0] && $photos[0] !== "null")
@@ -66,7 +66,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                 </div>
         </div>
 
-            <div class="col-6">
+            <div class="col-6" style="margin-left: 6.333333%;">
                 <p class="profile_username"><?= $firstname . " " . $lastname . " "?>(<?= $birth_year ?>)</p>
                 <p class="profile_gender"><?= $gender ?>, <?= $orientation ?></p>
                 <p>
@@ -100,7 +100,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                     }?>
                 </div>
             </div>
-            <div class="rep-block-btn col-4">
+            <div class="rep-block-btn col-12">
                 <div id="report-btn" class="d-inline-block">
                     <?php if (!$report)
                         echo '<a v-if="!reported" href="#" @click.prevent="reportUser('. $id .')" class="report-btn"><i class="far fa-flag"></i> Report </a>';

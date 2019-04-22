@@ -354,7 +354,7 @@ p {color: #AAAAAA;}
 .result_block {
     display: inline-block;
     width: 50%;
-    min-width: 540px;
+    min-width: 410px;
     text-align: center;
     padding: 10px;
     margin-bottom: 20px;
@@ -461,6 +461,9 @@ p {color: #AAAAAA;}
     border: 1px solid transparent;
     font-family: Lato;
     margin-top: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
 }
 
 .btn-sign-in:hover {
@@ -974,7 +977,6 @@ input[type='file'] {color: transparent;}
      border: none;
  }
 .username_and_distance {
-    margin-left: 80px;
     margin-top: 40px;
     margin-bottom: 20px;
 }
@@ -988,10 +990,8 @@ input[type='file'] {color: transparent;}
  .rep-block-btn {
     text-align: center;
     padding: 5px 5px 5px 0;
-    /* margin: 15px 15px 15px 12px; */
     margin-top: 30px;
     margin-bottom: 120px;
-    margin-left:30px;
 }
 .report-btn {
     margin-right: 15px;
