@@ -228,7 +228,6 @@ textarea {border-radius: 5px;}
 .navbar
 {
     background-color: #ffffff;
-    /* border-bottom: 1px solid black!important; */
     -webkit-box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
     -moz-box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
     box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
@@ -1071,4 +1070,31 @@ input[type='file'] {color: transparent;}
 {
     border: none;
     background-color: transparent;
+}
+
+#block {
+    color: white;
+    background-color: rgb(250, 77, 77);
+}
+
+#block:hover {
+    background-color: rgb(163, 47, 47);
+}
+
+.activity {
+    font-family: Lato;
+    font-size: 16px;
+    color: rgb(58, 58, 58);
+    padding: 20px;
+    margin: 30px;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
+    -moz-box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
+    box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
+}
+
+.time {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgb(161, 161, 161);
 }
