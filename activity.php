@@ -35,18 +35,16 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
         <h5>Popularity score: <?= $score ?></h5>
         <?php
             foreach ($matched as $user) {
-             /*   echo "<p><i>".$user[0]->date."</i>: ";*/
-                echo "<p>You matched with <a href='/Matcha/profile?u=".$user['username']."'>".$user['username']."</a></p>";
+                echo "<p class='activity'><i class='time'>".$user[0]->date."</i> : ";
+                echo "You matched with <a href='/Matcha/profile?u=".$user['username']."'>".$user['username']."</a>!</p>";
             }
-            echo "<hr />";
             foreach ($likes as $like) {
-                echo "<p><i>".$like->date."</i>: <a href='/Matcha/profile?u=".$like->username."'>";
+                echo "<p class='activity'><i class='time'>".$like->date."</i> : <a href='/Matcha/profile?u=".$like->username."'>";
                 echo "".$like->username."</a> liked your profile!</p>";
             }
-            echo "<hr />";
             foreach ($visits as $visit) {
-                echo "<p><i>".$visit->date."</i>: <a href='/Matcha/profile?u=".$visit->username."'>";
-                echo "".$visit->username."</a> visited your profile</p>";
+                echo "<p class='activity'><i class='time'>".$visit->date."</i> : <a href='/Matcha/profile?u=".$visit->username."'>";
+                echo "".$visit->username."</a> visited your profile!</p>";
             }
         ?>
     </div>
