@@ -31,25 +31,26 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
     <div class="wrapper col-12">
             <?php
             if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) === 1)
-                echo "<h5>You matched with <b class='username'>" . $username . "</b>! Click <a href='chat?r=".$roomid."'>here</a> to send a message</h5>";
+                echo "<div class='relations'>You matched with <b class='username'>" . $username . "</b>! Click <a href='chat?r=".$roomid."'>here</a> to send a message</div>";
             else if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), -1) === 1)
-                echo "<h5><b class='username'>".$username."</b> liked your profile and you disliked <b class='username'>".$username."</b>'s profile</h5>";
+                echo "<div class='relation_disliked'><b class='username'>".$username."</b> liked your profile and you disliked <b class='username'>".$username."</b>'s profile</div>";
             else if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), -1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), -1) === 1)
-                echo "<h5>You disliked eachothers</h5>";
+                echo "<div class='relations'>You disliked eachothers</div>";
             else if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) !== 1)
-                echo "<h5><b class='username'>".$username."</b> liked your profile</h5>";
+                echo "<div class='relations'><b class='username'>".$username."</b> liked your profile</div>";
             else if (has_voted($db, secure_input($_SESSION['id']),secure_input($id), -1) === 1)
-                echo "<h5>You disliked <b class='username'>".$username."</b>'s profile</h5>";
+                echo "<div class='relation_disliked'>You disliked <b class='username'>".$username."</b>'s profile</div>";
             else if (has_voted($db, secure_input($_SESSION['id']), secure_input($id), 1) === 1)
-                echo "<h5>You liked <b class='username'>".$username."</b>'s profile</h5>";
+                echo "<div class='relations'>You liked <b class='username'>".$username."</b>'s profile</div>";
             ?>
-            <h6><?= $status ?></h6>
+            <div class="username_and_distance">
             <h3 class="username d-inline-block"><?= $username ?>,</h3>
             <?php
                 if ($distance)
                     echo "<h5 class='d-inline-block'>".$distance."KM away</h5>"; ?>
+            </div>
         <div class="row">
-            <div class="col-4">
+            <div class="col-4 profile_pictures">
                 <div class="profile_left">
                 <?php
                     if ($photos[0] && $photos[0] !== "null")
@@ -66,32 +67,32 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
         </div>
 
             <div class="col-6">
-                <p><?= $firstname . " <b>" . $lastname . "</b> "?>(<?= $birth_year ?>)</p>
-                <p><?= $gender ?>, <?= $orientation ?></p>
+                <p class="profile_username"><?= $firstname . " " . $lastname . " "?>(<?= $birth_year ?>)</p>
+                <p class="profile_gender"><?= $gender ?>, <?= $orientation ?></p>
                 <p>
-                    <b><?= $firstname ?>'s bio:</b><br />
-                    <?= $bio ?>
+                    <div class="profile_bio"><?= $bio ?></div>
                 </p>
-                <div>
+                <h6 id="last_online"><?= $status ?></h6>
+                <div class="profile_tags">
                     <?php
                     foreach ($tags as $tag) {
                         echo "<div class='matched_tag'><p>" . $tag . "</p></div> ";
                     }
                     ?>
                 </div>
-                <div id="vote" class="text-center">
+                <div id="vote">
                     <?php if (($photos[0] != NULL || $photos[1] != NULL || $photos[2] != NULL || $photos[3] != NULL || $photos[4]!= NULL) &&
                         ($photos_curr_user[0] != NULL || $photos_curr_user[1] != NULL || $photos_curr_user[2] != NULL || $photos_curr_user[3] != NULL || $photos_curr_user[4]!= NULL))
                     {
                         echo "<button id='like-btn' @click=\"vote(".$id.", 1)\" class=\"btn-like\">
-                            <i class=\"fas fa-heart fa-8x like";
+                            <i class=\"fas fa-heart fa-3x like";
                         if (has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) === 1)
                             echo " liked";
                         echo "\"></i>
                         </button>
-                        <p style=\"font-size: 220px; display: inline-block\">/</p>
+                        
                         <button id='dislike-btn' @click=\"vote(".$id.", -1)\" class=\"btn-like\">
-                            <i class=\"fas fa-heart-broken fa-8x dislike";
+                            <i class=\"fas fa-heart-broken fa-3x dislike";
                         if (has_voted($db, secure_input($_SESSION['id']), secure_input($id), -1) === 1)
                             echo " disliked";
                         echo "\"></i>

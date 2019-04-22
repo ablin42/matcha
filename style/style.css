@@ -14,13 +14,6 @@ html {min-width: 450px; min-height: 250px;}
     border-radius: 5px;
 }
 
-.rep-block-btn {
-    text-align: center;
-    padding: 5px 5px 5px 0;
-    margin: 15px 15px 15px 12px;
-
-}
-
 #popularity {
     position: absolute;
     right: 0;
@@ -217,7 +210,7 @@ textarea {border-radius: 5px;}
 }
 .report-btn:hover {
     font-size: 16px;
-    color: white;
+    color: white!important;
     padding: 10px;
     border-radius: 5px;
     background-color: rgb(43, 117, 43);
@@ -253,7 +246,7 @@ textarea {border-radius: 5px;}
 .navbar-brand:hover {
     font-family: Lato;
     font-size:16px;
-    color:white;
+    color:white!important;
     padding: 10px;
     border-radius: 5px;
     background-color:rgb(43, 117, 43);
@@ -635,30 +628,6 @@ p {color: #AAAAAA;}
     border-color: #1b1e21;
 }
 
-.like .dislike {transition: 0.3s;color: #0e0e0e;}
-
-.like:hover, .like:active, .liked
-{
-    color: #78ffd6;
-    cursor: pointer;
-}
-
-.dislike:hover, .dislike:active, .disliked
-{
-    color: #0c5460;
-    cursor: pointer;
-}
-
-.liked:hover {color: #0e0e0e;}
-
-.disliked:hover {color: #0e0e0e;}
-
-.btn-like
-{
-    border: none;
-    background-color: transparent;
-}
-
 .like-count
 {
     color: #ffc107;
@@ -998,3 +967,109 @@ input[type='file'] {color: transparent;}
     border: none;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, .39), 0 -1px 1px #d4d2d2, 0 1px 0 #d4d2d2;
  }
+
+ .profile_pictures {
+     margin:80px;
+     margin-bottom: 0!important;
+     margin-top:0;
+     border: none;
+ }
+.username_and_distance {
+    margin-left: 80px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+ .profile_secondary {
+     padding: 0;
+ }
+ .profile_main, .profile_left, .profile_secondary {
+     border: none!important;
+ }
+
+ .rep-block-btn {
+    text-align: center;
+    padding: 5px 5px 5px 0;
+    /* margin: 15px 15px 15px 12px; */
+    margin-top: 30px;
+    margin-bottom: 120px;
+    margin-left:30px;
+}
+.report-btn {
+    margin-right: 15px;
+} 
+#last_online {
+    margin-top: 50px;
+    text-align: left;
+    font-size: 14px;
+}
+.profile_username, .profile_gender, .bio, .profile_bio{
+    color: black;
+    font-family: Lato;
+    font-size: 20px;
+}
+
+.profile_gender {
+    font-size: 16px;
+}
+
+.profile_bio {
+    font-size: 16px;
+    margin: 60px 0;
+}
+
+.profile_tags {
+    margin: 30px 0;
+    margin-right: 20px;
+}
+
+.profile_tags p {
+    text-align: center;
+}
+
+.relations, .relation_disliked {
+    text-align: center;
+    margin: 0 auto;
+    width: 60%;
+    font-family: Lato;
+    font-size: 15px;
+    margin-top: 50px;
+    padding: 10px;
+    background-color: rgb(239, 253, 240);
+}
+
+.relation_disliked {
+    background-color: rgb(253, 241, 239);
+}
+
+.like, .dislike {
+    transition: 0.3s;
+    color: #c5c5c5;
+}
+
+.like:hover, .like:active, .liked
+{
+    color: #fb8085;
+    display: block;
+    background: -webkit-linear-gradient(#f9c1b1, #fb8085);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* color: linear-gradient(315deg, #f9c1b1 0%, #fb8085 74%); */
+    cursor: pointer;
+}
+
+.dislike:hover, .dislike:active, .disliked
+{
+    color: #000000;
+    display: block;
+    background: -webkit-linear-gradient(#0f9b0f, #000000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #0c5460;
+    cursor: pointer;
+}
+
+.btn-like
+{
+    border: none;
+    background-color: transparent;
+}
