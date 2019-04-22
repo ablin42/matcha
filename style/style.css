@@ -6,6 +6,7 @@ html {min-width: 450px; min-height: 250px;}
 {
     .wrapper {width: 100%; max-width: 100%!important; margin-left: 0; margin-right: 0;}
     .register-form {width: 100%!important; max-width: 100%!important; margin-left: 0;}
+    .rep-block-btn {text-align: center!important; margin-left: 0!important;}
 }
 
 .profile_left {
@@ -987,10 +988,10 @@ input[type='file'] {color: transparent;}
  }
 
  .rep-block-btn {
-    text-align: center;
-    padding: 5px 5px 5px 0;
-    margin-top: 30px;
-    margin-bottom: 120px;
+     padding: 5px 5px 5px 0;
+     margin-top: 30px;
+     margin-bottom: 120px;
+     margin-left: 10%;
 }
 .report-btn {
     margin-right: 15px;
