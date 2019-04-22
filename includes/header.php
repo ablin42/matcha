@@ -9,7 +9,7 @@ autoloader::register();
 $form = new bootstrapForm();
 $form->changeSurr('div class="form-group"', 'div');
 ?>
-
+<script src="js/functions.js"></script>
 <nav class="navbar navbar-expand-lg" id="header">
 <div class="container-fluid">
     <?php

@@ -80,7 +80,6 @@ let account = new Vue({
                 })
                     .then((res) => res.text())
                     .then(function (data) {
-                        console.log(data);
                         document.getElementById('gen-sugg').remove();
                         let div = document.createElement('div'),
                             parent = document.getElementById("suggestion");

@@ -38,8 +38,7 @@ if (isset($_GET['e']))
 <?php require_once("includes/footer.php");?>
 <script src="js/online.js"></script>
 <script src="vuejs/loginRegister.js"></script>
-
 <script src="js/alert.js"></script>
-<script src="js/notif.js"></script>
+<?php if ($_SESSION['logged'] === 1) echo '<script src="js/notif.js"></script>'; ?>
 </body>
 </html>

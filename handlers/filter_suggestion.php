@@ -26,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $required_tags = array();
     $mdistance = 50;
     $data = json_decode(file_get_contents('php://input'));
-    //echo json_encode($data);
     if (!empty($data->{'sort'}) && !empty($data->{'order'})) {
         $sort = secure_input($data->{'sort'});
         switch ($sort) {
