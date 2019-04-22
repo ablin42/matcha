@@ -43,9 +43,9 @@ if (isset($_GET['e']))
                     <div id="chat-area"></div>
                 </div>
                 <form id="send-message-area" @submit.prevent="sendChat('<?= $_SESSION['id'] ?>', '<?= $_GET['r'] ?>')" class="my-2 my-lg-0" method="post">
-                    <p>Your message: </p>
+                    <p style="font-family:Lato; color: black;">Your message: </p>
                     <div class="form-group">
-                        <textarea v-model="message" id="message" maxlength='100'></textarea>
+                        <textarea v-model="message" id="message" maxlength='255'></textarea>
                     </div>
                     <input type="hidden" id="roomid" value="<?= secure_input($_GET['r']) ?>">
                     <div class="form-group">
