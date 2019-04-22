@@ -292,7 +292,7 @@ Vue.component('login-signup-tab', {
                     this.register.borderColor.password2 = "#FF0000";
                 } else {
                     this.register.errors.password2 = false;
-                    this.register.borderColor.password2 = "#f95955";
+                    this.register.borderColor.password2 = "#56c93f";
                 }
             } else {
                 this.register.borderColor.password2 = '';

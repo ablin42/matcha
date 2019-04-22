@@ -10,7 +10,7 @@ let account = new Vue({
         pStart: '',
         pEnd: '',
         location: '',
-        selectedSort: 'Tags',
+        selectedSort: 'Location',
         selectedGender: 'ALL',
         selectedOrientation: 'ALL',
         sortOptions: [
@@ -30,7 +30,7 @@ let account = new Vue({
             { text: 'Homosexual', value: 'Homosexual' },
             { text: 'Bisexual', value: 'Bisexual' }
         ],
-        selectedOrder: 'des',
+        selectedOrder: 'asc',
         orderOptions : [
             { text: 'DES', value: 'des'},
             { text: 'ASC', value: 'asc'}

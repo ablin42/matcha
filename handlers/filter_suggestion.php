@@ -79,11 +79,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
+        $tags = array();
         $req = $db->prepare("SELECT `tag` FROM `user_tags` WHERE `user_id` = :id", $attributes);
         if ($req) {
-            $tags = array();
             foreach ($req as $item)
                 array_push($tags, $item->tag);
+        }
+        foreach($required_tags as $tag){
+            array_push($tags, $tag);
         }
 
         $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
@@ -140,12 +143,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach ($basics as $basic) {
             $req = $db->prepare("SELECT * FROM `block` WHERE `id_blocked` = :user_id AND `id_blocker` = :id", array("user_id" => $basic->user_id, "id" => $id));
             if (!$req) {
-                $rtagnb = 0;
                 $info = array();
                 $info['birthyear'] = date("Y") - (int)$basic->birth_year;
                 $info['tagscore'] = 0;
                 $info['score'] = 0;
                 array_push($info, $basic->user_id, $basic->username, $basic->gender, $basic->orientation);
+
                 $attributes2['user_id'] = $basic->user_id;
                 $req = $db->prepare("SELECT * FROM `user_photo` WHERE `user_id` = :user_id", array("user_id" => $basic->user_id));
                 if ($req)
@@ -153,6 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $info['profile_pic'] = $item->photo1;
                 else
                     $info['profile_pic'] = null;
+
                 $reqvote = $db->prepare("SELECT SUM(`type`) as sum, COUNT(*) as total FROM `vote` WHERE `id_voted` = :voted", array("voted" => $basic->user_id), true);
                 if ($reqvote)
                     $info['score'] = $reqvote->sum * $reqvote->total;
@@ -161,48 +165,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($req)
                     $info['score'] += ($req->nbvisit * $reqvote->total);
 
-                $tags_arr = array();
-
-
+                $info['usertags'] = array();
                 $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id", $attributes2);
                 if ($req) {
                     foreach ($req as $item) {
-                        $tags_arr[] = $item->tag;
+                        $info['usertags'][] = $item->tag;
                     }
                 }
-
-                foreach ($tags_arr as $tag) {
-                    foreach ($tags as $tag_u) {;
-                        if ($tag === $tag_u)
+                foreach ($info['usertags'] as $tag) {
+                    foreach ($tags as $rtag) {;
+                        if ($tag === $rtag)
                             $info['tagscore']++;
                     }
                 }
-                $info['tags'] = $tags_arr;
-                $alltags = $tags_arr;
 
-                foreach ($alltags as $key => $value) {
-                    foreach ($tags as $tag) {
-                        if ($tag === $value)
-                            unset($alltags[$key]);
-                    }
-                    foreach ($required_tags as $tag) {
-                        if ($tag === $value)
-                            unset($alltags[$key]);
-                    }
-                }
-                $info['alltags'] = $alltags;
-              /*  if ($required_tags) {
-                    foreach ($required_tags as $tag) {
-                        $attributes2['tag'] = $tag;
-                        $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id AND `tag` = :tag", $attributes2);
-                        if ($req) {
-                            $rtags_arr[] = $req[0]->tag;
-                            $info['tagscore']++;
+                $info['mtags'] = array();
+                foreach ($info['usertags'] as $key => $value) {
+                    foreach ($tags as $rtag) {
+                        if ($rtag === $value) {
+                            unset($info['usertags'][$key]);
+                            array_push($info['mtags'], $rtag);
                         }
                     }
                 }
-                $info['rtags'] = $rtags_arr;*/
-             //   var_dump($rtags_arr);
 
                 $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => $basic->user_id));
                 if ($req) {
@@ -222,50 +207,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     case ($info['distance'] <= 2):
                         $distscore = 150;
                         break;
-
                     case ($info['distance'] > 2 && $info['distance'] <= 4):
                         $distscore = 100;
                         break;
-
                     case ($info['distance'] > 4 && $info['distance'] <= 8):
                         $distscore = 50;
                         break;
-
                     case ($info['distance'] > 8 && $info['distance'] <= 10):
                         $distscore = 25;
                         break;
-
                     default:
                         $distscore = 0;
                 }
-                $info['distcore'] = $distscore;
-                $info['totalscore'] = ($info['tagscore'] * 100) + ($info['score'] * 3) + $distscore; //+ geo score+ maybe orientation score (orientation/geoscore/tagscore/pop)
-                if ($info['score'] >= $minscore && $info['score'] <= $maxscore && $info['distance'] <= $mdistance && $info['tagscore'] !== 0) {
-                    foreach ($required_tags as $rtag) {
-                        foreach ($tags_arr as $utag) {
-                            if ($rtag == $utag)
-                                $rtagnb++;
-                        }
-                    }
-                    if ($rtagnb >= sizeof($required_tags))
+                $info['totalscore'] = ($info['tagscore'] * 100) + ($info['score'] * 3) + $distscore;
+                if ($info['score'] >= $minscore && $info['score'] <= $maxscore && $info['distance'] <= $mdistance && $info['tagscore'] >= 1)
                         array_push($matched_user, $info);
-                }
             }
         }
 
         $arr = array();
         foreach ($matched_user as $user)
             $arr[$user[0]] = $user[$sortfield];
+
         if ($sorttype === "des")
             arsort($arr);
         else
             asort($arr);
 
         $sorted = array();
-        foreach ($arr as $key => $value)
-        {
-            foreach ($matched_user as $user)
-            {
+        foreach ($arr as $key => $value) {
+            foreach ($matched_user as $user) {
                 if ($key == $user[0])
                     $sorted[] = $user;
             }
@@ -291,11 +262,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   </div>
                   </div>";
           echo "<p class='p_score'>Popularity score: <b class='score'>".$match['score']."</b></p>";
-          foreach ($required_tags as $tag)
+          foreach ($match['mtags'] as $tag)
               echo "<div class='matched_tag'><p>".$tag."</p></div>";
-          foreach ($tags as $tag)
-              echo "<div class='matched_tag'><p>".$tag."</p></div>";
-          foreach ($match['alltags'] as $tag)
+          foreach ($match['usertags'] as $tag)
               echo "<div class='profile_tag'><p>".$tag."</p></div>";
           echo "</div>";
           echo "</div>";

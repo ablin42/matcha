@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $sortfield = 'tagscore';
                 break;
             default:
-                $sortfield = 'tagscore';
+                $sortfield = 'distance';
         }
         if (!empty($data->{'order'}))
             if ($data->{'order'} == "asc")
@@ -66,6 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($data->{'orientation'}))
             $orientation = secure_input($data->{'orientation'});
 
+        if (!$required_tags && $sortfield == "tagscore")
+            $sortfield = 'tagscorenor';
+
         $attributes['id'] = $id;
         $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
         if ($req) {
@@ -75,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else
             $error_dist = 1;
+
         if (!empty($gender) && $gender == "ALL" && !empty($orientation) && $orientation == "ALL")
             $query = "SELECT * FROM `user_info` RIGHT JOIN `user` ON user_info.user_id = user.id WHERE `birth_year` >= :bystart AND `birth_year` <= :byend AND `user_id` != :id";
         else if ((empty($orientation) || $orientation == "ALL") && !empty($gender) && $gender != "ALL") {
@@ -99,6 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $rtagnb = 0;
                 $info = array();
                 $info['birthyear'] =  date("Y") - $basic->birth_year;
+                $info['tagscorenor'] = 0;
                 $info['tagscore'] = 0;
                 $info['score'] = 0;
                 array_push($info, $basic->user_id, $basic->username, $basic->gender, $basic->orientation);
@@ -118,26 +123,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($req)
                     $info['score'] += ($req->nbvisit * $reqvote->total);
 
-                $tags_arr = array();
-                $rtags_arr = array();
-                $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id", $attributes2);/////
+                $info['usertags'] = array();
+                $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id", $attributes2);
                 if ($req) {
-                    foreach ($req as $tag) {
-                        $tags_arr[] = $tag->tag;
-                        $info['tagscore']++;
+                    foreach ($req as $item) {
+                        $info['usertags'][] = $item->tag;
+                        $info['tagscorenor']++;
                     }
                 }
-                if ($required_tags) {
-                    foreach ($required_tags as $tag) {
-                        $attributes2['tag'] = $tag;
-                        $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id AND `tag` = :tag", $attributes2);
-                        if ($req) {
-                            $rtags_arr[] = $req[0]->tag;
+
+                foreach ($info['usertags'] as $tag) {
+                    foreach ($required_tags as $rtag) {;
+                        if ($tag === $rtag)
                             $info['tagscore']++;
+                    }
+                }
+
+                $info['mtags'] = array();
+                foreach ($info['usertags'] as $key => $value) {
+                    foreach ($required_tags as $rtag) {
+                        if ($rtag === $value) {
+                            unset($info['usertags'][$key]);
+                            array_push($info['mtags'], $rtag);
                         }
                     }
                 }
-                $info['rtags'] = $rtags_arr;
+
                 $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => $basic->user_id));
                 if ($req) {
                     foreach ($req as $loc) {
@@ -148,28 +159,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $error_dist = 1;
                 if ($error_dist != 1)
                     $info['distance'] = round(distance($attributes_loc['lat1'], $attributes_loc['lng1'], $attributes_loc['lat2'], $attributes_loc['lng2'], "K"));
-                if ($info['score'] >= $minscore && $info['score'] <= $maxscore) {
-                    foreach ($required_tags as $rtag) {
-                        foreach ($rtags_arr as $utag) {
-                            if ($rtag == $utag) {
-                                $info['tagscore']--;
-                                $rtagnb++;
-                                foreach ($tags_arr as $key => $tag)
-                                    if ($tag === $rtag)
-                                        unset($tags_arr[$key]);
-                            }
-                        }
-                    }
-                    $info['tags'] = $tags_arr;
-                    if ($rtagnb >= sizeof($required_tags) && $info['distance'] <= $mdistance)
-                        array_push($matched_user, $info);
+
+                switch (true)
+                {
+                    case ($info['distance'] <= 2):
+                        $distscore = 150;
+                        break;
+                    case ($info['distance'] > 2 && $info['distance'] <= 4):
+                        $distscore = 100;
+                        break;
+                    case ($info['distance'] > 4 && $info['distance'] <= 8):
+                        $distscore = 50;
+                        break;
+                    case ($info['distance'] > 8 && $info['distance'] <= 10):
+                        $distscore = 25;
+                        break;
+                    default:
+                        $distscore = 0;
                 }
+
+                $info['totalscore'] = ($info['tagscore'] * 100) + ($info['score'] * 3) + $distscore;
+                if ($info['score'] >= $minscore && $info['score'] <= $maxscore && $info['distance'] <= $mdistance)
+                    if (($required_tags && $info['tagscore'] >= 1 )|| !$required_tags)
+                        array_push($matched_user, $info);
             }
         }
 
         $arr = array();
         foreach ($matched_user as $user)
             $arr[$user[0]] = $user[$sortfield];
+
         if ($sorttype === "des")
             arsort($arr);
         else
@@ -185,7 +204,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $i = 0;
         foreach ($sorted as $match) {
-            $match['birthyear'] =$match['birthyear'];
             if ($i % 2 === 0)
                 echo "<div class='row'>";
             echo "<div class='result_block'>";
@@ -203,9 +221,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             </div>";
                     echo "<p class='p_score'>Popularity score: <b class='score'>".$match['score']."</b></p>";
-                    foreach ($match['rtags'] as $tag)
+                    foreach ($match['mtags'] as $tag)
                     echo "<div class='matched_tag'><p>" . $tag . "</p></div>";
-                     foreach ($match['tags'] as $tag)
+                     foreach ($match['usertags'] as $tag)
                     echo "<div class='profile_tag'><p>" . $tag . "</p></div>";
                     echo "</div>";
                     echo "</div>";

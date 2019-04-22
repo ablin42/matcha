@@ -133,11 +133,10 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                 </div>
                 <div class="form-group">
                     <label for="tagInput" class="lab">Tag filter</label>
-                    <h6>Filtering tags will match only the users with <b>ALL</b> the filtered tags!</h6>
                     <input type="text" value="" data-role="tagsinput" id="tagInput" name="tagInput" class="form-control">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-outline-warning btn-sign-in">Sort</button>
+                    <button type="submit" class="btn btn-outline-warning btn-sign-in">Search</button>
                 </div>
             </form>
         </div>

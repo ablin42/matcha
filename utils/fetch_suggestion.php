@@ -109,33 +109,30 @@ if (!empty($_SESSION['id'])) {
                     $tags_arr[] = $req[0]->tag;
                     $info['tagscore']++;
                 }
-                $info['tags'] = $tags_arr;
             }
-            $alltags = array();
+            $usertags = array();
             $req = $db->prepare("SELECT * FROM `user_tags` WHERE `user_id` = :user_id", array("user_id" => $basic->user_id));
             if ($req){
                 foreach ($req as $item){
-                    $alltags[] = $item->tag;
+                    $usertags[] = $item->tag;
                 }
             }
 
-            foreach ($alltags as $key => $all) {
+            foreach ($usertags as $key => $value) {
                 foreach ($tags_arr as $tag) {
-                    if ($all === $tag)
-                        unset($alltags[$key]);
+                    if ($value === $tag)
+                        unset($usertags[$key]);
                 }
             }
-            $info['alltags'] = $alltags;
+            $info['usertags'] = $usertags;
             $info['tags'] = $tags_arr;
 
             $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => $basic->user_id));
             if ($req) {
-                foreach ($req as $loc)
-                {
+                foreach ($req as $loc) {
                     $attributes_loc['lat2'] = $loc->lat;
                     $attributes_loc['lng2'] = $loc->lng;
-                }
-            }
+                }}
             else
                 $error_dist = 1;
             if ($error_dist != 1)
@@ -146,44 +143,38 @@ if (!empty($_SESSION['id'])) {
                 case ($info['distance'] <= 2):
                     $distscore = 150;
                     break;
-
                 case ($info['distance'] > 2 && $info['distance'] <= 4):
                     $distscore = 100;
                     break;
-
                 case ($info['distance'] > 4 && $info['distance'] <= 8):
                     $distscore = 50;
                     break;
-
                 case ($info['distance'] > 8 && $info['distance'] <= 10):
                     $distscore = 25;
                     break;
-
                 default:
                     $distscore = 0;
             }
 
             $info['distcore'] = $distscore;
-            $info['totalscore'] =  ($info['tagscore'] * 100) + ($info['score'] * 3) + $distscore; //+ geo score+ maybe orientation score (orientation/geoscore/tagscore/pop)
-            if ($info['score'] >= $minscore && $info['score'] <= $maxscore && $info['tagscore'] !== 0)
+            $info['totalscore'] =  ($info['tagscore'] * 100) + ($info['score'] * 3) + $distscore;
+            if ($info['score'] >= $minscore && $info['score'] <= $maxscore && $info['tagscore'] >= 1)
                 array_push($matched_user, $info);
-            //var_dump($match['totalscore'], ($info['tagscore'] * 50),  ($info['score'] * 5), ($info['distance'] * -10));
         }
     }
 
     $arr = array();
     foreach ($matched_user as $user)
         $arr[$user[0]] = $user[$sortfield];
+
     if ($sorttype === "des")
         arsort($arr);
     else
         asort($arr);
 
     $sorted = array();
-    foreach ($arr as $key => $value)
-    {
-        foreach ($matched_user as $user)
-        {
+    foreach ($arr as $key => $value) {
+        foreach ($matched_user as $user) {
             if ($key == $user[0])
                 $sorted[] = $user;
         }

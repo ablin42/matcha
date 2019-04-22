@@ -124,7 +124,6 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
 
             <div class="form-group">
                 <label for="tagInput" class="lab">Tag filter</label>
-                <h6>Filtering tags will match only the users with <b>ALL</b> the filtered tags!</h6>
                 <input type="text" value="" data-role="tagsinput" id="tagInput" name="tagInput" class="form-control">
             </div>
 
@@ -159,11 +158,10 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                             </div>
                             </div>";
                     echo "<p class='p_score'>Popularity score: <b class='score'>".$match['score']."</b></p>";
-                    // echo "<p class='p_score'>You're both interested in: </p>";
-                    foreach ($match['alltags'] as $tag)
-                        echo "<div class='profile_tag'><p>" . $tag . "</p></div>";
                     foreach ($match['tags'] as $tag)
                         echo "<div class='matched_tag'><p>".$tag."</p></div>";
+                    foreach ($match['usertags'] as $tag)
+                        echo "<div class='profile_tag'><p>" . $tag . "</p></div>";
                     echo "</div>";
                     echo "</div>";
                     echo "</div>";

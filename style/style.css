@@ -294,10 +294,9 @@ h2
     color: #EEEEEE !important;
     font-style: italic;
 }
-.small-page-wrapper {min-height: calc(100vh - 166px);}
+.small-page-wrapper {min-height: calc(100vh - 195px);}
 
-hr
-{
+hr {
     border-top: 1px solid rgb(112, 190, 111);
     width: 65%;
 }
@@ -307,7 +306,7 @@ footer
     position: relative;
     bottom: 0;
     width: 100%;
-    height: 60px;
+    height: 70px;
     background-color: rgb(255, 255, 255);
     -webkit-box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
     -moz-box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
