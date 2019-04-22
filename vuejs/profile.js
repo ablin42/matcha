@@ -61,6 +61,14 @@ let vote = new Vue({
                 else if (liked)
                     btn.classList.remove('liked');
             }
+            else if (vote === -1){
+                let btn = document.querySelector('.dislike'),
+                disliked = document.querySelector('.disliked');
+            if (btn && !disliked)
+                btn.classList.add('disliked');
+            else if (disliked)
+                btn.classList.remove('disliked');
+            }
 
             fetch('handlers/like_user.php', {
                 method: 'post',
