@@ -52,22 +52,28 @@ let vote = new Vue({
     data: {},
     methods: {
         vote: function (id, vote){
+            let likebtn = document.querySelector('.like'),
+                liked = document.querySelector('.liked'),
+                dislikebtn = document.querySelector('.dislike'),
+                disliked = document.querySelector('.disliked');
             if (vote === 1)
             {
-                let btn = document.querySelector('.like'),
-                    liked = document.querySelector('.liked');
-                if (btn && !liked)
-                    btn.classList.add('liked');
+                if (likebtn && !liked) {
+                    likebtn.classList.add('liked');
+                    if (disliked)
+                        disliked.classList.remove('disliked');
+                }
                 else if (liked)
-                    btn.classList.remove('liked');
+                    likebtn.classList.remove('liked');
             }
             else if (vote === -1){
-                let btn = document.querySelector('.dislike'),
-                disliked = document.querySelector('.disliked');
-            if (btn && !disliked)
-                btn.classList.add('disliked');
-            else if (disliked)
-                btn.classList.remove('disliked');
+                if (dislikebtn && !disliked){
+                    dislikebtn.classList.add('disliked');
+                    if (liked)
+                        liked.classList.remove('liked');
+                }
+                else if (disliked)
+                    dislikebtn.classList.remove('disliked');
             }
 
             fetch('handlers/like_user.php', {
