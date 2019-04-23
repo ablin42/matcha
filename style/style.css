@@ -48,8 +48,17 @@ textarea {border-radius: 5px;}
     min-height: 500px;
     overflow: hidden;
     position: relative;
-    border: 2px solid rgb(115, 189, 115);
     border-radius: 15px;
+    font-family: Lato;
+    font-size: 16px;
+    color: rgb(58, 58, 58);
+    margin-top: 30px!important;
+    margin-bottom: 30px!important;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
+    -moz-box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
+    box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
+}
 }
 
 .banner {
@@ -124,9 +133,6 @@ textarea {border-radius: 5px;}
     text-decoration: none;
     display: block;
 }
-
-/* Change color of dropdown links on hover */
-.dropdown-notif-content a:hover {background-color: #ddd}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
@@ -960,7 +966,7 @@ input[type='file'] {color: transparent;}
 
  }
 
-#message {
+.text_area {
     width: 100%;
     resize: none;
     min-height: 200px;
@@ -1097,5 +1103,23 @@ input[type='file'] {color: transparent;}
 .time {
     font-size: 12px;
     font-weight: 500;
-    color: rgb(161, 161, 161);
+    color: rgb(54, 54, 54);
+}
+
+.account_container {
+    font-family: Lato;
+    font-size: 16px;
+    color: rgb(58, 58, 58);
+    margin-top: 30px!important;
+    margin-bottom: 30px!important;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
+    -moz-box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
+    box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
+}
+
+.account_title {
+    font-family: Lato;
+    font-size: 24px;
+    font-weight: 400;
 }

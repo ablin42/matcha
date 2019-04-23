@@ -35,9 +35,8 @@ require_once("utils/fetch_account_data.php");
 ?>
 <div class="container mt-5 small-page-wrapper">
     <div class="col-12 p-2">
-        <h1>profile settings</h1>
-        <hr />
-        <div class="container col-lg-6 p-3 mt-3 mb-3">
+        <h1 class="account_title">profile settings</h1>
+        <div class="container col-lg-6 p-3 mt-3 mb-3 account_container">
             <form id="infos" name="infos" @submit.prevent="processForm" class="register-form my-2 my-lg-0" method="post">
                 {{ assignGender(<?= json_encode($gender) ?>) }}
                 {{ assignOrientation(<?= json_encode($orientation) ?>) }}
@@ -64,7 +63,7 @@ require_once("utils/fetch_account_data.php");
 
                 <div class="form-group" id="tests">
                     <label for="bio" class="lab">A short paragraph about yourself</label>
-                    <textarea style="width: 100%;" maxlength="512" v-model="bio" placeholder="Your bio here..." required></textarea>
+                    <textarea style="width: 100%;" class="text_area" maxlength="512" v-model="bio" placeholder="Your bio here..." required></textarea>
                 </div>
 
                 <div class="form-group">
@@ -78,9 +77,8 @@ require_once("utils/fetch_account_data.php");
             </form>
         </div>
 
-        <h1>your photos</h1>
-        <hr />
-        <div id="photos" class="col-lg-12 text-center">
+        <h1 class="account_title">your photos</h1>
+        <div id="photos" class="col-lg-12 text-center account_container">
             <photo-upload <?php if ($photos[0] && $photos[0] !== "null") echo "v-bind:db-path=' $photos[0] '";?> v-bind:id-component="1" btn="Profile picture"></photo-upload>
             <?php
             if ($photos[0] && $photos[0] !== "null")
@@ -95,9 +93,8 @@ require_once("utils/fetch_account_data.php");
             ?>
         </div>
 
-        <h1>account settings</h1>
-        <hr />
-            <div class="container col-lg-6 p-3 mt-3 mb-3">
+        <h1 class="account_title">account settings</h1>
+            <div class="container col-lg-6 p-3 mt-3 mb-3 account_container">
                 <form id="account" name="account" @submit.prevent="processForm" class="register-form my-2 my-lg-0" method="post">
                     {{ assignFirstname("<?= $firstname ?>") }}
                     {{ assignLastname("<?= $lastname ?>") }}
@@ -164,9 +161,8 @@ require_once("utils/fetch_account_data.php");
                 </form>
         </div>
 
-        <h1>security</h1>
-        <hr />
-            <div class="container col-lg-6 p-3 mt-3 mb-3">
+        <h1 class="account_title">security</h1>
+            <div class="container col-lg-6 p-3 mt-3 mb-3 account_container">
                 <form id="security" name="security" @submit.prevent="processForm" class="register-form my-2 my-lg-0" method="post">
                     <div class="form-group">
                         <label for="currpw" class="lab">Current password</label>
@@ -213,9 +209,8 @@ require_once("utils/fetch_account_data.php");
                 </form>
             </div>
 
-        <h3>pick your location</h3>
-        <hr>
-        <div class="col-10 offset-1 map-wrapper">
+        <h3 class="account_title">pick your location</h3>
+        <div class="col-10 offset-1 map-wrapper account_container">
             <div id="map"></div>
         </div>
 
