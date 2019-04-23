@@ -9,6 +9,18 @@ html {min-width: 450px; min-height: 250px;}
     .rep-block-btn {text-align: center!important; margin-left: 0!important;}
 }
 
+.container {
+    margin-top: 13%!important;
+}
+
+#nav-wrapper {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 665;
+}
+
+
 .profile_left {
     background-color: rgb(230, 230, 230);
     border: 2px solid #70be6f;;
@@ -58,7 +70,6 @@ textarea {border-radius: 5px;}
     -webkit-box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
     -moz-box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
     box-shadow: 0 0 20px -4px rgba(58, 141, 69, 0.75);
-}
 }
 
 .banner {

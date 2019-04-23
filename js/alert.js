@@ -1,6 +1,9 @@
 function dismissAlert(closeBtn)
 {
-    var alert = closeBtn.parentElement;
+    var alert = closeBtn.parentElement,
+        wrap = document.getElementById("alertwrapper");
+    if (wrap)
+        wrap.remove();
     alert.remove();
 }
 
@@ -18,5 +21,5 @@ function addAlert(alert, where)
             alertDiv.remove();
     }
     node.innerHTML += alert;
-    insertAfter(node, where);
+    where.parentNode.appendChild(node);
 }

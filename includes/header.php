@@ -10,6 +10,7 @@ $form = new bootstrapForm();
 $form->changeSurr('div class="form-group"', 'div');
 ?>
 <script src="js/functions.js"></script>
+<div id="nav-wrapper">
 <nav class="navbar navbar-expand-lg" id="header">
 <div class="container-fluid">
     <?php
@@ -63,3 +64,4 @@ $form->changeSurr('div class="form-group"', 'div');
     </div>
 </div>
 </nav>
+</div>

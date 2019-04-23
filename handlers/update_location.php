@@ -16,9 +16,9 @@ $db = database::getInstance('matcha');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'));
     if (!empty($data->{'lat'}) && !empty($data->{'lng'})) {
-        $lat = secure_input($data->{'lat'});
-        $lng = secure_input($data->{'lng'});
-        if (is_float($lat) && is_float($lng)) {
+        $lat = (float)secure_input($data->{'lat'});
+        $lng = (float)secure_input($data->{'lng'});
+        if (is_float($lat) && is_float($lng) && $lat != 0 && $lng != 0) {
             $attributes['user_id'] = secure_input($_SESSION['id']);
             $req = $db->prepare("SELECT * FROM `user` WHERE `id` = :user_id", $attributes);
             if (!$req) {
