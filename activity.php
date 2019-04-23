@@ -26,7 +26,7 @@
 require_once("includes/header.php");
 require_once("utils/fetch_activity.php");
 if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
-    header('Location: /Matcha/?e=reqlog');
+    header('Location: /Matcha/?e=prolog');
 ?>
 
 <div class="container mt-5 small-page-wrapper">

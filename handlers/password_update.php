@@ -12,6 +12,7 @@ require ("../class/autoloader.php");
 require_once("../utils/functions.php");
 autoloader::register();
 $db = database::getInstance('matcha');
+
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
     $data = json_decode(file_get_contents('php://input'));

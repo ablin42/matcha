@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     array_pop($attributes);
                     $db->prepare("DELETE FROM `vote` WHERE `id_voter` = :voter AND `id_voted` = :voted", $attributes);
                     if ($like && $vote == 1) {
-                        $notify['body'] = "You matched with <a href='profile?u=" . $username . "'>" . $username . "</a> but he<b>unliked</b> your profile... :(";
+                        $notify['body'] = "You matched with <a href='profile?u=" . $username . "'>" . $username . "</a> but he <b>unliked</b> your profile... :(";
                         $db->prepare("UPDATE `notif` 
                                                 SET `body` = :body, `date` = NOW() 
                                                 WHERE `id_notifier` = :notifier 

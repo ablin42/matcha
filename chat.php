@@ -21,12 +21,12 @@
     </script>
 </head>
 
-<body><!-- onload="setInterval(updateChat('// $_GET['r'] '), 1000)">-->
+<body>
 <?php
 require_once("includes/header.php");
 require_once("utils/fetch_chat.php");
-if (isset($_GET['e']))
-    redirection_handler($_GET['e']);
+if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
+    header('Location: /Matcha/?e=prolog');
 ?>
 
 <div class="container mt-5 small-page-wrapper">
