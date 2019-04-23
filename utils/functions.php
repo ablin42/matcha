@@ -137,7 +137,7 @@ function redirection_handler($error)
             $type = "danger";
     }
     echo $message;
-    echo alert_bootstrap("danger", $message, "text-align: center;display: block; position: absolute;top: 6.5%;width: 100%;");
+    echo alert_bootstrap("danger", $message, "text-align: center;display: block; position: absolute;top: 6.5%;width: 100%; z-index:664");
 }
 
 function check_length($str, $min, $max)

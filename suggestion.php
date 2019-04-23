@@ -178,6 +178,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
             </div>
         </div>
 </div>
+</div>
 
 <?php require_once("includes/footer.php");?>
 <script src="js/online.js"></script>

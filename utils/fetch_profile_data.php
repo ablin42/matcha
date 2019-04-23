@@ -40,7 +40,6 @@ if (!empty($_GET['u'])) {
         }
     }
 
-
     $datetime1 = new DateTime('', new DateTimeZone('Europe/Paris'));
     $datetime2 = new DateTime($lastonline, new DateTimeZone('Europe/Paris'));
     $interval = $datetime2->diff($datetime1);
