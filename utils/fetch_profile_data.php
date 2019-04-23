@@ -8,7 +8,7 @@
 use \ablin42\database;
 $db = database::getInstance('matcha');
 
-if (!empty($_GET['u'])) {
+if (!empty($_GET['u']) && !empty($_SESSION['logged'])) {
     $username = secure_input($_GET['u']);
     $score = 0;
     $req = $db->prepare("SELECT * FROM `user` WHERE `username` = :username", array("username" => $username));
