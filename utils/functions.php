@@ -85,44 +85,59 @@ function redirection_handler($error)
     switch ($error)
     {
         case "block":
-            echo alert_bootstrap("danger", "<b>Access unauthorized:</b> You blocked this user/he blocked you.", "text-align: center;");
+            $message = "<b>Access unauthorized:</b> You blocked this user/he blocked you.";
+            $type = "warning";
             break;
         case "logg":
-            echo alert_bootstrap("danger", "You're <b>logged in</b>, no need to access this page.", "text-align: center;");
+            $message = "You're <b>logged in</b>, no need to access this page.";
+            $type = "info";
             break;
         case "chat":
-            echo alert_bootstrap("danger", "Access <b>unauthorized</b>!", "text-align: center;");
+            $message = "Access <b>unauthorized</b>!";
+            $type = "danger";
             break;
         case "sug":
-            echo alert_bootstrap("info", "You need to be <b>logged in</b> to access this page!", "text-align: center;");
+            $message = "You need to be <b>logged in</b> to access this page!";
+            $type = "info";
             break;
         case "reqlog":
-            echo alert_bootstrap("info", "You need to <b>fill</b> in your <b>gender</b>, <b>orientation</b>, <b>bio</b>, <b>interest tags</b> and have atleast <b>one photo</b>!", "text-align: center;");
-            break;
+           $message = "You need to <b>fill</b> in your <b>gender</b>, <b>orientation</b>, <b>bio</b>, <b>interest tags</b> and have atleast <b>one photo</b>!";
+           $type = "info";
+           break;
         case "reset":
-            echo alert_bootstrap("info", "Go to <b>\"Forgot your password?\"</b> to reset your password! We will send you a mail.", "text-align: center;");
+            $message = "Go to <b>\"Forgot your password?\"</b> to reset your password! We will send you a mail.";
+            $type = "info";
             break;
         case "acc":
-            echo alert_bootstrap("info", "You need to be <b>logged in</b> to access your account!", "text-align: center;");
+            $message = "You need to be logged in to access your account!";
+            $type = "info";
             break;
         case "pw":
-            echo alert_bootstrap("info", "<b>You are logged in!</b> Click <a href='account'>here<a> to change your password.", "text-align: center;");
+            $message = "<b>You are logged in!</b> Click <a href='account'>here<a> to change your password.";
+            $type = "info";
             break;
         case "reg":
-            echo alert_bootstrap("info", "You cannot create an account while you're <b>logged in!</b>", "text-align: center;");
+            $message = "You cannot create an account while you're <b>logged in!</b>";
+            $type = "warning";
             break;
         case "pro":
-            echo alert_bootstrap("info", "This <b>user</b> does not exist!", "text-align: center;");
+            $message = "This <b>user</b> does not exist!";
+            $type = "warning";
             break;
         case "prolog":
-            echo alert_bootstrap("info", "You need to be <b>logged in</b>!", "text-align: center;");
+            $message = "You need to be <b>logged in</b>!";
+            $type = "info";
             break;
         case "log":
-            echo alert_bootstrap("info", "You are already <b>logged in</b>!", "text-align: center;");
+            $message = "You are already <b>logged in</b>!";
+            $type = "info";
             break;
         default:
-            echo alert_bootstrap("danger", "ERROR!", "text-align: center;");
+            $message = "ERROR";
+            $type = "danger";
     }
+    echo $message;
+    echo alert_bootstrap("danger", $message, "text-align: center;display: block; position: absolute;top: 6.5%;width: 100%;");
 }
 
 function check_length($str, $min, $max)
