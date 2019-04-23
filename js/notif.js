@@ -14,6 +14,14 @@ $(document).ready(function() {
         .catch((error) => console.log(error));
 });
 
+function notifRedirect(e, notif) {
+    e.preventDefault();
+    let url = notif.href;
+    setTimeout(function () {
+        window.location.href = url;
+    }, 750);
+}
+
 var updateNotif = setInterval(function () {
     fetch('utils/fetch_notif.php', {
         method: 'post',

@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $attributes['voted'] = $voted;
                 $username = ucfirst($req[0]->username);
                 $notify['id'] = $voted;
-                $notify['body'] = "<a href='profile?u=".$username."'>".$username."</a> <b>liked</b> your profile";
+                $notify['body'] = "<a onclick='notifRedirect(event, this);' href='profile?u=".$username."'>".$username."</a> <b>liked</b> your profile";
                 $notify['notifier'] = $voter;
                 $like = $db->prepare("SELECT * FROM `vote` WHERE `id_voter` = :voted AND `id_voted` = :voter AND `type` = 1", $attributes);
                 $attributes['vote'] = $vote;
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 AND `type` = 'like'",
                                                 array("notifier" => $voter, "user_id" => $voted));
                         if ($like) {
-                            $notify['body'] = "You matched with <a href='profile?u=".$username."'>".$username."</a> but he <b>unliked</b> your profile... :(";
+                            $notify['body'] = "You matched with <a onclick='notifRedirect(event, this);' href='profile?u=".$username."'>".$username."</a> but he <b>unliked</b> your profile... :(";
                             $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`) 
                                                 VALUES (:notifier, :id, 'like',:body, NOW())", $notify);
                         }
@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     array_pop($attributes);
                     $db->prepare("DELETE FROM `vote` WHERE `id_voter` = :voter AND `id_voted` = :voted", $attributes);
                     if ($like && $vote == 1) {
-                        $notify['body'] = "You matched with <a href='profile?u=" . $username . "'>" . $username . "</a> but he <b>unliked</b> your profile... :(";
+                        $notify['body'] = "You matched with <a onclick='notifRedirect(event, this);' href='profile?u=" . $username . "'>" . $username . "</a> but he <b>unliked</b> your profile... :(";
                         $db->prepare("UPDATE `notif` 
                                                 SET `body` = :body, `date` = NOW() 
                                                 WHERE `id_notifier` = :notifier 
@@ -78,10 +78,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                     else if (is_notified($db, "like", $voter, $voted) === 1 && $vote != -1)
                         $db->prepare("DELETE FROM `notif` WHERE `id_notifier` = :notifier AND `user_id` = :id AND `type` = 'like'", array("notifier" => $voter, "id" => $voted));
-                    echo alert_bootstrap("info" , "Your <b>vote</b> has been <b>deleted!</b>", "text-align: center;");
+                    if ($vote == 1)
+                        echo alert_bootstrap("info" , "You <b>unliked</b> this user!", "text-align: center;");
+                    else if ($vote == -1)
+                        echo alert_bootstrap("info" , "You <b>undisliked</b> this user!", "text-align: center;");
                     return;
                 }
-                echo alert_bootstrap("success" , "Your <b>vote</b> has been <b>registered!</b>", "text-align: center;");
+                if ($vote == 1)
+                    echo alert_bootstrap("success" , "You <b>liked</b> this user!", "text-align: center;");
+                else if ($vote == -1)
+                    echo alert_bootstrap("info" , "You <b>disliked</b> this user!", "text-align: center;");
             }
             else {
                 echo alert_bootstrap("warning" , "This <b>user</b> does not exist", "text-align: center;");

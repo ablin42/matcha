@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($req){
             $req = $db->prepare("DELETE FROM `notif` WHERE `user_id` = :id AND `id` = :id_notif", $attributes);
             echo alert_bootstrap("success" , "Notification <b>deleted</b>.", "text-align: center;");
-            return;
         }
         else
             echo alert_bootstrap("info" , "This is not <b>your</b> notification or you're not logged in.", "text-align: center;");

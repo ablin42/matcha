@@ -47,7 +47,7 @@ require_once("utils/fetch_profile_data.php");
             <h3 class="username d-inline-block"><?= $username ?>,</h3>
             <?php
                 if ($distance)
-                    echo "<h5 style='margin-top: 8px;' class='d-inline-block'>".$distance."KM away</h5>"; ?>
+                    echo "<h5 style='margin-top: 8px;' class='d-inline-block ml-2'>".$distance."KM away</h5>"; ?>
             </div>
         <div class="row">
             <div class="col-4 offset-1">

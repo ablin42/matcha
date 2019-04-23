@@ -32,8 +32,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
 <div class="container mt-5 small-page-wrapper">
     <div class="wrapper col-12">
         <h1>Search a profile</h1>
-        <div id="sort" class="container">
-            <!--   <button @click="display = !display" class="btn btn-outline-warning btn-sign-in">Display/Hide filters and sorting options</button>-->
+        <div id="sort" class="container" style="margin-top: 0!important;">
             <form name="sort" @submit.prevent="processSort" class="register-form my-2" method="post">
                 <div class="form-group">
                     <label for="sort" class="lab">Sort Type</label>

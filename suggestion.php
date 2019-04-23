@@ -36,7 +36,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
     <div class="wrapper col-12">
     <h1>Profiles you might be interested in</h1>
         <h5>You can use the form below to sort these suggestions!</h5>
-        <div id="sort" class="container">
+        <div id="sort" class="container" style="margin-top: 0!important;">
          <!--   <button @click="display = !display" class="btn btn-outline-warning btn-sign-in">Display/Hide filters and sorting options</button>-->
         <form name="sort" @submit.prevent="processSort" class="register-form my-2" method="post">
             <div class="form-group">
