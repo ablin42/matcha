@@ -115,10 +115,10 @@ function redirection_handler($error)
             echo alert_bootstrap("info", "This <b>user</b> does not exist!", "text-align: center;");
             break;
         case "prolog":
-            echo alert_bootstrap("info", "You need to be <b>logged in</b> to see other's profile!", "text-align: center;");
+            echo alert_bootstrap("info", "You need to be <b>logged in</b>!", "text-align: center;");
             break;
         case "log":
-            echo alert_bootstrap("info", "You are already <b>logged in!</b>", "text-align: center;");
+            echo alert_bootstrap("info", "You are already <b>logged in</b>!", "text-align: center;");
             break;
         default:
             echo alert_bootstrap("danger", "ERROR!", "text-align: center;");

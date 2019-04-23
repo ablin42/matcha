@@ -138,38 +138,43 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
             <?php
                 require_once("utils/fetch_suggestion.php");
                 $i = 0;
-                foreach ($sorted as $match)
-                {
-                    if ($i % 2 === 0)
-                        echo "<div class='row'>";
-                    $match['birthyear'] = date("Y") - (int)$match['birthyear'];
-                    echo "<div class='result_block'>";
-                    if ($match['profile_pic'])
-                    echo "<div class='col-8 offset-2'>";
-                    echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
-                    echo "<div class='text_block'>";
-                    echo "<div class='user_info'>
-                            <p class='user_name'><a href='/Matcha/profile?u=".$match[1]."'>".$match[1]."</a></p>
-                            <p class='age'>(".$match['birthyear'].")</p>
+                if ($sorted) {
+                    foreach ($sorted as $match) {
+                        if ($i % 2 === 0)
+                            echo "<div class='row'>";
+                        $match['birthyear'] = date("Y") - (int)$match['birthyear'];
+                        echo "<div class='result_block'>";
+                        if ($match['profile_pic'])
+                            echo "<div class='col-8 offset-2'>";
+                        echo "<img class='profile_main' alt='profile_picture' src='" . $match['profile_pic'] . "' />";
+                        echo "<div class='text_block'>";
+                        echo "<div class='user_info'>
+                            <p class='user_name'><a href='/Matcha/profile?u=" . $match[1] . "'>" . $match[1] . "</a></p>
+                            <p class='age'>(" . $match['birthyear'] . ")</p>
                             </br>
                             <div class='gender_distance'>
-                            <p class='gender'>".$match[2].", ".$match[3]." ,</p>
-                            <p class='distance'>".$match['distance']." KM away</p>
+                            <p class='gender'>" . $match[2] . ", " . $match[3] . " ,</p>
+                            <p class='distance'>" . $match['distance'] . " KM away</p>
                             </div>
                             </div>";
-                    echo "<p class='p_score'>Popularity score: <b class='score'>".$match['score']."</b></p>";
-                    foreach ($match['tags'] as $tag)
-                        echo "<div class='matched_tag'><p>".$tag."</p></div>";
-                    foreach ($match['usertags'] as $tag)
-                        echo "<div class='profile_tag'><p>" . $tag . "</p></div>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "</div>";
-                    if ($i % 2 !== 0)
+                        echo "<p class='p_score'>Popularity score: <b class='score'>" . $match['score'] . "</b></p>";
+                        foreach ($match['tags'] as $tag)
+                            echo "<div class='matched_tag'><p>" . $tag . "</p></div>";
+                        foreach ($match['usertags'] as $tag)
+                            echo "<div class='profile_tag'><p>" . $tag . "</p></div>";
                         echo "</div>";
-                    $i++;
+                        echo "</div>";
+                        echo "</div>";
+                        if ($i % 2 !== 0)
+                            echo "</div>";
+                        $i++;
+                    }
                 }
-            ?>
+                else {
+                    echo "<h3>You dont have any matching tags with anyone, maybe put some more?</h3>";
+                    echo "<h5>... or you can search specific profiles <a href='search'>here</a></h5>";
+                }
+                ?>
             </div>
         </div>
 </div>

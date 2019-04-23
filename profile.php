@@ -22,9 +22,9 @@
 <body>
 <?php
 require_once("includes/header.php");
-require_once("utils/fetch_profile_data.php");
 if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
     header('Location: /Matcha/?e=prolog');
+require_once("utils/fetch_profile_data.php");
 ?>
 
 <div class="container mt-5 small-page-wrapper">

@@ -20,7 +20,7 @@ let resetpwd = new Vue({
         processForm: function () {
             let id = document.getElementById("id_user").value,
                 token = document.getElementById("token").value;
-            if (this.errors.password === true || this.errors.password === true || id == null || token == null) {
+            if (this.errors.password === true || this.errors.password2 === true || id == null || token == null) {
                 addAlert('<div id="alert" class="alert alert-warning" style="text-align: center;" role="alert"><b>Error:</b> Please fill in the field properly.\n' +
                     '            <button type="button" class="close" onclick="dismissAlert(this)" data-dismiss="alert" aria-label="Close">\n' +
                     '                <span aria-hidden="true">×</span>\n' +

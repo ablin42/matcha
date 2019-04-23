@@ -24,21 +24,31 @@ let account = new Vue({
     },
     methods: {
         processForm: function () {
-            let tagInput = document.getElementsByClassName("label-info"),
-                tags = [];
-            for (i = 0; i < tagInput.length; i++)
-                tags.push(tagInput[i].textContent);
-            fetch('handlers/update_info.php', {
-                method: 'post',
-                mode: 'same-origin',
-                headers: {'Content-Type': 'application/json'}, //sent
-                body: JSON.stringify({
-                    gender: this.selectedGender, orientation: this.selectedOrientation, bio: this.bio, tags: tags
+            if ((this.selectedGender !== "Male" && this.selectedGender !== "Female") ||
+                (this.selectedOrientation !== "Heterosexual" && this.selectedOrientation !== "Homosexual" && this.selectedOrientation !== "Bisexual")) {
+                addAlert('<div id="alert" class="alert alert-warning" style="text-align: center;" role="alert"><b>Error:</b> Please fill in the fields properly.\n' +
+                    '            <button type="button" class="close" onclick="dismissAlert(this)" data-dismiss="alert" aria-label="Close">\n' +
+                    '                <span aria-hidden="true">×</span>\n' +
+                    '            </button>\n' +
+                    '            </div>', document.getElementById("header"));
+            }
+            else {
+                let tagInput = document.getElementsByClassName("label-info"),
+                    tags = [];
+                for (i = 0; i < tagInput.length; i++)
+                    tags.push(tagInput[i].textContent);
+                fetch('handlers/update_info.php', {
+                    method: 'post',
+                    mode: 'same-origin',
+                    headers: {'Content-Type': 'application/json'}, //sent
+                    body: JSON.stringify({
+                        gender: this.selectedGender, orientation: this.selectedOrientation, bio: this.bio, tags: tags
+                    })
                 })
-            })
-                .then((res) => res.text())
-                .then((data) => addAlert(data, document.getElementById("header")))
-                .catch((error) => console.log(error))
+                    .then((res) => res.text())
+                    .then((data) => addAlert(data, document.getElementById("header")))
+                    .catch((error) => console.log(error))
+            }
         },
         assignGender: function (gender) {
             this.currGender = gender;

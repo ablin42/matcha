@@ -22,3 +22,5 @@ if (!empty($_GET['r'])){
         header('Location: /Matcha/Account?e=block');
     $req = $db->prepare("SELECT * FROM `chat` WHERE `roomid` = :roomid", $attributes);
 }
+else
+    header('Location: /Matcha/Account?e=chat');

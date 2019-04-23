@@ -49,7 +49,7 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="gender" class="lab">Sort Type</label>
+                    <label for="gender" class="lab">Gender</label>
                     <select name="gender" v-model="selectedGender" required>
                         <option v-for="gender in genderOptions" v-bind:value="gender.value">
                             {{ gender.text }}

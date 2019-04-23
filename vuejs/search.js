@@ -52,42 +52,52 @@ let account = new Vue({
     },
     methods: {
         processSort: function () {
-            let tagInput = document.getElementsByClassName("label-info"),
-                tags = [];
-            for (i = 0; i < tagInput.length; i++)
-                tags.push(tagInput[i].textContent);
-            if (this.errors.byStart === true || this.errors.byEnd === true ||
-                this.errors.pStart === true || this.errors.pEnd === true ||
-                this.errors.location === true) {
+            if ((this.selectedGender !== "Male" && this.selectedGender !== "Female" && this.selectedGender !== "ALL") ||
+                (this.selectedOrientation !== "Heterosexual" && this.selectedOrientation !== "Homosexual" && this.selectedOrientation !== "Bisexual" && this.selectedOrientation !== "ALL")){
                 addAlert('<div id="alert" class="alert alert-warning" style="text-align: center;" role="alert"><b>Error:</b> Please fill in the fields properly.\n' +
                     '            <button type="button" class="close" onclick="dismissAlert(this)" data-dismiss="alert" aria-label="Close">\n' +
                     '                <span aria-hidden="true">×</span>\n' +
                     '            </button>\n' +
-                    '            </div>', document.getElementById("header"))
+                    '            </div>', document.getElementById("header"));
             }
             else {
-                fetch('handlers/search_user.php', {
-                    method: 'post',
-                    mode: 'same-origin',
-                    headers: {'Content-Type': 'application/json'}, //sent
-                    body: JSON.stringify({
-                        sort: this.selectedSort, order: this.selectedOrder,
-                        gender: this.selectedGender, orientation: this.selectedOrientation,
-                        bystart: this.byStart, byend: this.byEnd,
-                        pstart: this.pStart, pend: this.pEnd,
-                        tags: tags, location: this.location
+                let tagInput = document.getElementsByClassName("label-info"),
+                    tags = [];
+                for (i = 0; i < tagInput.length; i++)
+                    tags.push(tagInput[i].textContent);
+                if (this.errors.byStart === true || this.errors.byEnd === true ||
+                    this.errors.pStart === true || this.errors.pEnd === true ||
+                    this.errors.location === true) {
+                    addAlert('<div id="alert" class="alert alert-warning" style="text-align: center;" role="alert"><b>Error:</b> Please fill in the fields properly.\n' +
+                        '            <button type="button" class="close" onclick="dismissAlert(this)" data-dismiss="alert" aria-label="Close">\n' +
+                        '                <span aria-hidden="true">×</span>\n' +
+                        '            </button>\n' +
+                        '            </div>', document.getElementById("header"))
+                }
+                else {
+                    fetch('handlers/search_user.php', {
+                        method: 'post',
+                        mode: 'same-origin',
+                        headers: {'Content-Type': 'application/json'}, //sent
+                        body: JSON.stringify({
+                            sort: this.selectedSort, order: this.selectedOrder,
+                            gender: this.selectedGender, orientation: this.selectedOrientation,
+                            bystart: this.byStart, byend: this.byEnd,
+                            pstart: this.pStart, pend: this.pEnd,
+                            tags: tags, location: this.location
+                        })
                     })
-                })
-                    .then((res) => res.text())
-                    .then(function (data) {
-                        document.getElementById('gen-sugg').remove();
-                        let div = document.createElement('div'),
-                            parent = document.getElementById("suggestion");
-                        div.setAttribute('id', 'gen-sugg');
-                        parent.appendChild(div);
-                        div.innerHTML += data;
-                    })
-                    .catch((error) => console.log(error))
+                        .then((res) => res.text())
+                        .then(function (data) {
+                            document.getElementById('gen-sugg').remove();
+                            let div = document.createElement('div'),
+                                parent = document.getElementById("suggestion");
+                            div.setAttribute('id', 'gen-sugg');
+                            parent.appendChild(div);
+                            div.innerHTML += data;
+                        })
+                        .catch((error) => console.log(error))
+                }
             }
         },
         validateByStart: function () {
