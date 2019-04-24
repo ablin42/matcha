@@ -79,5 +79,5 @@ var updateChat = setInterval(function () {
         .then(function(data){
             document.getElementById('chat-area').innerHTML = data;
         })
-        .catch((error) => console.log(error))
+        //.catch((error) => console.log(error))
 }, 5000);////////////*/
