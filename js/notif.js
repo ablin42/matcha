@@ -49,5 +49,5 @@ function removeNotif(notif){
                     document.getElementById("dropdown-notif-content").classList.toggle("show");
             }
         })
-        .catch((error) => console.log(error));
+        //.catch((error) => console.log(error));
 }
