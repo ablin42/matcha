@@ -61,13 +61,14 @@ require_once("utils/fetch_account_data.php");
                     </select>
                 </div>
 
+                <div class="form-group">
+                    <label class="lab">Center of interests</label>
+                    <input v-bind="selectedTags" type="text" value="" data-role="tagsinput" id="tagInput" class="form-control">
+                </div>
+
                 <div class="form-group" id="tests">
                     <label for="bio" class="lab">A short paragraph about yourself</label>
                     <textarea style="width: 100%;" class="text_area" maxlength="512" v-model="bio" placeholder="Your bio here..." required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <input v-bind="selectedTags" type="text" value="" data-role="tagsinput" id="tagInput" class="form-control">
                 </div>
 
 
