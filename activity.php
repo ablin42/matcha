@@ -26,7 +26,7 @@
 require_once("includes/header.php");
 require_once("utils/fetch_activity.php");
 if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
-    header('Location: '.$pathurl.'?e=prolog');
+    header('Location: /'.$pathurl.'/?e=prolog');
 ?>
 
 <div class="container mt-5 small-page-wrapper">
@@ -36,14 +36,14 @@ if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
         <?php
             foreach ($matched as $user) {
                 echo "<p class='activity'><i class='time'>".$user[0]->date."</i> : ";
-                echo "You matched with <a href='/Matcha/profile?u=".$user['username']."'>".$user['username']."</a>!</p>";
+                echo "You matched with <a href='/".$pathurl."/profile?u=".$user['username']."'>".$user['username']."</a>!</p>";
             }
             foreach ($likes as $like) {
-                echo "<p class='activity'><i class='time'>".$like->date."</i> : <a href='/Matcha/profile?u=".$like->username."'>";
+                echo "<p class='activity'><i class='time'>".$like->date."</i> : <a href='/".$pathurl."/profile?u=".$like->username."'>";
                 echo "".$like->username."</a> liked your profile!</p>";
             }
             foreach ($visits as $visit) {
-                echo "<p class='activity'><i class='time'>".$visit->date."</i> : <a href='/Matcha/profile?u=".$visit->username."'>";
+                echo "<p class='activity'><i class='time'>".$visit->date."</i> : <a href='/".$pathurl."/profile?u=".$visit->username."'>";
                 echo "".$visit->username."</a> visited your profile!</p>";
             }
         ?>

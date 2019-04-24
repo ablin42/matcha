@@ -28,7 +28,7 @@
 require_once("includes/header.php");
 use \ablin42\database;
 if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
-    header('Location: '.$pathurl.'?e=acc');
+    header('Location: /'.$pathurl.'/?e=acc');
 if (isset($_GET['e']))
     redirection_handler($_GET['e']);
 require_once("utils/fetch_account_data.php");

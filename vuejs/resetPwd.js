@@ -43,7 +43,11 @@ let resetpwd = new Vue({
                         addAlert(data, document.getElementById("header"));
                         if (data.indexOf("Congratulations!") !== -1)
                             setTimeout(function () {
-                                window.location.href = "/Matcha/";
+                                var getUrl = window.location,
+                                    baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1],
+                                    pathArray = window.location.pathname.split( '/' ),
+                                    pathurl = "/" + pathArray[1] + "/";
+                                window.location.href = pathurl;
                             }, 1000);
                     })
                     .catch((error) => console.log(error))

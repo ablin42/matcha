@@ -3,11 +3,7 @@ session_start();
 use \ablin42\bootstrapForm;
 use \ablin42\autoloader;
 
-define('APPROOT', dirname(__FILE__));
-$t = explode("/",APPROOT);
-$p = $t[sizeof($t) - 2];
-$pathurl = "/".$p."/";
-define('PATHURL', $pathurl);
+require_once("utils/pathinfo.php");
 
 require_once ("class/autoloader.php");
 require_once ("utils/functions.php");

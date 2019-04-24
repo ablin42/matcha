@@ -14,6 +14,7 @@ require ("../class/autoloader.php");
 require_once("../utils/functions.php");
 autoloader::register();
 $db = database::getInstance('matcha');
+require_once("../utils/pathinfo.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'));
@@ -100,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 array("user_id" => $user_id, "lat" => $lat, "lng" => $lng));
 
             $subject = "Confirm your account at Matcha";
-            $message = "In order to confirm your account, please click this link: \n\nhttp://localhost:8080/Matcha/utils/confirm_account.php?id=$user_id&token=$token";
+            $message = "In order to confirm your account, please click this link: \n\nhttp://localhost:8080/$pathurl/utils/confirm_account.php?id=$user_id&token=$token";
             mail($email, $subject, $message);
             echo alert_bootstrap("success", "<b>Your account has been successfully created!</b> Please <b>confirm your email</b> by clicking the link we sent at your e-mail address", "text-align: center;");
         }

@@ -10,6 +10,7 @@ use \ablin42\database;
 use \ablin42\autoloader;
 require ("../class/autoloader.php");
 require_once("../utils/functions.php");
+require_once("../utils/pathinfo.php");
 autoloader::register();
 $db = database::getInstance('matcha');
 
@@ -33,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         echo alert_bootstrap("warning", "Incorrect password!", "text-align: center;");
                 } else {
                     $subject = "Confirm your account at Matcha";
-                    $message = "In order to confirm your account, please click this link: \n\nhttp://localhost:8080/Matcha/utils/confirm_account.php?id=$user_id&token=$token";
+                    $message = "In order to confirm your account, please click this link: \n\nhttp://localhost:8080/$pathurl/utils/confirm_account.php?id=$user_id&token=$token";
                     mail($elem->email, $subject, $message);
                     echo alert_bootstrap("info", "You did not <b>confirm your account</b> yet, we just sent you another <b>e-mail</b> to confirm your account.", "text-align: center;");
                 }

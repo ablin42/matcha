@@ -23,7 +23,7 @@
 <?php
 require_once("includes/header.php");
 if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
-    header('Location: '.$pathurl.'?e=prolog');
+    header('Location: /'.$pathurl.'/?e=prolog');
 require_once("utils/fetch_profile_data.php");
 ?>
 
@@ -31,7 +31,7 @@ require_once("utils/fetch_profile_data.php");
     <div class="wrapper col-12">
             <?php
             if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), 1) === 1)
-                echo "<div class='relations'>You matched with <b class='username'>" . $username . "</b>! Click <a href='chat?r=".$roomid."'>here</a> to send a message</div>";
+                echo "<div class='relations'>You matched with <b class='username'>" . $username . "</b>! Click <a href='/".$pathurl."/chat?r=".$roomid."'>here</a> to send a message</div>";
             else if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), 1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), -1) === 1)
                 echo "<div class='relation_disliked'><b class='username'>".$username."</b> liked your profile and you disliked <b class='username'>".$username."</b>'s profile</div>";
             else if (has_voted($db, secure_input($id), secure_input($_SESSION['id']), -1) === 1 && has_voted($db, secure_input($_SESSION['id']),secure_input($id), -1) === 1)

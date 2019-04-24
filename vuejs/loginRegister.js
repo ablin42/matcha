@@ -319,7 +319,11 @@ let login = new Vue({
                     addAlert(data, document.getElementById("header"));
                     if (data.indexOf("logged in!") !== -1)
                         setTimeout(function () {
-                            window.location.href = "/Matcha/Activity";
+                            var getUrl = window.location,
+                                baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1],
+                                pathArray = window.location.pathname.split( '/' ),
+                                pathurl = "/" + pathArray[1] + "/Activity";
+                            window.location.href = pathurl;
                         }, 1000);
                 })
                 .catch((error) => console.log(error));
@@ -351,7 +355,11 @@ let login = new Vue({
                         addAlert(data, document.getElementById("header"));
                         if (data.indexOf("successfully") !== -1)
                             setTimeout(function () {
-                                window.location.href = "/Matcha";
+                                var getUrl = window.location,
+                                    baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1],
+                                    pathArray = window.location.pathname.split( '/' ),
+                                    pathurl = "/" + pathArray[1];
+                                window.location.href = pathurl;
                             }, 1500);
                     })
                     .catch((error) => console.log(error))

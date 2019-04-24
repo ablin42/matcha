@@ -13,6 +13,8 @@ require_once("../utils/functions.php");
 autoloader::register();
 $db = database::getInstance('matcha');
 
+require_once("../utils/pathinfo.php");
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'));
     if (!empty($data->{'firstname'}) && !empty($data->{'lastname'}) && !empty($data->{'username'}) && !empty($data->{'email'})) {
@@ -72,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $db->prepare("UPDATE `user_info` SET `firstname` = :firstname, `lastname` = :lastname WHERE `user_id` = :user_id", $attributes_info);
 
             $subject = "Confirm your email at Matcha";
-            $message = "In order to confirm your account, please click this link: \n\nhttp://localhost:8080/Matcha/utils/confirm_account.php?id=$user_id&token=$token";
+            $message = "In order to confirm your account, please click this link: \n\nhttp://localhost:8080/$pathurl/utils/confirm_account.php?id=$user_id&token=$token";
             mail($email, $subject, $message);
             echo alert_bootstrap("success", "<b>Your account informations has been successfully updated!</b> Please <b>confirm your email</b> by clicking the link we sent at your new e-mail address", "text-align: center;");
         }

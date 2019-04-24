@@ -23,9 +23,9 @@
 <?php
 require_once("includes/header.php");
 if (isset($_SESSION['logged']) && $_SESSION['logged'] === 1)
-    header('Location: '.$pathurl.'Account?e=logg');
+    header('Location: /'.$pathurl.'/Account?e=logg');
 if (!isset($_GET['id']) && !isset($_GET['token']))
-    header('Location: /Matcha?e=reset');
+    header('Location: /'.$pathurl.'?e=reset');
 ?>
 <div class="container mt-5 small-page-wrapper">
     <div class="col-lg-8 mx-auto p-2">

@@ -113,7 +113,7 @@ function redirection_handler($error)
             $type = "info";
             break;
         case "pw":
-            $message = "<b>You are logged in!</b> Click <a href='account'>here<a> to change your password.";
+            $message = "You are <b>logged in</b>!";
             $type = "info";
             break;
         case "reg":

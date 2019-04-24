@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $like = $db->prepare("SELECT * FROM `vote` WHERE `id_voter` = :voted AND `id_voted` = :voter AND `type` = 1", $attributes);
                 $attributes['vote'] = $vote;
                 if ($like)
-                    $notify['body'] = "<b>Match! </b><a href='profile?u=" . $username . "'>" . $username . "</a> <b>liked</b> your profile back! You can now <b>message eachother</b>!";
+                    $notify['body'] = "<b>Match! </b><a href='/".$pathurl."/profile?u=" . $username . "'>" . $username . "</a> <b>liked</b> your profile back! You can now <b>message eachother</b>!";
                 if ($vote == 1 && is_notified($db, "like", $voter, $voted) === 0) {
                     $req = $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`)
                                                    VALUES (:notifier, :id, 'like',:body, NOW())", $notify);

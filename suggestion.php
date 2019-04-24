@@ -26,10 +26,10 @@ require_once("includes/header.php");
 require_once("utils/fetch_account_data.php");
 
 if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
-    header('Location: '.$pathurl.'?e=sug');
+    header('Location: /'.$pathurl.'/?e=sug');
 if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
     ($photos[0] == NULL && $photos[1] == NULL && $photos[2] == NULL && $photos[3] == NULL && $photos[4] == NULL))
-        header('Location: '.$pathurl.'Account?e=reqlog');
+        header('Location: /'.$pathurl.'/Account?e=reqlog');
 ?>
 
 <div class="container mt-5 small-page-wrapper">
@@ -149,7 +149,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                         echo "<img class='profile_main' alt='profile_picture' src='" . $match['profile_pic'] . "' />";
                         echo "<div class='text_block'>";
                         echo "<div class='user_info'>
-                            <p class='user_name'><a href='/Matcha/profile?u=" . $match[1] . "'>" . $match[1] . "</a></p>
+                            <p class='user_name'><a href='/".$pathurl."/profile?u=" . $match[1] . "'>" . $match[1] . "</a></p>
                             <p class='age'>(" . $match['birthyear'] . ")</p>
                             </br>
                             <div class='gender_distance'>
@@ -172,7 +172,7 @@ if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
                 }
                 else {
                     echo "<h3>You dont have any matching tags with anyone, maybe put some more?</h3>";
-                    echo "<h5>... or you can search specific profiles <a href='search'>here</a></h5>";
+                    echo "<h5>... or you can search specific profiles <a href='/".$pathurl."/search'>here</a></h5>";
                 }
                 ?>
             </div>

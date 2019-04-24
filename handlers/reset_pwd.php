@@ -13,6 +13,9 @@ require ("../class/autoloader.php");
 require_once("../utils/functions.php");
 autoloader::register();
 $db = database::getInstance('matcha');
+
+require_once("../utils/pathinfo.php");
+
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
     $data = json_decode(file_get_contents('php://input'));
@@ -37,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $attributes2['user_id'] = $user_id;
             $token = $attributes2['password_token'];
             $db->prepare("UPDATE `user` SET `password_token` = :password_token WHERE `id` = :user_id", $attributes2);
-            mail($email, "Reset your password at Matcha", "In order to set a new password, please click this link: \n\nhttp://localhost:8080/Matcha/reset?id=$user_id&token=$token");
+            mail($email, "Reset your password at Matcha", "In order to set a new password, please click this link: \n\n http://localhost:8080/$pathurl/reset?id=$user_id&token=$token");
             echo alert_bootstrap("info", "An <b>e-mail</b> was sent to your adress, please follow the instructions we sent you.", "text-align:center;");
         } else
             echo alert_bootstrap("danger", "<b>Error:</b> There is no active account linked to this e-mail!", "text-align:center;");
