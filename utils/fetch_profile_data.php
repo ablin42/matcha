@@ -20,11 +20,11 @@ if (!empty($_GET['u']) && !empty($_SESSION['logged'])) {
         }
     }
     else {
-        header('Location: /Matcha/Account?e=pro');
+        header('Location: '.$pathurl.'Account?e=pro');
         return;
     }
     if ($id === $_SESSION['id']){
-        header('Location: /Matcha/Account');
+        header('Location: '.$pathurl.'Account');
         return;
     }
     $req = $db->prepare("SELECT * FROM `user_info` WHERE `user_id` = :user_id", array("user_id" => $id));
@@ -152,4 +152,4 @@ if (!empty($_GET['u']) && !empty($_SESSION['logged'])) {
     }
 }
 else
-    header('Location: /Matcha/Account?e=pro');
+    header('Location: '.$pathurl.'Account?e=pro');

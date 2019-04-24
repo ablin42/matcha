@@ -23,7 +23,7 @@
 <?php
 require_once("includes/header.php");
 if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
-    header('Location: /Matcha/?e=prolog');
+    header('Location: '.$pathurl.'?e=prolog');
 require_once("utils/fetch_profile_data.php");
 ?>
 

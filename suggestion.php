@@ -26,10 +26,10 @@ require_once("includes/header.php");
 require_once("utils/fetch_account_data.php");
 
 if (!isset($_SESSION['logged']) && $_SESSION['logged'] !== 1)
-    header('Location: /Matcha/?e=sug');
+    header('Location: '.$pathurl.'?e=sug');
 if ($gender == NULL || $orientation == NULL || $bio == NULL || $tags == NULL ||
     ($photos[0] == NULL && $photos[1] == NULL && $photos[2] == NULL && $photos[3] == NULL && $photos[4] == NULL))
-        header('Location: /Matcha/Account?e=reqlog');
+        header('Location: '.$pathurl.'Account?e=reqlog');
 ?>
 
 <div class="container mt-5 small-page-wrapper">
