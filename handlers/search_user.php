@@ -181,8 +181,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 $info['totalscore'] = ($info['tagscore'] * 100) + ($info['score'] * 3) + $distscore;
-                if ($info['score'] >= $minscore && $info['score'] <= $maxscore && $info['distance'] <= $mdistance)
-                    if (($required_tags && $info['tagscore'] >= 1 )|| !$required_tags)
+                if ($info['score'] >= $minscore && $info['score'] <= $maxscore && $info['distance'] <= $mdistance && $info['profile_pic'] != "" && $basic->gender != "")
+                    if (($required_tags && $info['tagscore'] >= 1 ) || !$required_tags)
                         array_push($matched_user, $info);
             }
         }

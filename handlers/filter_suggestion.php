@@ -88,7 +88,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 array_push($tags, $item->tag);
         }
         foreach($required_tags as $tag){
-            array_push($tags, $tag);
+            if (!in_array($tag, $tags))
+                array_push($tags, $tag);
         }
 
         $req = $db->prepare("SELECT * FROM `user_location` WHERE `user_id` = :user_id", array("user_id" => secure_input($_SESSION['id'])));
@@ -222,7 +223,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $distscore = 0;
                 }
                 $info['totalscore'] = ($info['tagscore'] * 100) + ($info['score'] * 3) + $distscore;
-                if ($info['score'] >= $minscore && $info['score'] <= $maxscore && $info['distance'] <= $mdistance && $info['tagscore'] >= 1)
+                if ($info['score'] >= $minscore && $info['score'] <= $maxscore && $info['distance'] <= $mdistance && $info['tagscore'] >= 1 && $info['profile_pic'] != "")
                         array_push($matched_user, $info);
             }
         }
@@ -255,7 +256,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
           echo "<div class='text_block'>";
           echo "<div class='user_info'>
-                  <p class='user_name'><a href='/".$pathurl."/profile?u=".urlencode($match[1])."'>".$match[1]."</a></p>
+                  <p class='user_name'><a href='/".$pathurl."/profile?u=".urlencode($match['1'])."'>".$match[1]."</a></p>
                   <p class='age'>(".$match['birthyear'].")</p>
                   </br>
                   <div class='gender_distance'>
