@@ -247,7 +247,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $i = 0;
         foreach ($sorted as $match)
         {
-            echo "xd";
           if ($i % 2 === 0)
               echo "<div class='row'>";
           echo "<div class='result_block'>";
