@@ -255,7 +255,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           echo "<img class='profile_main' alt='profile_picture' src='".$match['profile_pic']."' />";
           echo "<div class='text_block'>";
           echo "<div class='user_info'>
-                  <p class='user_name'><a href='/".$pathurl."/profile?u=".$match[1]."'>".$match[1]."</a></p>
+                  <p class='user_name'><a href='/".$pathurl."/profile?u=".urlencode($match[1]."'>".$match[1]."</a></p>
                   <p class='age'>(".$match['birthyear'].")</p>
                   </br>
                   <div class='gender_distance'>
