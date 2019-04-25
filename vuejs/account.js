@@ -129,11 +129,13 @@ Vue.component("photo-upload",{
             if (this.selectedFile.toString().localeCompare('') !== 0) {
                 this.path = "";
                 this.selectedFile = "";
+                this.dbPath2 = "";
             }
         },
         deletePhoto: function (){
             this.path = "";
             this.selectedFile = "";
+            this.dbPath2 = "";
             fetch('handlers/delete_photo.php', {
                 method: 'post',
                 mode: 'same-origin',

@@ -110,7 +110,7 @@ if (!empty($_GET['u']) && !empty($_SESSION['logged'])) {
     $notify['user_id'] = $id;
     $notify['notifier'] = secure_input($_SESSION['id']);
     $visitor_name = secure_input($_SESSION['username']);
-    $notify['body'] = "<a onclick='notifRedirect(event, this);' href='profile?u=".$visitor_name."'>".$visitor_name."</a> <b>visited</b> your profile";
+    $notify['body'] = "<a onclick='notifRedirect(event, this);' href='profile?u=".urlencode($visitor_name)."'>".$visitor_name."</a> <b>visited</b> your profile";
     if (is_notified($db, "visit", $notify['notifier'], $notify['user_id']) === 0)
         $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`) VALUES (:notifier, :user_id, 'visit',:body, NOW())", $notify);
     else if (is_notified($db, "visit", $notify['notifier'], $notify['user_id']) === 1) {
