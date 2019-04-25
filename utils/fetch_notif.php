@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             if ($blocked === 0)
             {
-                echo "<div onclick=\"removeNotif(this)\" id=\"notif_".$notif->id."\"><p>".$notif->body . " " . $notif->date."</p></div>";
+                echo "<div onclick=\"removeNotif(this)\" id=\"notif_".$notif->id."\"><p>".$notif->body." " . $notif->date."</p></div>";
                 $count++;
             }
         }

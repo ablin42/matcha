@@ -22,8 +22,8 @@
 <body>
 <?php
 require_once("includes/header.php");
-if (isset($_SESSION['logged']) && $_SESSION['logged'] === 1)
-    header('Location: /'.$pathurl.'/Account?e=logg');
+//if (isset($_SESSION['logged']) && $_SESSION['logged'] === 1)
+  //  header('Location: /'.$pathurl.'/Account?e=logg');
 if (isset($_GET['e']))
     redirection_handler($_GET['e']);
 ?>
