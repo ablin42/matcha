@@ -22,6 +22,22 @@ function notifRedirect(e, notif) {
     }, 750);
 }
 
+var updateNotif = setInterval(function () {
+    fetch('utils/fetch_notif.php', {
+        method: 'post',
+        mode: 'same-origin',
+    })
+        .then((res) => res.text())
+        .then(function(data){
+            var lines = data.split('\n');
+            document.getElementById('nbnotif').innerText = lines[1];
+            lines.splice(1, 1);
+            newdata = lines.join('\n');
+            document.getElementById('dropdown-notif-content').innerHTML = newdata;
+        })
+        .catch((error) => console.log(error));
+}, 5000);
+
 
 function dropDown() {
     if (document.getElementById("dropdown-notif-content").innerHTML.localeCompare('  ') !== -1)
@@ -49,5 +65,5 @@ function removeNotif(notif){
                     document.getElementById("dropdown-notif-content").classList.toggle("show");
             }
         })
-        //.catch((error) => console.log(error));
+        .catch((error) => console.log(error));
 }

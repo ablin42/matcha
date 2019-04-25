@@ -158,7 +158,7 @@ if (!empty($_SESSION['id'])) {
 
             $info['distcore'] = $distscore;
             $info['totalscore'] =  ($info['tagscore'] * 100) + ($info['score'] * 3) + $distscore;
-            if ($info['score'] >= $minscore && $info['score'] <= $maxscore && $info['tagscore'] >= 1)
+            if ($info['score'] >= $minscore && $info['score'] <= $maxscore && $info['tagscore'] >= 1 && $info['profile_pic'] != "")
                 array_push($matched_user, $info);
         }
     }

@@ -270,7 +270,7 @@ if ($tags)
               })
                   .then((res) => res.text())
                   .then((data) => addAlert(data, document.getElementById('header')))
-                  .catch((error) => console.log(error))
+                  //.catch((error) => console.log(error))
           });
           for (i = 0; i < tags.length; i++)
             tagInput.tagsinput('add', tags[i]);
