@@ -10,6 +10,7 @@ use \ablin42\database;
 use \ablin42\autoloader;
 require ("../class/autoloader.php");
 require_once("../utils/functions.php");
+require_once("../utils/pathinfo.php");
 autoloader::register();
 $db = database::getInstance('matcha');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -71,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $notify['id'] = $user;
                     $notify['notifier'] = $attributes['id'];
                     $username = ucfirst(secure_input($_SESSION['username']));
-                    $notify['body'] = "<a onclick='notifRedirect(event, this);' href='profile?u=".urlencode($username)."'>".$username."</a> <b>sent</b> you a message!";
+                    $notify['body'] = "<a onclick='notifRedirect(event, this);' href='/".$pathurl."/profile?u=".urlencode($username)."'>".$username."</a> <b>sent</b> you a message!";
 
                     $db->prepare("INSERT INTO `notif` (`id_notifier`, `user_id`, `type`, `body`, `date`) VALUES (:notifier, :id, 'message',:body, NOW())", $notify);
                 }
