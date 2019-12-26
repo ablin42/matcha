@@ -246,7 +246,7 @@ require_once("utils/fetch_account_data.php");
             }
         </script>
         <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtIR3f-u4e9gNw_3uNKd062fS_ql5waic&callback=initMap">
+                src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
         </script>
     </div>
 </div>
